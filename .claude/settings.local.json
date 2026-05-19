@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command *)",
+      "PowerShell(uv sync *)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\uvicorn.exe backend.main:app --host 127.0.0.1 --port 8000 2>&1)",
+      "Bash(curl -fsS http://127.0.0.1:8000/health)",
+      "PowerShell(Copy-Item *)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\ruff.exe format . 2>&1; Write-Output \"---\"; .\\\\.venv\\\\Scripts\\\\ruff.exe check --fix . 2>&1; Write-Output \"---\"; .\\\\.venv\\\\Scripts\\\\mypy.exe backend agents mcp_servers lambdas 2>&1)"
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(make *)",
+      "Bash(uv *)",
+      "Bash(pytest *)",
+      "Bash(ruff *)",
+      "Bash(mypy *)",
+      "Bash(alembic *)",
+      "Bash(docker compose *)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add *)",
+      "Bash(git branch*)"
+    ],
+    "deny": [
+      "Bash(make deploy*)",
+      "Bash(terraform apply*)",
+      "Bash(aws *)",
+      "Bash(git push --force*)",
+      "Bash(rm -rf *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATHS\" | grep -qE '\\.py$'; then ruff format $CLAUDE_FILE_PATHS && ruff check --fix $CLAUDE_FILE_PATHS; fi"
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATHS\" | grep -qE '\\.py$'; then mypy --strict $CLAUDE_FILE_PATHS || true; fi"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pytest -q --no-header --maxfail=1 -x tests/ 2>&1 | tail -20 || true"
+          }
+        ]
+      }
+    ]
+  }
+}

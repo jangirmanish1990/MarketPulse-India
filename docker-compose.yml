@@ -1,0 +1,62 @@
+name: marketpulse-india
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: marketpulse-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-marketpulse}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-marketpulse}
+      POSTGRES_DB: ${POSTGRES_DB:-marketpulse}
+      # Containers run UTC; the app layer enforces IST for display.
+      TZ: UTC
+    ports:
+      - "5432:5432"
+    volumes:
+      - mp_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-marketpulse}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: marketpulse-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: marketpulse-api
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-marketpulse}:${POSTGRES_PASSWORD:-marketpulse}@db:5432/${POSTGRES_DB:-marketpulse}
+      REDIS_URL: redis://redis:6379/0
+      TZ: Asia/Kolkata
+      APP_ENV: local
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+      - ./agents:/app/agents
+      - ./mcp_servers:/app/mcp_servers
+    command: >
+      uvicorn backend.main:app
+      --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  mp_pg_data:

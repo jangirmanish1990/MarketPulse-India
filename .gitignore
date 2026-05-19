@@ -1,0 +1,80 @@
+# ----- Secrets / env -----
+.env
+.env.*
+!.env.example
+
+# ----- Python -----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+.python-version.local
+
+# ----- Virtual envs -----
+venv/
+.venv/
+env/
+ENV/
+
+# ----- Tooling caches -----
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+
+# ----- IDE -----
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ----- Frontend (Next.js) -----
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+frontend/.env.local
+frontend/.env.*.local
+frontend/coverage/
+
+# ----- Infra / Terraform -----
+infra/**/.terraform/
+infra/**/.terraform.lock.hcl
+infra/**/terraform.tfstate*
+infra/**/*.tfplan
+infra/**/crash.log
+
+# ----- Lambda packaging artifacts -----
+lambdas/**/package/
+lambdas/**/*.zip
+
+# ----- Local data / outputs -----
+scripts/output/
+scripts/data/*.csv
+scripts/data/*.parquet
+!scripts/data/.gitkeep
+
+# ----- Docker -----
+*.pid
+docker-compose.override.yml
+
+# ----- Logs -----
+*.log
+logs/
+
+# ----- Claude / Cursor local state -----
+.claude/local/
+.claude/.session*
+.cursor/

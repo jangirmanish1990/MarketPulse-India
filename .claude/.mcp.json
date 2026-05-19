@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "_comment": "MCP server registry for MarketPulse India. Servers will be added as they are built under mcp_servers/. Keep entries in alphabetical order.",
+  "mcpServers": {}
+}
