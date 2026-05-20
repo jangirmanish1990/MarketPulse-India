@@ -23,15 +23,27 @@ _STRONG_MODEL: str = os.getenv("LLM_STRONG_MODEL", "gpt-4o")
 _FAST_MODEL: str = os.getenv("LLM_FAST_MODEL", "gpt-4o-mini")
 _EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
+# Guard against .env copy-paste errors where a comment ends up as the org value.
+# LangChain re-reads OPENAI_ORG_ID from os.environ at validator time, so the
+# only reliable fix is to remove the var from the environment when it's invalid.
+_raw_org = os.environ.get("OPENAI_ORG_ID", "").strip()
+if _raw_org and not _raw_org.startswith("org-"):
+    os.environ.pop("OPENAI_ORG_ID", None)
+_ORG_ID: str | None = _raw_org if _raw_org.startswith("org-") else None
+
+
+def _llm_kwargs(model: str) -> dict[str, object]:
+    return {"model": model, "temperature": 0}
+
 
 @lru_cache(maxsize=1)
 def _build_llm_strong() -> ChatOpenAI:
-    return ChatOpenAI(model=_STRONG_MODEL, temperature=0)
+    return ChatOpenAI(**_llm_kwargs(_STRONG_MODEL))  # type: ignore[arg-type]
 
 
 @lru_cache(maxsize=1)
 def _build_llm_fast() -> ChatOpenAI:
-    return ChatOpenAI(model=_FAST_MODEL, temperature=0)
+    return ChatOpenAI(**_llm_kwargs(_FAST_MODEL))  # type: ignore[arg-type]
 
 
 @lru_cache(maxsize=1)

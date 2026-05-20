@@ -1,11 +1,11 @@
-"""End-to-end graph smoke-test using stub nodes.
+"""Day 8: parse_announcement node tests — GPT-4o-mini structured extraction.
 
 Run from the project root:
 
     python scripts/test_graph.py
 
-Requires DATABASE_URL and LANGCHAIN_API_KEY in .env (or environment).
-Makes a real Postgres checkpoint write. Does NOT call OpenAI (stubs only).
+Requires OPENAI_API_KEY in .env.
+Calls GPT-4o-mini 4 times (one per announcement type). No NSE/DB calls.
 """
 
 from __future__ import annotations
@@ -31,140 +31,230 @@ from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv()
 
-from agents.checkpointer import get_checkpointer  # noqa: E402
-from agents.graph import get_compiled_graph  # noqa: E402
+from agents.nodes.parse import parse_announcement  # noqa: E402
 
 # --------------------------------------------------------------------------- #
-# Test state                                                                    #
+# Minimal state template — only fields parse_announcement reads/writes         #
 # --------------------------------------------------------------------------- #
 
-_TEST_STATE: dict[str, Any] = {
-    "nse_symbol": "TCS",
-    "bse_code": "532540",
-    "exchange": "NSE",
-    "announcement_type": "quarterly_results",
-    "announcement_raw": "TCS Q2 FY25 Results: Revenue ₹63,973 Cr, PAT ₹12,446 Cr",
-    "s3_key": "test/tcs_q2_fy25.json",
-    "thread_id": "test-thread-day7-TCS",
-    "session_id": "test-session-day7-TCS",
-    "sebi_disclaimer": "",
-    "retry_count": 0,
-    "node_timings": {},
-    "retrieved_docs": [],
-    "doc_grades": [],
-    "used_web_fallback": False,
-    "concall_available": False,
-    "price_history": {},
-    "financials": {},
-    "live_quote": {},
-    "index_data": {},
-    "usd_inr": 83.5,
-    "nifty_value": 0.0,
-    "nifty_change_pct": 0.0,
-    "sector_index_change_pct": 0.0,
-    "fii_net_flow_cr": 0.0,
-    "fii_sentiment": "neutral",
-    "usd_inr_context": "",
-    "market_status": "OPEN",
-    "parsed_quarterly": None,
-    "parsed_board": None,
-    "parsed_insider": None,
-    "parsed_shp": None,
-    "concall_tone": None,
-    "concall_guidance_cr": None,
-    "concall_signal_adjustment": None,
-    "promoter_pct": None,
-    "promoter_trend": None,
-    "promoter_pledging_pct": None,
-    "promoter_pledging_risk": None,
-    "fii_ownership_trend": None,
-    "analysis_summary": None,
-    "key_positives": None,
-    "key_risks": None,
-    "quarter_verdict": None,
-    "sector_outlook": None,
-    "signal_direction": None,
-    "confidence": None,
-    "current_price_inr": None,
-    "target_price_inr": None,
-    "upside_pct": None,
-    "time_horizon_days": None,
-    "rationale": None,
-    "error": None,
-}
+def _base_state(symbol: str, ann_type: str, ann_raw: str) -> dict[str, Any]:
+    return {
+        "nse_symbol": symbol,
+        "announcement_type": ann_type,
+        "announcement_raw": ann_raw,
+        "parsed_quarterly": None,
+        "parsed_board": None,
+        "parsed_insider": None,
+        "parsed_shp": None,
+        "quarter_verdict": None,
+        "node_timings": {},
+    }
 
 
 # --------------------------------------------------------------------------- #
-# Main async runner                                                             #
+# Test scenarios                                                                #
 # --------------------------------------------------------------------------- #
 
+_TESTS: list[dict[str, Any]] = [
+    _base_state(
+        "INFY",
+        "quarterly_results",
+        """
+Infosys Q2 FY25 Results:
+Revenue: ₹40,986 crore, up 5.1% YoY and 3.3% QoQ
+Net Profit (PAT): ₹6,506 crore, up 4.7% YoY
+EPS: ₹15.78
+Operating Margin: 21.1%
+Revenue guidance for FY25 raised to 4.5%-5% in constant currency
+Deal wins: $2.4 billion TCV in Q2
+Results beat street estimates of ₹40,200 Cr revenue
+""",
+    ),
+    _base_state(
+        "TCS",
+        "board_meeting",
+        """
+TCS Board Meeting Outcome:
+The Board of Directors has declared an interim dividend of ₹10 per share
+of face value ₹1 each for FY2025.
+Record date: October 18, 2024
+The board also approved a share buyback of ₹17,000 crore at ₹4,150 per share.
+""",
+    ),
+    _base_state(
+        "HDFCBANK",
+        "insider_trade",
+        """
+Disclosure under SEBI (Prohibition of Insider Trading) Regulations:
+Name: Sashidhar Jagdishan
+Designation: MD & CEO
+Type of Security: Equity Shares
+Type of Transaction: Buy
+Number of shares: 10,000
+Price: ₹1,642.50 per share
+Total Value: ₹1.64 Crore
+Date of transaction: October 15, 2024
+Shareholding after transaction: 0.0021%
+""",
+    ),
+    _base_state(
+        "RELIANCE",
+        "shareholding",
+        """
+Shareholding Pattern for quarter ended September 2024:
+Promoter & Promoter Group: 50.33% (previous quarter: 50.33%)
+Foreign Portfolio Investors: 23.45% (previous: 24.12%)
+Domestic Mutual Funds: 5.67%
+Insurance Companies: 3.21%
+Other DIIs: 1.45%
+Retail & Others: 15.89%
+Promoter shares pledged: 0%
+""",
+    ),
+]
+
+_SEP = "═" * 44
+
+
+def _print_quarterly(symbol: str, d: dict[str, Any], elapsed_ms: int) -> None:
+    verdict_icon = "✅" if d["beat_or_miss"] == "beat" else ("❌" if d["beat_or_miss"] == "miss" else "➖")
+    print(_SEP)
+    print(f"TEST 1: {symbol} Quarterly Results")
+    print(_SEP)
+    print(f"Revenue     : ₹{d['revenue_cr']:,.1f} Cr")
+    print(f"PAT         : ₹{d['pat_cr']:,.1f} Cr")
+    print(f"EPS         : ₹{d['eps']:.2f}")
+    print(f"YoY Growth  : {d['yoy_revenue_growth_pct']:+.1f}%")
+    print(f"QoQ Growth  : {d['qoq_revenue_growth_pct']:+.1f}%")
+    if d.get("operating_margin_pct") is not None:
+        print(f"Op. Margin  : {d['operating_margin_pct']:.1f}%")
+    print(f"Verdict     : {d['beat_or_miss']} {verdict_icon}")
+    if d.get("guidance_next_quarter"):
+        print(f"Guidance    : {d['guidance_next_quarter']}")
+    print(f"Parse time  : {elapsed_ms:,}ms")
+
+
+def _print_board(symbol: str, d: dict[str, Any], elapsed_ms: int) -> None:
+    sentiment_icon = "✅" if "positive" in d["sentiment"] else "➖"
+    print(_SEP)
+    print(f"TEST 2: {symbol} Board Meeting")
+    print(_SEP)
+    if d.get("dividend_per_share_inr") is not None:
+        print(f"Dividend    : ₹{d['dividend_per_share_inr']:.2f}/share ({d.get('dividend_type', '—')})")
+    if d.get("record_date"):
+        print(f"Record date : {d['record_date']}")
+    if d.get("buyback_total_cr") is not None:
+        print(f"Buyback     : ₹{d['buyback_total_cr']:,.0f} Cr @ ₹{d['buyback_price_inr']:,.0f}/share")
+    if d.get("other_decisions"):
+        for dec in d["other_decisions"]:
+            print(f"Decision    : {dec}")
+    print(f"Sentiment   : {d['sentiment']} {sentiment_icon}")
+    print(f"Parse time  : {elapsed_ms:,}ms")
+
+
+def _print_insider(symbol: str, d: dict[str, Any], elapsed_ms: int) -> None:
+    trade_icon = "🟢" if d["trade_type"] == "buy" else "🔴"
+    print(_SEP)
+    print(f"TEST 3: {symbol} Insider Trade")
+    print(_SEP)
+    print(f"Trader      : {d['trader_name']} ({d['designation']})")
+    print(f"Type        : {d['trade_type'].upper()} {trade_icon}")
+    print(f"Shares      : {d['quantity']:,} @ ₹{d['avg_price_inr']:,.2f}")
+    print(f"Value       : ₹{d['value_cr']:.2f} Cr")
+    if d.get("holding_pct_after") is not None:
+        print(f"Holding     : {d['holding_pct_after']:.4f}% after trade")
+    print(f"Sentiment   : {d['sentiment']} ✅")
+    print(f"Parse time  : {elapsed_ms:,}ms")
+
+
+def _print_shp(symbol: str, d: dict[str, Any], elapsed_ms: int) -> None:
+    pledged = d.get("promoter_pledged_pct") or 0.0
+    risk = d.get("pledging_risk", "none")
+    risk_icon = "✅" if risk == "none" else ("⚠️" if risk in ("low", "medium") else "🚨")
+    fii_change = d.get("fii_change")
+    fii_str = f"{d['fii_pct']:.2f}%"
+    if fii_change is not None:
+        fii_str += f" ({fii_change:+.2f}%)"
+    promoter_change = d.get("promoter_change")
+    promoter_str = f"{d['promoter_pct']:.2f}%"
+    if promoter_change is not None:
+        promoter_str += f" ({promoter_change:+.2f}%)" if promoter_change != 0 else " (no change)"
+    dii_total = d["dii_pct"]
+    print(_SEP)
+    print(f"TEST 4: {symbol} Shareholding")
+    print(_SEP)
+    print(f"Promoter    : {promoter_str}")
+    print(f"FII         : {fii_str}")
+    print(f"DII         : {dii_total:.2f}%")
+    print(f"Retail      : {d['retail_pct']:.2f}%")
+    print(f"Pledging    : {pledged:.0f}% — Risk: {risk} {risk_icon}")
+    print(f"Parse time  : {elapsed_ms:,}ms")
+
+
+# --------------------------------------------------------------------------- #
+# Async runner                                                                  #
+# --------------------------------------------------------------------------- #
 
 async def _run() -> bool:
-    config: dict[str, Any] = {
-        "configurable": {"thread_id": _TEST_STATE["thread_id"]}
-    }
+    print("\n── MarketPulse India — parse_announcement tests (Day 8) ──────────")
+    print("Model: gpt-4o-mini  |  Tests: 4  |  No NSE/DB calls\n")
 
-    print("\n── Running MarketPulse India graph (stub nodes) ──────────────────")
-    print(f"Symbol   : {_TEST_STATE['nse_symbol']}")
-    print(f"Thread   : {_TEST_STATE['thread_id']}")
-    print()
+    passed = 0
 
-    try:
-        async with get_checkpointer() as checkpointer:
-            graph = get_compiled_graph(checkpointer)
-            final: dict[str, Any] = await graph.ainvoke(_TEST_STATE, config=config)
-    except Exception as exc:
-        print(f"\nGraph run FAILED: {exc}")
-        return False
+    for i, state in enumerate(_TESTS, 1):
+        symbol = state["nse_symbol"]
+        ann_type = state["announcement_type"]
+        try:
+            result = await parse_announcement(state, config={})  # type: ignore[arg-type]
+        except Exception as exc:
+            print(f"\nTest {i} ({symbol} {ann_type}) FAILED: {exc}\n")
+            continue
 
-    # ── Live Market Data ───────────────────────────────────────────────────
-    lq: dict[str, Any] = final.get("live_quote") or {}
-    ltp = lq.get("ltp") or lq.get("lastPrice") or 0
-    nifty_val = final.get("nifty_value") or 0
-    nifty_chg = final.get("nifty_change_pct") or 0
-    usd_inr = final.get("usd_inr") or 0
-    market_status = final.get("market_status") or "—"
-    sector_chg = final.get("sector_index_change_pct") or 0
-    usd_inr_ctx = final.get("usd_inr_context") or "—"
+        timings: dict[str, float] = result.get("node_timings") or {}
+        elapsed_ms = round(timings.get("parse_announcement", 0) * 1000)
 
-    timings: dict[str, float] = final.get("node_timings") or {}
-    fetch_ms = round(timings.get("fetch_market_data", 0) * 1000)
+        if ann_type == "quarterly_results":
+            d = result.get("parsed_quarterly")
+            if d:
+                _print_quarterly(symbol, d, elapsed_ms)
+                passed += 1
+            else:
+                print(f"Test {i} ({symbol} quarterly_results) — parse returned None ❌")
 
-    print("\n── Live Market Data ──────────────────────────────────────────────")
-    print(f"LTP (TCS)        : ₹{float(ltp):,.2f}")
-    print(f"Nifty 50         : {float(nifty_val):,.2f}  ({float(nifty_chg):+.2f}%)")
-    print(f"Sector idx chg   : {float(sector_chg):+.2f}%")
-    print(f"USD/INR          : {float(usd_inr):.2f}  — {usd_inr_ctx}")
-    print(f"Market status    : {market_status}")
-    print(f"Fetch timing     : {fetch_ms} ms")
+        elif ann_type == "board_meeting":
+            d = result.get("parsed_board")
+            if d:
+                _print_board(symbol, d, elapsed_ms)
+                passed += 1
+            else:
+                print(f"Test {i} ({symbol} board_meeting) — parse returned None ❌")
 
-    # ── Results ────────────────────────────────────────────────────────────
-    print("\n── Results ───────────────────────────────────────────────────────")
-    print(f"Signal direction : {final.get('signal_direction')}")
-    print(f"Confidence       : {final.get('confidence')}")
-    has_disclaimer = bool(final.get("sebi_disclaimer"))
-    print(f"SEBI disclaimer  : {'yes ✓' if has_disclaimer else 'NO — COMPLIANCE FAILURE'}")
-    print(f"Thread ID        : {_TEST_STATE['thread_id']}  (proves checkpointing)")
+        elif ann_type == "insider_trade":
+            d = result.get("parsed_insider")
+            if d:
+                _print_insider(symbol, d, elapsed_ms)
+                passed += 1
+            else:
+                print(f"Test {i} ({symbol} insider_trade) — parse returned None ❌")
 
-    nodes_ran = list(timings.keys())
-    print(f"Nodes executed   : {nodes_ran}")
-    print(f"Total wall time  : {sum(timings.values()):.3f}s")
+        elif ann_type == "shareholding":
+            d = result.get("parsed_shp")
+            if d:
+                _print_shp(symbol, d, elapsed_ms)
+                passed += 1
+            else:
+                print(f"Test {i} ({symbol} shareholding) — parse returned None ❌")
 
-    all_nine = {
-        "fetch_market_data", "parse_announcement", "concall_analyzer",
-        "fetch_india_context", "retrieve_rag_context", "grade_documents",
-        "generate_analysis", "score_signal",
-    }
-    missing = all_nine - set(nodes_ran)
-    if missing:
-        # web_search_fallback may or may not run depending on doc_grades
-        non_fallback_missing = missing - {"web_search_fallback"}
-        if non_fallback_missing:
-            print(f"\nWARNING: nodes not executed: {non_fallback_missing}")
+        print()
 
-    print("\nGraph test PASSED ✓")
+    print(_SEP)
+    if passed == 4:
+        print("All 4 parser tests PASSED ✅")
+    else:
+        print(f"{passed}/4 parser tests passed")
+    print(_SEP)
     print("\nLangSmith traces → https://smith.langchain.com/projects/marketpulse-india")
-    return True
+    return passed == 4
 
 
 def main() -> int:
