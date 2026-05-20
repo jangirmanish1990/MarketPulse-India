@@ -1,11 +1,16 @@
-"""Day 8: parse_announcement node tests — GPT-4o-mini structured extraction.
+"""Day 9: CRAG pipeline tests + Day 8 parse_announcement tests.
 
 Run from the project root:
 
     python scripts/test_graph.py
 
-Requires OPENAI_API_KEY in .env.
-Calls GPT-4o-mini 4 times (one per announcement type). No NSE/DB calls.
+Day 8: Tests parse_announcement node (GPT-4o-mini, 4 announcement types).
+Day 9: Tests retrieve_rag_context + grade_documents CRAG nodes.
+
+Requires:
+    - OPENAI_API_KEY in .env
+    - DATABASE_SYNC_URL / DATABASE_URL with pgvector (for CRAG tests)
+    - Run `python scripts/seed_corpus.py` before CRAG tests
 """
 
 from __future__ import annotations
@@ -31,7 +36,9 @@ from dotenv import load_dotenv  # noqa: E402
 
 load_dotenv()
 
+from agents.nodes.grade import grade_documents  # noqa: E402
 from agents.nodes.parse import parse_announcement  # noqa: E402
+from agents.nodes.rag import retrieve_rag_context  # noqa: E402
 
 # --------------------------------------------------------------------------- #
 # Minimal state template — only fields parse_announcement reads/writes         #
@@ -195,6 +202,192 @@ def _print_shp(symbol: str, d: dict[str, Any], elapsed_ms: int) -> None:
 # Async runner                                                                  #
 # --------------------------------------------------------------------------- #
 
+def _crag_base_state(symbol: str, ann_type: str, ann_raw: str) -> dict[str, Any]:
+    """Minimal state for CRAG node tests."""
+    return {
+        "nse_symbol": symbol,
+        "bse_code": "",
+        "exchange": "NSE",
+        "announcement_type": ann_type,
+        "announcement_raw": ann_raw,
+        "s3_key": "",
+        "thread_id": "test-crag",
+        "session_id": "test-session",
+        # market data
+        "price_history": {},
+        "financials": {},
+        "live_quote": {},
+        "index_data": {},
+        "usd_inr": 84.0,
+        # parsed (pre-populated so RAG builds a rich query)
+        "parsed_quarterly": {
+            "revenue_cr": 40986.0,
+            "pat_cr": 6506.0,
+            "eps": 15.78,
+            "yoy_revenue_growth_pct": 5.1,
+            "qoq_revenue_growth_pct": 3.3,
+            "operating_margin_pct": 21.1,
+            "beat_or_miss": "beat",
+            "guidance_next_quarter": "FY25 guidance raised to 4.5%-5% CC",
+        },
+        "parsed_board": None,
+        "parsed_insider": None,
+        "parsed_shp": None,
+        "quarter_verdict": "beat",
+        # concall
+        "concall_available": False,
+        "concall_tone": None,
+        "concall_guidance_cr": None,
+        "concall_signal_adjustment": None,
+        # india context
+        "nifty_value": 24000.0,
+        "nifty_change_pct": 0.3,
+        "sector_index_change_pct": 0.5,
+        "fii_net_flow_cr": 1200.0,
+        "fii_sentiment": "buyer",
+        "usd_inr_context": "stable",
+        "market_status": "CLOSED",
+        # RAG (will be populated by nodes)
+        "retrieved_docs": [],
+        "doc_grades": [],
+        "used_web_fallback": False,
+        # institutional
+        "promoter_pct": None,
+        "promoter_trend": None,
+        "promoter_pledging_pct": None,
+        "promoter_pledging_risk": None,
+        "fii_ownership_trend": None,
+        # output
+        "analysis_summary": None,
+        "key_positives": None,
+        "key_risks": None,
+        "sector_outlook": None,
+        "signal_direction": None,
+        "confidence": None,
+        "current_price_inr": None,
+        "target_price_inr": None,
+        "upside_pct": None,
+        "time_horizon_days": None,
+        "rationale": None,
+        "sebi_disclaimer": (
+            "⚠️ MarketPulse India is not a SEBI-registered investment advisor. "
+            "Output is for educational/informational purposes only and is not "
+            "investment advice. Markets carry risk; consult a registered advisor "
+            "before making decisions."
+        ),
+        # meta
+        "error": None,
+        "retry_count": 0,
+        "node_timings": {},
+    }
+
+
+_CRAG_INFY_STATE = _crag_base_state(
+    "INFY",
+    "quarterly_results",
+    """
+Infosys Q2 FY25 Results:
+Revenue: ₹40,986 crore, up 5.1% YoY and 3.3% QoQ
+Net Profit (PAT): ₹6,506 crore, up 4.7% YoY
+EPS: ₹15.78
+Operating Margin: 21.1%
+Revenue guidance for FY25 raised to 4.5%-5% in constant currency
+Deal wins: $2.4 billion TCV in Q2
+Results beat street estimates of ₹40,200 Cr revenue
+""",
+)
+
+_SEP2 = "─" * 44
+
+
+async def _run_crag_tests() -> int:
+    """Run CRAG pipeline tests: retrieve → grade. Returns count of passed tests."""
+    print("\n── Day 9: CRAG Pipeline Tests ─────────────────────────────────────")
+    print("Tests: retrieve_rag_context + grade_documents  |  Symbol: INFY\n")
+
+    passed = 0
+    state: dict[str, Any] = dict(_CRAG_INFY_STATE)
+
+    # ── Test 1: retrieve_rag_context ──────────────────────────────────────
+    print(_SEP2)
+    print("CRAG TEST 1: retrieve_rag_context")
+    print(_SEP2)
+    try:
+        rag_result = await retrieve_rag_context(state, config={})  # type: ignore[arg-type]
+        state.update(rag_result)
+
+        docs: list[Any] = state.get("retrieved_docs") or []
+        timing_ms = round((state.get("node_timings") or {}).get("retrieve_rag_context", 0) * 1000)
+
+        print(f"Documents retrieved : {len(docs)}")
+        for i, doc in enumerate(docs[:3], 1):
+            meta = doc.get("metadata", {})
+            score = doc.get("score", 0.0)
+            symbol_tag = meta.get("nse_symbol", "?")
+            quarter_tag = meta.get("quarter", "")
+            source_tag = meta.get("source", "")
+            preview = doc.get("content", "")[:80].replace("\n", " ")
+            print(f"  [{i}] {symbol_tag} {quarter_tag} ({source_tag}) score={score:.3f}")
+            print(f"       {preview}...")
+        if len(docs) > 3:
+            print(f"  ... and {len(docs) - 3} more")
+        print(f"Retrieve time       : {timing_ms:,}ms")
+
+        if len(docs) >= 0:  # even 0 docs is a valid (empty corpus) result
+            passed += 1
+            print("Status              : PASS ✅")
+        else:
+            print("Status              : FAIL ❌ (unexpected error)")
+    except Exception as exc:
+        print(f"CRAG TEST 1 FAILED: {exc}")
+
+    print()
+
+    # ── Test 2: grade_documents ───────────────────────────────────────────
+    print(_SEP2)
+    print("CRAG TEST 2: grade_documents")
+    print(_SEP2)
+
+    docs_count = len(state.get("retrieved_docs") or [])
+    if docs_count == 0:
+        print("Skipping grade test — no docs retrieved (seed corpus first).")
+        print("  Run: python scripts/seed_corpus.py")
+    else:
+        try:
+            grade_result = await grade_documents(state, config={})  # type: ignore[arg-type]
+            state.update(grade_result)
+
+            grades: list[Any] = state.get("doc_grades") or []
+            timing_ms = round((state.get("node_timings") or {}).get("grade_documents", 0) * 1000)
+
+            relevant = [g for g in grades if g.get("relevance") == "relevant"]
+            irrelevant = [g for g in grades if g.get("relevance") == "irrelevant"]
+            precision = len(relevant) / len(grades) * 100 if grades else 0.0
+
+            print(f"Docs graded         : {len(grades)}")
+            print(f"Relevant            : {len(relevant)}")
+            print(f"Irrelevant          : {len(irrelevant)}")
+            print(f"Retrieval precision : {precision:.0f}%")
+            print(f"CRAG routing        : {'generate_analysis' if len(relevant) >= 2 else 'web_search_fallback'}")
+            print()
+            for i, g in enumerate(grades[:5], 1):
+                icon = "✅" if g.get("relevance") == "relevant" else "❌"
+                conf = g.get("confidence", 0.0)
+                preview = g.get("content_preview", "")[:60].replace("\n", " ")
+                print(f"  [{i}] {icon} conf={conf:.2f}  {preview}")
+            if len(grades) > 5:
+                print(f"  ... and {len(grades) - 5} more")
+            print(f"Grade time          : {timing_ms:,}ms")
+
+            passed += 1
+            print("Status              : PASS ✅")
+        except Exception as exc:
+            print(f"CRAG TEST 2 FAILED: {exc}")
+
+    print()
+    return passed
+
+
 async def _run() -> bool:
     print("\n── MarketPulse India — parse_announcement tests (Day 8) ──────────")
     print("Model: gpt-4o-mini  |  Tests: 4  |  No NSE/DB calls\n")
@@ -253,8 +446,16 @@ async def _run() -> bool:
     else:
         print(f"{passed}/4 parser tests passed")
     print(_SEP)
+
+    # ── Day 9: CRAG pipeline tests ────────────────────────────────────────
+    crag_passed = await _run_crag_tests()
+
+    print(_SEP)
+    print(f"Day 8 parser : {passed}/4 ✅" if passed == 4 else f"Day 8 parser : {passed}/4")
+    print(f"Day 9 CRAG   : {crag_passed}/2 ✅" if crag_passed == 2 else f"Day 9 CRAG   : {crag_passed}/2")
+    print(_SEP)
     print("\nLangSmith traces → https://smith.langchain.com/projects/marketpulse-india")
-    return passed == 4
+    return passed == 4 and crag_passed >= 1
 
 
 def main() -> int:

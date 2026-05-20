@@ -33,6 +33,7 @@ dependencies = [
     "langchain>=0.3",
     "langchain-openai>=0.2.10",
     "langchain-core>=0.3",
+    "langchain-postgres>=0.0.12",
     "langgraph>=0.2.50",
     "langgraph-checkpoint-postgres>=2.0",
     "tiktoken>=0.8",
@@ -57,6 +58,9 @@ dependencies = [
     # --- Auth ---
     "PyJWT>=2.8",
     "passlib[bcrypt]>=1.7",
+
+    # --- News / RSS ---
+    "feedparser>=6.0",
 
     # --- Misc ---
     "python-dotenv>=1.0",
@@ -150,6 +154,10 @@ exclude = ["venv", ".venv", "frontend", "infra"]
 
 [[tool.mypy.overrides]]
 module = ["nsepython.*", "yfinance.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["feedparser.*", "langchain_postgres.*"]
 ignore_missing_imports = true
 
 # -----------------------------------------------------------------------------
