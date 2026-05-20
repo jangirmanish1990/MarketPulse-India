@@ -45,8 +45,8 @@ _TEST_STATE: dict[str, Any] = {
     "announcement_type": "quarterly_results",
     "announcement_raw": "TCS Q2 FY25 Results: Revenue ₹63,973 Cr, PAT ₹12,446 Cr",
     "s3_key": "test/tcs_q2_fy25.json",
-    "thread_id": "test-thread-001",
-    "session_id": "test-session-001",
+    "thread_id": "test-thread-day7-TCS",
+    "session_id": "test-session-day7-TCS",
     "sebi_disclaimer": "",
     "retry_count": 0,
     "node_timings": {},
@@ -117,6 +117,27 @@ async def _run() -> bool:
         print(f"\nGraph run FAILED: {exc}")
         return False
 
+    # ── Live Market Data ───────────────────────────────────────────────────
+    lq: dict[str, Any] = final.get("live_quote") or {}
+    ltp = lq.get("ltp") or lq.get("lastPrice") or 0
+    nifty_val = final.get("nifty_value") or 0
+    nifty_chg = final.get("nifty_change_pct") or 0
+    usd_inr = final.get("usd_inr") or 0
+    market_status = final.get("market_status") or "—"
+    sector_chg = final.get("sector_index_change_pct") or 0
+    usd_inr_ctx = final.get("usd_inr_context") or "—"
+
+    timings: dict[str, float] = final.get("node_timings") or {}
+    fetch_ms = round(timings.get("fetch_market_data", 0) * 1000)
+
+    print("\n── Live Market Data ──────────────────────────────────────────────")
+    print(f"LTP (TCS)        : ₹{float(ltp):,.2f}")
+    print(f"Nifty 50         : {float(nifty_val):,.2f}  ({float(nifty_chg):+.2f}%)")
+    print(f"Sector idx chg   : {float(sector_chg):+.2f}%")
+    print(f"USD/INR          : {float(usd_inr):.2f}  — {usd_inr_ctx}")
+    print(f"Market status    : {market_status}")
+    print(f"Fetch timing     : {fetch_ms} ms")
+
     # ── Results ────────────────────────────────────────────────────────────
     print("\n── Results ───────────────────────────────────────────────────────")
     print(f"Signal direction : {final.get('signal_direction')}")
@@ -125,7 +146,6 @@ async def _run() -> bool:
     print(f"SEBI disclaimer  : {'yes ✓' if has_disclaimer else 'NO — COMPLIANCE FAILURE'}")
     print(f"Thread ID        : {_TEST_STATE['thread_id']}  (proves checkpointing)")
 
-    timings: dict[str, float] = final.get("node_timings") or {}
     nodes_ran = list(timings.keys())
     print(f"Nodes executed   : {nodes_ran}")
     print(f"Total wall time  : {sum(timings.values()):.3f}s")

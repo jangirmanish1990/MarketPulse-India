@@ -66,6 +66,10 @@ scripts/data/*.csv
 scripts/data/*.parquet
 !scripts/data/.gitkeep
 
+# Raw market data snapshots (large, ephemeral — keep the folder, not the files)
+data/raw/*/
+!data/raw/.gitkeep
+
 # ----- Docker -----
 *.pid
 docker-compose.override.yml
