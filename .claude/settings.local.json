@@ -6,7 +6,20 @@
       "PowerShell(.\\\\.venv\\\\Scripts\\\\uvicorn.exe backend.main:app --host 127.0.0.1 --port 8000 2>&1)",
       "Bash(curl -fsS http://127.0.0.1:8000/health)",
       "PowerShell(Copy-Item *)",
-      "PowerShell(.\\\\.venv\\\\Scripts\\\\ruff.exe format . 2>&1; Write-Output \"---\"; .\\\\.venv\\\\Scripts\\\\ruff.exe check --fix . 2>&1; Write-Output \"---\"; .\\\\.venv\\\\Scripts\\\\mypy.exe backend agents mcp_servers lambdas 2>&1)"
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\ruff.exe format . 2>&1; Write-Output \"---\"; .\\\\.venv\\\\Scripts\\\\ruff.exe check --fix . 2>&1; Write-Output \"---\"; .\\\\.venv\\\\Scripts\\\\mypy.exe backend agents mcp_servers lambdas 2>&1)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\alembic.exe init -t async migrations 2>&1)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\ruff.exe format . 2>&1; Write-Output \"--- ruff check ---\"; .\\\\.venv\\\\Scripts\\\\ruff.exe check --fix . 2>&1; Write-Output \"--- mypy ---\"; .\\\\.venv\\\\Scripts\\\\mypy.exe backend agents mcp_servers lambdas 2>&1)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\pytest.exe -q -m \"not evals and not e2e\" 2>&1 | Select-Object -Last 30)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -c \"import asyncio, os; from dotenv import load_dotenv; load_dotenv\\(\\); from backend.database import ping_db; print\\('DB reachable:', asyncio.run\\(ping_db\\(\\)\\)\\)\" 2>&1)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -c \"from dotenv import load_dotenv; load_dotenv\\(\\); from alembic.config import main; main\\(argv=['upgrade','head']\\)\" 2>&1)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -c \"from dotenv import load_dotenv; load_dotenv\\(\\); from alembic.config import main; main\\(argv=['upgrade','head']\\)\" 2>&1 | Select-Object -Last 15)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -c \"from dotenv import load_dotenv; load_dotenv\\(\\); from alembic.config import main; main\\(argv=['current']\\)\" 2>&1)",
+      "Bash(cat)",
+      "Bash(./.venv/Scripts/python.exe /tmp/_verify.py)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe scripts\\\\seed_stocks.py 2>&1)",
+      "Bash(./.venv/Scripts/python.exe /tmp/_count.py)",
+      "Bash(.\\\\.venv\\\\Scripts\\\\python.exe *)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -m agents.checkpointer)"
     ]
   }
 }
