@@ -19,7 +19,8 @@
       "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe scripts\\\\seed_stocks.py 2>&1)",
       "Bash(./.venv/Scripts/python.exe /tmp/_count.py)",
       "Bash(.\\\\.venv\\\\Scripts\\\\python.exe *)",
-      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -m agents.checkpointer)"
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -m agents.checkpointer)",
+      "Bash(python -m pytest tests/test_nse_mcp.py tests/test_bse_mcp.py tests/test_yfinance_india_mcp.py -v)"
     ]
   }
 }

@@ -46,6 +46,7 @@ dependencies = [
     "pyarrow>=18.0",
     "yfinance>=0.2.50",
     "nsepython>=2.9",
+    "requests>=2.32",  # NSE/BSE MCP servers use requests.Session for cookie management
 
     # --- Observability ---
     "structlog>=24.4",
@@ -75,6 +76,7 @@ dev = [
     "respx>=0.21",  # httpx mocking
     "freezegun>=1.5",
     "types-redis",
+    "types-requests",
     "types-python-dateutil",
     "pre-commit>=4.0",
 ]

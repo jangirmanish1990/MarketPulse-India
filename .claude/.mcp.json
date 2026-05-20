@@ -1,5 +1,24 @@
 {
   "$schema": "https://json.schemastore.org/mcp.json",
-  "_comment": "MCP server registry for MarketPulse India. Servers will be added as they are built under mcp_servers/. Keep entries in alphabetical order.",
-  "mcpServers": {}
+  "_comment": "MCP server registry for MarketPulse India. Keep entries in alphabetical order.",
+  "mcpServers": {
+    "bse-mcp": {
+      "command": "python",
+      "args": ["mcp_servers/bse/server.py"],
+      "env": { "PYTHONPATH": "." },
+      "description": "BSE India: filings, insider trades, Sensex data"
+    },
+    "nse-mcp": {
+      "command": "python",
+      "args": ["mcp_servers/nse/server.py"],
+      "env": { "PYTHONPATH": "." },
+      "description": "NSE India: announcements, live quotes, quarterly results, SHP"
+    },
+    "yfinance-india-mcp": {
+      "command": "python",
+      "args": ["mcp_servers/yfinance_india/server.py"],
+      "env": { "PYTHONPATH": "." },
+      "description": "Price history (.NS/.BO), financials, Nifty/Sensex indexes, USD/INR"
+    }
+  }
 }
