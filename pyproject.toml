@@ -99,6 +99,8 @@ evals = [
 infra = [
     "boto3>=1.35",
     "aws-lambda-powertools>=3.4",
+    "aws-cdk-lib>=2.170",
+    "constructs>=10.0",
 ]
 
 [tool.uv]

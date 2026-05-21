@@ -1,0 +1,297 @@
+{
+  "/MarketPulsePollingStack": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollState": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "NsePollStateBE7CD40E"
+      }
+    }
+  ],
+  "/MarketPulsePollingStack/NseWatchedSymbols": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "NseWatchedSymbolsCDA591EA"
+      }
+    }
+  ],
+  "/MarketPulsePollingStack/FilingsBucketName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FilingsBucketName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/PollStateTableName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PollStateTableName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/WatchedSymbolsTableName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WatchedSymbolsTableName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/PollerFunctionName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PollerFunctionName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/SignalsTopicArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SignalsTopicArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:5434)"
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:5434)"
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollState/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NsePollStateBE7CD40E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NseWatchedSymbols/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NseWatchedSymbolsCDA591EA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollerRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NsePollerRole72A6873B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Role2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollerFn/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NsePollerFn3B3C0A0A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollerSchedule/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NsePollerSchedule3A1197CD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Rule2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollerSchedule/AllowEventRuleMarketPulsePollingStackNsePollerFnC4D296E3": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NsePollerScheduleAllowEventRuleMarketPulsePollingStackNsePollerFnC4D296E3265E30F0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:54294)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)"
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/SignalsTopic/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SignalsTopic1E134FB8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Topic2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:54294)"
+      ]
+    }
+  ],
+  "/MarketPulsePollingStack/NsePollerRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NsePollerRoleDefaultPolicy90139D6F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpr5oqor8s\\lib\\program.js:1:54294)"
+      ]
+    }
+  ]
+}
