@@ -47,7 +47,8 @@ dependencies = [
     "pyarrow>=18.0",
     "yfinance>=0.2.50",
     "nsepython>=2.9",
-    "requests>=2.32",  # NSE/BSE MCP servers use requests.Session for cookie management
+    "requests>=2.32",  # NSE/BSE/Screener MCP servers use requests for cookie management
+    "beautifulsoup4>=4.12",  # Screener.in HTML parsing
 
     # --- Observability ---
     "structlog>=24.4",

@@ -14,6 +14,12 @@
       "env": { "PYTHONPATH": "." },
       "description": "NSE India: announcements, live quotes, quarterly results, SHP"
     },
+    "screener-mcp": {
+      "command": "python",
+      "args": ["mcp_servers/screener/server.py"],
+      "env": { "PYTHONPATH": "." },
+      "description": "Screener.in: 10-year financials, peer comparison, key ratios (24hr cache)"
+    },
     "yfinance-india-mcp": {
       "command": "python",
       "args": ["mcp_servers/yfinance_india/server.py"],
