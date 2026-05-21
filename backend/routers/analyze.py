@@ -14,8 +14,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.auth import CurrentUser
 from backend.config import IST, SEBI_DISCLAIMER, limiter, settings
 from backend.database import get_db, get_session_factory
+from backend.market_hours import (
+    next_market_open,
+    queue_announcement,
+    should_process_now,
+)
 from backend.models import IndianStock, Signal
 from backend.repositories import AnalysisSessionRepo, SignalRepo
+from backend.stream_runner import run_graph_with_streaming
 
 router = APIRouter()
 
@@ -34,6 +40,8 @@ class AnalyzeQueued(BaseModel):
     thread_id: str
     status: str
     nse_symbol: str
+    ws_url: str
+    message: str = ""
 
 
 class SignalOut(BaseModel):
@@ -53,34 +61,30 @@ class SignalOut(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Background task
+# Background tasks
 # ---------------------------------------------------------------------------
 
 
-async def _run_graph_background(
-    session_id: uuid.UUID,
-    thread_id: str,
+def _build_initial_state(
     nse_symbol: str,
+    session_id: str,
+    thread_id: str,
     announcement_type: str = "quarterly_results",
     announcement_raw: str = "",
     exchange: str = "NSE",
-) -> None:
-    """Run the LangGraph pipeline and update session status when done."""
-    factory = get_session_factory()
-
-    async with factory() as db:
-        await AnalysisSessionRepo(db).update_status(thread_id, "running")
-        await db.commit()
-
-    initial_state: dict[str, Any] = {
+) -> dict[str, Any]:
+    return {
         "nse_symbol": nse_symbol,
         "bse_code": "",
         "exchange": exchange,
         "announcement_type": announcement_type,
-        "announcement_raw": announcement_raw,
+        "announcement_raw": announcement_raw or f"Manual analysis triggered for {nse_symbol}",
         "s3_key": "",
         "thread_id": thread_id,
-        "session_id": str(session_id),
+        "session_id": session_id,
+        "sebi_disclaimer": SEBI_DISCLAIMER,
+        "retry_count": 0,
+        "node_timings": {},
         "price_history": {},
         "financials": {},
         "live_quote": {},
@@ -100,7 +104,7 @@ async def _run_graph_background(
         "fii_net_flow_cr": 0.0,
         "fii_sentiment": "neutral",
         "usd_inr_context": "stable",
-        "market_status": "CLOSED",
+        "market_status": "OPEN",
         "retrieved_docs": [],
         "doc_grades": [],
         "used_web_fallback": False,
@@ -121,18 +125,35 @@ async def _run_graph_background(
         "upside_pct": None,
         "time_horizon_days": None,
         "rationale": None,
-        "sebi_disclaimer": "",
         "error": None,
-        "retry_count": 0,
-        "node_timings": {},
     }
 
+
+async def _run_graph_background(
+    session_id: uuid.UUID,
+    thread_id: str,
+    nse_symbol: str,
+    announcement_type: str = "quarterly_results",
+    announcement_raw: str = "",
+    exchange: str = "NSE",
+) -> None:
+    """Run the LangGraph pipeline (non-streaming) and update session status."""
+    factory = get_session_factory()
+
+    async with factory() as db:
+        await AnalysisSessionRepo(db).update_status(thread_id, "running")
+        await db.commit()
+
+    state = _build_initial_state(
+        nse_symbol, str(session_id), thread_id, announcement_type, announcement_raw, exchange
+    )
+
     try:
-        from agents.graph import build_graph  # lazy import — avoids startup overhead
+        from agents.graph import build_graph  # lazy import
 
         graph = build_graph().compile()
         config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
-        await graph.ainvoke(initial_state, config=config)  # type: ignore[arg-type]
+        await graph.ainvoke(state, config=config)  # type: ignore[arg-type]
 
         async with factory() as db:
             await AnalysisSessionRepo(db).update_status(
@@ -141,6 +162,37 @@ async def _run_graph_background(
             await db.commit()
     except Exception as exc:
         print(f"[analyze] Graph error for {nse_symbol} (thread {thread_id}): {exc}")
+        async with factory() as db:
+            await AnalysisSessionRepo(db).update_status(
+                thread_id, "failed", completed_at=datetime.now(IST)
+            )
+            await db.commit()
+
+
+async def _run_streaming_background(
+    session_id: uuid.UUID,
+    thread_id: str,
+    nse_symbol: str,
+    state: dict[str, Any],
+) -> None:
+    """Wrap run_graph_with_streaming with DB status bookkeeping."""
+    factory = get_session_factory()
+
+    async with factory() as db:
+        await AnalysisSessionRepo(db).update_status(thread_id, "running")
+        await db.commit()
+
+    try:
+        await run_graph_with_streaming(state, str(session_id), thread_id)
+
+        async with factory() as db:
+            await AnalysisSessionRepo(db).update_status(
+                thread_id, "completed", completed_at=datetime.now(IST)
+            )
+            await db.commit()
+
+    except Exception as exc:
+        print(f"[analyze] Streaming error for {nse_symbol} (thread {thread_id}): {exc}")
         async with factory() as db:
             await AnalysisSessionRepo(db).update_status(
                 thread_id, "failed", completed_at=datetime.now(IST)
@@ -183,7 +235,7 @@ async def trigger_analysis(
     db: DB,
     current_user: CurrentUser,
 ) -> AnalyzeQueued:
-    """Trigger a full pipeline run for an NSE symbol; returns immediately."""
+    """Trigger a streaming pipeline run; return session_id + WebSocket URL."""
     nse_symbol = nse_symbol.upper()
 
     result = await db.execute(select(IndianStock).where(IndianStock.nse_symbol == nse_symbol))
@@ -203,18 +255,44 @@ async def trigger_analysis(
     )
     await db.commit()
 
+    session_id = str(session.id)
+    ws_url = f"ws://localhost:8000/ws/analyze/{session_id}"
+
+    state = _build_initial_state(nse_symbol, session_id, thread_id)
+
+    if not should_process_now():
+        queue_announcement(
+            {
+                "nse_symbol": nse_symbol,
+                "session_id": session_id,
+                "thread_id": thread_id,
+                "state": state,  # type: ignore[dict-item]
+            }
+        )
+        return AnalyzeQueued(
+            session_id=session_id,
+            thread_id=thread_id,
+            status="queued",
+            nse_symbol=nse_symbol,
+            ws_url=ws_url,
+            message=(f"Market closed. Will process at {next_market_open().isoformat()}"),
+        )
+
     background_tasks.add_task(
-        _run_graph_background,
+        _run_streaming_background,
         session.id,
         thread_id,
         nse_symbol,
+        state,
     )
 
     return AnalyzeQueued(
-        session_id=str(session.id),
+        session_id=session_id,
         thread_id=thread_id,
-        status="queued",
+        status="running",
         nse_symbol=nse_symbol,
+        ws_url=ws_url,
+        message=f"Analysis started for {nse_symbol}",
     )
 
 

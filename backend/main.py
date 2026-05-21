@@ -2,10 +2,20 @@
 
 from __future__ import annotations
 
+import sys
+
+# psycopg v3 (used by LangGraph's AsyncPostgresSaver) requires SelectorEventLoop
+# on Windows. Set this before uvicorn creates the event loop.
+if sys.platform == "win32":
+    import asyncio as _asyncio
+
+    _asyncio.set_event_loop_policy(_asyncio.WindowsSelectorEventLoopPolicy())  # type: ignore[attr-defined]
+
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from datetime import datetime
 
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
@@ -14,9 +24,10 @@ from slowapi.errors import RateLimitExceeded
 from backend.auth import router as auth_router
 from backend.config import IST, get_market_status, limiter, settings
 from backend.database import connect_with_retry, dispose_engine, ping_db
+from backend.market_hours import process_queued_announcements
 from backend.middleware import (
-    ISTTimezoneMiddleware,
     IndianStockValidatorMiddleware,
+    ISTTimezoneMiddleware,
     RequestLoggingMiddleware,
 )
 from backend.routers.analyze import router as analyze_router
@@ -25,15 +36,33 @@ from backend.routers.signals import router as signals_router
 from backend.routers.stocks import router as stocks_router
 from backend.routers.watchlist import router as watchlist_router
 from backend.routers.webhook import router as webhook_router
+from backend.routers.ws import router as ws_router
+
+_scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
-    """Verify DB connectivity on boot; dispose engine on shutdown."""
+    """Verify DB connectivity on boot; start scheduler; tear down on shutdown."""
     print("Starting MarketPulse India API...")
     await connect_with_retry()
     print("Database connected")
+
+    # Process queued after-hours announcements at 9:15 AM IST every weekday
+    _scheduler.add_job(
+        process_queued_announcements,
+        "cron",
+        day_of_week="mon-fri",
+        hour=9,
+        minute=15,
+        timezone="Asia/Kolkata",
+    )
+    _scheduler.start()
+    print("Scheduler started — queue processes at 9:15 AM IST on weekdays")
+
     yield
+
+    _scheduler.shutdown(wait=False)
     await dispose_engine()
     print("Database disconnected")
 
@@ -73,6 +102,8 @@ app.include_router(market_router, prefix="/api", tags=["Market"])
 app.include_router(stocks_router, prefix="/api", tags=["Stocks"])
 app.include_router(webhook_router, prefix="/api", tags=["Webhook"])
 app.include_router(auth_router, prefix="/api", tags=["Auth"])
+# WebSocket endpoints — no /api prefix; paths are /ws/analyze/{session_id} and /ws/market
+app.include_router(ws_router, tags=["WebSocket"])
 
 
 # ── Health probe ──────────────────────────────────────────────────────────────

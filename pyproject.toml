@@ -63,6 +63,9 @@ dependencies = [
     # --- Rate limiting ---
     "slowapi>=0.1.9",
 
+    # --- Task scheduling ---
+    "apscheduler>=3.10",
+
     # --- News / RSS ---
     "feedparser>=6.0",
 
