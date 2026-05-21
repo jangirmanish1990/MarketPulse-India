@@ -20,7 +20,11 @@
       "Bash(./.venv/Scripts/python.exe /tmp/_count.py)",
       "Bash(.\\\\.venv\\\\Scripts\\\\python.exe *)",
       "PowerShell(.\\\\.venv\\\\Scripts\\\\python.exe -m agents.checkpointer)",
-      "Bash(python -m pytest tests/test_nse_mcp.py tests/test_bse_mcp.py tests/test_yfinance_india_mcp.py -v)"
+      "Bash(python -m pytest tests/test_nse_mcp.py tests/test_bse_mcp.py tests/test_yfinance_india_mcp.py -v)",
+      "Bash(venv\\\\Scripts\\\\python.exe *)",
+      "PowerShell(& \".\\\\venv\\\\Scripts\\\\python.exe\" -m pip install fastapi[standard] slowapi python-multipart passlib[bcrypt] PyJWT 2>&1 | Select-Object -Last 5)",
+      "PowerShell(& \".\\\\venv\\\\Scripts\\\\python.exe\" -m pip install slowapi passlib[bcrypt] PyJWT 2>&1 | Select-Object -Last 5)",
+      "PowerShell(try { \\(Invoke-WebRequest -Uri \"http://localhost:8000/health\" -TimeoutSec 2\\).StatusCode } catch { \"not running\" })"
     ]
   }
 }

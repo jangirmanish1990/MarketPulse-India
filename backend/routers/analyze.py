@@ -1,0 +1,231 @@
+"""Analysis router — trigger LangGraph pipeline and query results."""
+
+from __future__ import annotations
+
+import uuid
+from datetime import datetime
+from typing import Annotated, Any
+
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
+from pydantic import BaseModel, ConfigDict
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from backend.auth import CurrentUser
+from backend.config import IST, SEBI_DISCLAIMER, limiter, settings
+from backend.database import get_db, get_session_factory
+from backend.models import IndianStock, Signal
+from backend.repositories import AnalysisSessionRepo, SignalRepo
+
+router = APIRouter()
+
+DB = Annotated[AsyncSession, Depends(get_db)]
+
+
+# ---------------------------------------------------------------------------
+# Response models
+# ---------------------------------------------------------------------------
+
+
+class AnalyzeQueued(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    session_id: str
+    thread_id: str
+    status: str
+    nse_symbol: str
+
+
+class SignalOut(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    signal_id: str
+    nse_symbol: str
+    direction: str
+    confidence: float
+    current_price_inr: float | None
+    target_price_inr: float | None
+    upside_pct: float | None
+    time_horizon_days: int | None
+    rationale: str | None
+    created_ist: str
+    sebi_disclaimer: str
+
+
+# ---------------------------------------------------------------------------
+# Background task
+# ---------------------------------------------------------------------------
+
+
+async def _run_graph_background(
+    session_id: uuid.UUID,
+    thread_id: str,
+    nse_symbol: str,
+    announcement_type: str = "quarterly_results",
+    announcement_raw: str = "",
+    exchange: str = "NSE",
+) -> None:
+    """Run the LangGraph pipeline and update session status when done."""
+    factory = get_session_factory()
+
+    async with factory() as db:
+        await AnalysisSessionRepo(db).update_status(thread_id, "running")
+        await db.commit()
+
+    initial_state: dict[str, Any] = {
+        "nse_symbol": nse_symbol,
+        "bse_code": "",
+        "exchange": exchange,
+        "announcement_type": announcement_type,
+        "announcement_raw": announcement_raw,
+        "s3_key": "",
+        "thread_id": thread_id,
+        "session_id": str(session_id),
+        "price_history": {},
+        "financials": {},
+        "live_quote": {},
+        "index_data": {},
+        "usd_inr": 0.0,
+        "parsed_quarterly": None,
+        "parsed_board": None,
+        "parsed_insider": None,
+        "parsed_shp": None,
+        "concall_available": False,
+        "concall_tone": None,
+        "concall_guidance_cr": None,
+        "concall_signal_adjustment": None,
+        "nifty_value": 0.0,
+        "nifty_change_pct": 0.0,
+        "sector_index_change_pct": 0.0,
+        "fii_net_flow_cr": 0.0,
+        "fii_sentiment": "neutral",
+        "usd_inr_context": "stable",
+        "market_status": "CLOSED",
+        "retrieved_docs": [],
+        "doc_grades": [],
+        "used_web_fallback": False,
+        "promoter_pct": None,
+        "promoter_trend": None,
+        "promoter_pledging_pct": None,
+        "promoter_pledging_risk": None,
+        "fii_ownership_trend": None,
+        "analysis_summary": None,
+        "key_positives": None,
+        "key_risks": None,
+        "quarter_verdict": None,
+        "sector_outlook": None,
+        "signal_direction": None,
+        "confidence": None,
+        "current_price_inr": None,
+        "target_price_inr": None,
+        "upside_pct": None,
+        "time_horizon_days": None,
+        "rationale": None,
+        "sebi_disclaimer": "",
+        "error": None,
+        "retry_count": 0,
+        "node_timings": {},
+    }
+
+    try:
+        from agents.graph import build_graph  # lazy import — avoids startup overhead
+
+        graph = build_graph().compile()
+        config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
+        await graph.ainvoke(initial_state, config=config)  # type: ignore[arg-type]
+
+        async with factory() as db:
+            await AnalysisSessionRepo(db).update_status(
+                thread_id, "completed", completed_at=datetime.now(IST)
+            )
+            await db.commit()
+    except Exception as exc:
+        print(f"[analyze] Graph error for {nse_symbol} (thread {thread_id}): {exc}")
+        async with factory() as db:
+            await AnalysisSessionRepo(db).update_status(
+                thread_id, "failed", completed_at=datetime.now(IST)
+            )
+            await db.commit()
+
+
+# ---------------------------------------------------------------------------
+# Helper
+# ---------------------------------------------------------------------------
+
+
+def _signal_to_out(sig: Signal) -> SignalOut:
+    return SignalOut(
+        signal_id=str(sig.id),
+        nse_symbol=sig.nse_symbol,
+        direction=sig.direction,
+        confidence=sig.confidence,
+        current_price_inr=sig.current_price_inr,
+        target_price_inr=sig.target_price_inr,
+        upside_pct=sig.upside_pct,
+        time_horizon_days=sig.time_horizon_days,
+        rationale=sig.rationale,
+        created_ist=sig.created_at.astimezone(IST).isoformat(),
+        sebi_disclaimer=SEBI_DISCLAIMER,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Endpoints
+# ---------------------------------------------------------------------------
+
+
+@router.post("/analyze/{nse_symbol}", response_model=AnalyzeQueued)
+@limiter.limit(f"{settings.rate_limit_analyses_per_day}/day")  # type: ignore[misc]
+async def trigger_analysis(
+    request: Request,
+    nse_symbol: str,
+    background_tasks: BackgroundTasks,
+    db: DB,
+    current_user: CurrentUser,
+) -> AnalyzeQueued:
+    """Trigger a full pipeline run for an NSE symbol; returns immediately."""
+    nse_symbol = nse_symbol.upper()
+
+    result = await db.execute(select(IndianStock).where(IndianStock.nse_symbol == nse_symbol))
+    if result.scalar_one_or_none() is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Symbol {nse_symbol} not found in the database.",
+        )
+
+    thread_id = f"api-{nse_symbol.lower()}-{uuid.uuid4().hex[:8]}"
+    session = await AnalysisSessionRepo(db).create(
+        thread_id=thread_id,
+        nse_symbol=nse_symbol,
+        trigger_type="api",
+        started_at=datetime.now(IST),
+        status="queued",
+    )
+    await db.commit()
+
+    background_tasks.add_task(
+        _run_graph_background,
+        session.id,
+        thread_id,
+        nse_symbol,
+    )
+
+    return AnalyzeQueued(
+        session_id=str(session.id),
+        thread_id=thread_id,
+        status="queued",
+        nse_symbol=nse_symbol,
+    )
+
+
+@router.get("/analyze/{nse_symbol}/latest", response_model=SignalOut | None)
+async def get_latest_signal(
+    nse_symbol: str,
+    db: DB,
+    current_user: CurrentUser,
+) -> SignalOut | None:
+    """Return the most recent signal for an NSE symbol, or null if none exists."""
+    signals = await SignalRepo(db).get_by_symbol(nse_symbol.upper(), limit=1)
+    if not signals:
+        return None
+    return _signal_to_out(signals[0])
