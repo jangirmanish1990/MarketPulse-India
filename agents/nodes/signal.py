@@ -132,27 +132,51 @@ def apply_india_adjustments(base_confidence: float, state: IndiaMarketState) -> 
 # ---------------------------------------------------------------------------
 
 _SYSTEM = """\
-You are a senior Indian equity signal generator for NSE/BSE stocks.
+You are a decisive quantitative signal generator for Indian NSE/BSE stocks.
 
-SIGNAL RULES:
-- BUY:  Results beat expectations, strong fundamentals, confident management, positive macro.
-- SELL: Results missed badly, deteriorating fundamentals, defensive/evasive management tone.
-- HOLD: In-line results, mixed signals, uncertain macro, transition period.
+You MUST generate differentiated signals.
+Do NOT default to HOLD for everything.
 
-TARGET PRICE RULES:
-- BUY:  current_price x (1 + upside%), where upside is 5%-25% based on conviction.
-- SELL: current_price x (1 - downside%), where downside is 5%-20% based on severity.
-- HOLD: current_price +/- 3% (flat target).
+STRICT RULES:
 
-TIME HORIZON RULES (choose ONLY 30, 60, or 90 — no other values):
-- 30 days: Strong conviction, clear catalyst, high beat or severe miss.
-- 60 days: Medium conviction, moderate beat/miss, unclear near-term catalyst.
-- 90 days: Low conviction, in-line results, macro uncertainty.
+Generate BUY when ALL of these are true:
+- Results beat estimates (quarter_verdict = beat)
+- Revenue growth > 5% YoY
+- Management tone is confident or mixed
+- Sector outlook is bullish or neutral
+- No major governance risks
+
+Generate SELL when ANY of these is true:
+- Revenue declined YoY
+- PAT declined YoY
+- Guidance was cut or is negative
+- Management tone is defensive
+- Results missed badly
+
+Generate HOLD when:
+- Results were in-line (not beat, not miss)
+- Mixed signals with no clear direction
+- Beat on one metric but miss on another
+
+IMPORTANT: If results clearly beat estimates with strong numbers, signal MUST be BUY.
+If revenue declined YoY, signal MUST be SELL.
+Do NOT be overly cautious.
+
+Price target rules:
+- BUY:  target = current_price * 1.12 to 1.20
+- SELL: target = current_price * 0.85 to 0.92
+- HOLD: target = current_price * 0.98 to 1.03
+
+Time horizon (choose ONLY 30, 60, or 90 — no other values):
+- BUY with strong beat: 30 days
+- BUY with moderate beat: 60 days
+- HOLD: 90 days
+- SELL: 30 days
 
 MANDATORY:
-- Output is for educational purposes only, not investment advice.
 - base_confidence must be between 0.10 and 0.95.
-- key_trigger must name the single most important factor (e.g. "Guidance upgrade to 4.5%-5% CC").\
+- key_trigger must name the single most important factor (e.g. "Revenue beat +10% YoY").
+- This is for educational purposes only, not investment advice.\
 """
 
 
@@ -317,28 +341,33 @@ async def score_signal(state: IndiaMarketState, config: RunnableConfig) -> dict[
     )
 
     # ── Persist to PostgreSQL ────────────────────────────────────────────────
-    try:
-        from backend.database import get_session_factory
-        from backend.repositories import SignalRepo
+    if state.get("session_id", "").startswith("eval-"):
+        logger.debug("[score_signal] DB save skipped (eval mode) for %s", symbol)
+    else:
+        try:
+            from backend.database import get_session_factory
+            from backend.repositories import SignalRepo
 
-        session_uuid = uuid.UUID(state["session_id"]) if state.get("session_id") else uuid.uuid4()
-        async with get_session_factory()() as db_session:
-            repo = SignalRepo(db_session)
-            await repo.create(
-                session_id=session_uuid,
-                nse_symbol=symbol,
-                direction=direction,
-                confidence=confidence,
-                current_price_inr=current_price if current_price > 0 else None,
-                target_price_inr=target_price if target_price > 0 else None,
-                upside_pct=upside_pct,
-                time_horizon_days=horizon,
-                rationale=rationale,
+            session_uuid = (
+                uuid.UUID(state["session_id"]) if state.get("session_id") else uuid.uuid4()
             )
-            await db_session.commit()
-        print(f"[score_signal] {symbol} signal saved to DB")
-    except Exception as exc:
-        logger.warning("[score_signal] DB save failed for %s: %s", symbol, exc)
+            async with get_session_factory()() as db_session:
+                repo = SignalRepo(db_session)
+                await repo.create(
+                    session_id=session_uuid,
+                    nse_symbol=symbol,
+                    direction=direction,
+                    confidence=confidence,
+                    current_price_inr=current_price if current_price > 0 else None,
+                    target_price_inr=target_price if target_price > 0 else None,
+                    upside_pct=upside_pct,
+                    time_horizon_days=horizon,
+                    rationale=rationale,
+                )
+                await db_session.commit()
+            print(f"[score_signal] {symbol} signal saved to DB")
+        except Exception as exc:
+            logger.warning("[score_signal] DB save failed for %s: %s", symbol, exc)
 
     return {
         "signal_direction": direction,

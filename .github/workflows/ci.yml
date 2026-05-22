@@ -78,3 +78,40 @@ jobs:
 
       - name: Pytest (unit only)
         run: pytest -q -m "not evals and not e2e"
+
+  langsmith-evals:
+    name: LangSmith evals
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Non-blocking — a signal quality regression should not block merges
+    continue-on-error: true
+    # Only run on push to main (not every PR) to conserve API budget
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      APP_TZ: "Asia/Kolkata"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv pip install --system -e ".[dev]"
+
+      - name: Run LangSmith Evals
+        run: python scripts/run_evals.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LANGCHAIN_API_KEY: ${{ secrets.LANGCHAIN_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
