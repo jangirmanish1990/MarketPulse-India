@@ -5,7 +5,7 @@ Real DB-backed users will replace DEMO_USERS in Week 5.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any
 
 import bcrypt
@@ -15,8 +15,11 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, ConfigDict
 
 from backend.config import settings
+from backend.exceptions import InvalidTokenError
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+# auto_error=False so a missing header gives token=None instead of raising
+# HTTPException — we raise InvalidTokenError ourselves for consistent JSON shape.
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
 
 router = APIRouter()
 
@@ -58,11 +61,11 @@ def create_access_token(
     expires_delta: timedelta | None = None,
 ) -> str:
     payload = data.copy()
-    expire = datetime.now(timezone.utc) + (
+    expire = datetime.now(UTC) + (
         expires_delta or timedelta(minutes=settings.jwt_expire_minutes)
     )
     payload["exp"] = expire
-    payload["iat"] = datetime.now(timezone.utc)
+    payload["iat"] = datetime.now(UTC)
     return jwt.encode(  # type: ignore[no-any-return]
         payload,
         settings.jwt_secret_key,
@@ -78,18 +81,8 @@ def verify_token(token: str) -> dict[str, Any]:
             algorithms=[settings.jwt_algorithm],
         )
         return payload
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token has expired",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    except jwt.InvalidTokenError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
+        raise InvalidTokenError() from None
 
 
 # ---------------------------------------------------------------------------
@@ -98,16 +91,14 @@ def verify_token(token: str) -> dict[str, Any]:
 
 
 async def get_current_user(
-    token: Annotated[str, Depends(oauth2_scheme)],
+    token: Annotated[str | None, Depends(oauth2_scheme)],
 ) -> dict[str, Any]:
+    if not token:
+        raise InvalidTokenError()
     payload = verify_token(token)
     email = payload.get("sub")
     if not isinstance(email, str) or email not in DEMO_USERS:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise InvalidTokenError()
     user = DEMO_USERS[email]
     return {
         "email": email,
@@ -159,7 +150,7 @@ async def login(
     token = create_access_token({"sub": form.username, "user_id": user["user_id"]})
     return TokenResponse(
         access_token=token,
-        token_type="bearer",
+        token_type="bearer",  # noqa: S106
         expires_in=settings.jwt_expire_minutes * 60,
     )
 
@@ -174,8 +165,8 @@ async def me(current_user: CurrentUser) -> UserResponse:
 
 
 __all__ = [
-    "CurrentUser",
     "DEMO_USERS",
+    "CurrentUser",
     "TokenResponse",
     "UserResponse",
     "create_access_token",

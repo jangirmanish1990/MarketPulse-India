@@ -1,0 +1,3 @@
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-22T14:40:39.655313+05:30 version=0.1.0
+Database connected
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-22T14:40:43.881459+05:30 version=0.1.0

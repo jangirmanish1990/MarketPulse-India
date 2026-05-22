@@ -13,6 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.config import IST, settings
 from backend.database import get_db
+from backend.exceptions import WebhookAuthError
 from backend.models import IndianStock
 from backend.repositories import AnalysisSessionRepo
 from backend.routers.analyze import _run_graph_background
@@ -61,10 +62,7 @@ async def receive_announcement(
     Protected by the X-Webhook-Secret header.
     """
     if x_webhook_secret != settings.webhook_secret:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or missing X-Webhook-Secret header.",
-        )
+        raise WebhookAuthError()
 
     nse_symbol = body.nse_symbol.upper()
 

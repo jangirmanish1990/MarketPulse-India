@@ -167,9 +167,7 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-south-1"
-     },
+     "S3Bucket": "cdk-hnb659fds-assets-775935274215-ap-south-1",
      "S3Key": "8eb86f9bff18b69856566f72882ec6c7e2110321c2ff8cf19b61f9da8126b8a9.zip"
     },
     "Description": "Polls NSE announcements every 5 min and forwards to FastAPI",

@@ -1,0 +1,162 @@
+{
+  "/MarketPulseObservabilityStack": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/DLQUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DLQUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/DashboardName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DashboardName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:5434)"
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:5434)"
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/MarketPulseDLQ/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "MarketPulseDLQ7E8D42CE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/MarketPulseDashboard/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "MarketPulseDashboardDC2D5689"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Dashboard2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/AgentFailureAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AgentFailureAlarmE0B90AAF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/DLQAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DLQAlarm77626DBA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:211987)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/MarketPulseObservabilityStack/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...App.synth in aws-cdk-lib...",
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp5rs1k0fl\\lib\\program.js:1:54294)"
+      ]
+    }
+  ]
+}

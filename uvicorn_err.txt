@@ -1,0 +1,12 @@
+INFO:     Started server process [532]
+INFO:     Waiting for application startup.
+[05/22/26 14:40:43] INFO     Database reachable on attempt 1    database.py:111
+                    INFO     Adding job tentatively -- it will be   base.py:507
+                             properly scheduled when the scheduler             
+                             starts                                            
+                    INFO     Added job                             base.py:1090
+                             "process_queued_announcements" to job             
+                             store "default"                                   
+                    INFO     Scheduler started                      base.py:214
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)

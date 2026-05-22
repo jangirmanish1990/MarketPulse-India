@@ -17,13 +17,23 @@ from datetime import datetime
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.auth import router as auth_router
 from backend.config import IST, get_market_status, limiter, settings
 from backend.database import connect_with_retry, dispose_engine, ping_db
+from backend.error_handlers import (
+    generic_error_handler,
+    marketpulse_error_handler,
+    not_found_handler,
+    validation_error_handler,
+)
+from backend.exceptions import MarketPulseError
+from backend.logging_config import get_logger, setup_logging
 from backend.market_hours import process_queued_announcements
 from backend.middleware import (
     IndianStockValidatorMiddleware,
@@ -41,10 +51,14 @@ from backend.routers.ws import router as ws_router
 _scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
 
 
+_log = get_logger(__name__)
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     """Verify DB connectivity on boot; start scheduler; tear down on shutdown."""
-    print("Starting MarketPulse India API...")
+    setup_logging()
+    _log.info("starting", service="marketpulse-india")
     await connect_with_retry()
     print("Database connected")
 
@@ -58,13 +72,13 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
         timezone="Asia/Kolkata",
     )
     _scheduler.start()
-    print("Scheduler started — queue processes at 9:15 AM IST on weekdays")
+    _log.info("scheduler_started", job="process_queued_announcements", cron="09:15 IST mon-fri")
 
     yield
 
     _scheduler.shutdown(wait=False)
     await dispose_engine()
-    print("Database disconnected")
+    _log.info("shutdown_complete")
 
 
 app = FastAPI(
@@ -77,6 +91,13 @@ app = FastAPI(
 # ── Rate limiting ──────────────────────────────────────────────────────────────
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # type: ignore[arg-type]
+
+# ── Domain + generic exception handlers ───────────────────────────────────────
+# Order matters: more specific handlers are checked first by Starlette.
+app.add_exception_handler(MarketPulseError, marketpulse_error_handler)  # type: ignore[arg-type]
+app.add_exception_handler(RequestValidationError, validation_error_handler)  # type: ignore[arg-type]
+app.add_exception_handler(StarletteHTTPException, not_found_handler)  # type: ignore[arg-type]
+app.add_exception_handler(Exception, generic_error_handler)  # type: ignore[arg-type]
 
 # ── CORS (allow all origins for development) ──────────────────────────────────
 app.add_middleware(

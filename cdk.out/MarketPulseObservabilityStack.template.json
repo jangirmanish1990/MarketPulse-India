@@ -1,0 +1,191 @@
+{
+ "Resources": {
+  "MarketPulseDLQ7E8D42CE": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "marketpulse-lambda-dlq",
+    "Tags": [
+     {
+      "Key": "Env",
+      "Value": "dev"
+     },
+     {
+      "Key": "Project",
+      "Value": "MarketPulse"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseObservabilityStack/MarketPulseDLQ/Resource"
+   }
+  },
+  "MarketPulseDashboardDC2D5689": {
+   "Type": "AWS::CloudWatch::Dashboard",
+   "Properties": {
+    "DashboardBody": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"widgets\":[{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Agent Run Duration (ms)\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"MarketPulseIndia\",\"AgentRunDuration\",{\"label\":\"Avg Duration ms\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Agent Success Rate\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"MarketPulseIndia\",\"AgentRunSuccess\",{\"label\":\"Success Rate\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Signals Generated\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"MarketPulseIndia\",\"SignalGenerated\",\"Direction\",\"BUY\",{\"label\":\"BUY\",\"period\":3600,\"stat\":\"Sum\"}],[\"MarketPulseIndia\",\"SignalGenerated\",\"Direction\",\"HOLD\",{\"label\":\"HOLD\",\"period\":3600,\"stat\":\"Sum\"}],[\"MarketPulseIndia\",\"SignalGenerated\",\"Direction\",\"SELL\",{\"label\":\"SELL\",\"period\":3600,\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"RAG Retrieval Precision\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"MarketPulseIndia\",\"RetrievalPrecision\",{\"label\":\"Precision\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"MCP Call Duration (ms)\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"MarketPulseIndia\",\"MCPCallDuration\",{\"label\":\"Avg MCP Duration\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Signal Confidence Average\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"MarketPulseIndia\",\"SignalConfidence\",{\"label\":\"Avg Confidence\"}]],\"yAxis\":{}}}]}"
+      ]
+     ]
+    },
+    "DashboardName": "MarketPulse-India"
+   },
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseObservabilityStack/MarketPulseDashboard/Resource"
+   }
+  },
+  "AgentFailureAlarmE0B90AAF": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     "arn:aws:sns:ap-south-1:775935274215:marketpulse-signals"
+    ],
+    "AlarmDescription": "Agent success rate below 50%",
+    "AlarmName": "MarketPulse-AgentFailureRate",
+    "ComparisonOperator": "LessThanThreshold",
+    "EvaluationPeriods": 2,
+    "MetricName": "AgentRunSuccess",
+    "Namespace": "MarketPulseIndia",
+    "Period": 900,
+    "Statistic": "Average",
+    "Tags": [
+     {
+      "Key": "Env",
+      "Value": "dev"
+     },
+     {
+      "Key": "Project",
+      "Value": "MarketPulse"
+     }
+    ],
+    "Threshold": 0.5
+   },
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseObservabilityStack/AgentFailureAlarm/Resource"
+   }
+  },
+  "DLQAlarm77626DBA": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     "arn:aws:sns:ap-south-1:775935274215:marketpulse-signals"
+    ],
+    "AlarmDescription": "Messages arriving in DLQ",
+    "AlarmName": "MarketPulse-DLQMessages",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "MarketPulseDLQ7E8D42CE",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "NumberOfMessagesReceived",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Tags": [
+     {
+      "Key": "Env",
+      "Value": "dev"
+     },
+     {
+      "Key": "Project",
+      "Value": "MarketPulse"
+     }
+    ],
+    "Threshold": 1
+   },
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseObservabilityStack/DLQAlarm/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WJyw7CIBREv6V7ek1rdO9j73NvbgEDlkLlQogh/LuhLkwmmXNmeug3W+gaTNRyMbZGD5BvAfnIMNEjkyW4u1nzPZJk9CbIlyijZIenXaAwblwUCQNXkI9IanDoRf3/sjPopzotUErFUwxzDIWdP0E5u1pDV9O8SOvWRxv0JOH66y8wd4RApQAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseObservabilityStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "DLQUrl": {
+   "Value": {
+    "Ref": "MarketPulseDLQ7E8D42CE"
+   }
+  },
+  "DashboardName": {
+   "Value": "MarketPulse-India"
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

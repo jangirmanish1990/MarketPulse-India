@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import time
 from typing import Any
 
 from agents.checkpointer import get_checkpointer
 from agents.graph import get_compiled_graph
+from backend.monitoring import record_agent_run, record_mcp_call, record_retrieval
 from backend.websocket_manager import manager
 
 # Human-readable metadata for each node
@@ -58,6 +60,13 @@ NODE_META: dict[str, dict[str, str]] = {
 }
 
 _DIRECTION_EMOJI: dict[str, str] = {"BUY": "🟢", "SELL": "🔴", "HOLD": "🟡"}
+
+# Maps LangGraph node names to (mcp_name, tool) for MCPCallDuration metrics
+_MCP_NODES: dict[str, tuple[str, str]] = {
+    "fetch_market_data": ("yfinance-nse", "fetch_market_data"),
+    "retrieve_rag_context": ("pgvector", "retrieve"),
+    "web_search_fallback": ("indian-news", "search"),
+}
 
 
 def _build_node_summary(node_name: str, output: Any) -> dict[str, object]:
@@ -117,6 +126,8 @@ async def run_graph_with_streaming(
     Returns the accumulated final state.
     """
     config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
+    pipeline_start = time.monotonic()
+    node_starts: dict[str, float] = {}
 
     await manager.broadcast(
         session_id,
@@ -144,6 +155,7 @@ async def run_graph_with_streaming(
                 name: str = event.get("name", "")
 
                 if event_type == "on_chain_start" and name in NODE_META:
+                    node_starts[name] = time.monotonic()
                     meta = NODE_META[name]
                     await manager.broadcast(
                         session_id,
@@ -158,9 +170,26 @@ async def run_graph_with_streaming(
                     )
 
                 elif event_type == "on_chain_end" and name in NODE_META:
+                    node_ms = int((time.monotonic() - node_starts.get(name, pipeline_start)) * 1000)
                     meta = NODE_META[name]
                     output: Any = event.get("data", {}).get("output", {})
                     summary = _build_node_summary(name, output)
+
+                    # MCP call timing for nodes that represent external I/O
+                    if name in _MCP_NODES:
+                        mcp_name, tool = _MCP_NODES[name]
+                        record_mcp_call(mcp_name, tool, node_ms, success=True)
+
+                    # RAG retrieval precision after grading
+                    if name == "grade_documents" and isinstance(output, dict):
+                        grades: list[Any] = output.get("doc_grades") or []
+                        relevant = sum(1 for d in grades if d.get("relevance") == "relevant")
+                        record_retrieval(
+                            symbol=state["nse_symbol"],
+                            docs_retrieved=len(grades),
+                            docs_relevant=relevant,
+                            used_fallback=bool(output.get("used_web_fallback")),
+                        )
 
                     await manager.broadcast(
                         session_id,
@@ -189,6 +218,8 @@ async def run_graph_with_streaming(
                     )
 
     except Exception as exc:
+        total_ms = int((time.monotonic() - pipeline_start) * 1000)
+        record_agent_run(symbol=state["nse_symbol"], duration_ms=total_ms, success=False)
         await manager.broadcast(
             session_id,
             {
@@ -198,6 +229,15 @@ async def run_graph_with_streaming(
             },
         )
         raise
+
+    total_ms = int((time.monotonic() - pipeline_start) * 1000)
+    signal_direction: str | None = final_state.get("signal_direction")  # type: ignore[assignment]
+    record_agent_run(
+        symbol=state["nse_symbol"],
+        duration_ms=total_ms,
+        success=signal_direction is not None,
+        signal=signal_direction,
+    )
 
     signal_dir: str = str(final_state.get("signal_direction") or "HOLD")
     confidence: float = float(final_state.get("confidence") or 0.5)

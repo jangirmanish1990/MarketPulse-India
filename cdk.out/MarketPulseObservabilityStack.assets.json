@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "d1364b08ee8e5e2263589c6582422f62999f0ff788d03384e5ca4ac7432059de": {
+      "displayName": "MarketPulseObservabilityStack Template",
+      "source": {
+        "path": "MarketPulseObservabilityStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "775935274215-ap-south-1-76867d80": {
+          "bucketName": "cdk-hnb659fds-assets-775935274215-ap-south-1",
+          "objectKey": "d1364b08ee8e5e2263589c6582422f62999f0ff788d03384e5ca4ac7432059de.json",
+          "region": "ap-south-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-file-publishing-role-775935274215-ap-south-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

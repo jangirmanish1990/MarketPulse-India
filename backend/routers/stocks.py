@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.auth import CurrentUser
 from backend.config import IST, SEBI_DISCLAIMER
 from backend.database import get_db
+from backend.exceptions import StockNotFoundError
 from backend.models import IndianStock, Signal
 from backend.repositories import SignalRepo
 
@@ -119,10 +120,7 @@ async def get_stock(
     result = await db.execute(select(IndianStock).where(IndianStock.nse_symbol == nse_symbol))
     stock = result.scalar_one_or_none()
     if stock is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Symbol {nse_symbol} not found.",
-        )
+        raise StockNotFoundError(nse_symbol)
 
     signals: list[Signal] = list(await SignalRepo(db).get_by_symbol(nse_symbol, limit=1))
     latest: SignalBrief | None = None

@@ -11,21 +11,21 @@
     },
     "MarketPulsePollingStack": {
       "type": "aws:cloudformation:stack",
-      "environment": "aws://unknown-account/ap-south-1",
+      "environment": "aws://775935274215/ap-south-1",
       "properties": {
         "templateFile": "MarketPulsePollingStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-south-1",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-south-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-south-1/7f2dc3cbd6c1530601d9ff3e9b890d39cf94cedac7fd021a551267d0a8a62150.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-deploy-role-775935274215-ap-south-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-cfn-exec-role-775935274215-ap-south-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-775935274215-ap-south-1/2647920644838a1cbad8645de5f1c6f1ec93549cd0ad6f253e454ee7c3e887cd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
           "MarketPulsePollingStack.assets"
         ],
         "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-south-1",
+          "arn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-lookup-role-775935274215-ap-south-1",
           "requiresBootstrapStackVersion": 8,
           "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
         }
@@ -35,6 +35,41 @@
       ],
       "additionalMetadataFile": "MarketPulsePollingStack.metadata.json",
       "displayName": "MarketPulsePollingStack"
+    },
+    "MarketPulseObservabilityStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MarketPulseObservabilityStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MarketPulseObservabilityStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://775935274215/ap-south-1",
+      "properties": {
+        "templateFile": "MarketPulseObservabilityStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-deploy-role-775935274215-ap-south-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-cfn-exec-role-775935274215-ap-south-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-775935274215-ap-south-1/d1364b08ee8e5e2263589c6582422f62999f0ff788d03384e5ca4ac7432059de.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MarketPulseObservabilityStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-lookup-role-775935274215-ap-south-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "MarketPulseObservabilityStack.assets"
+      ],
+      "additionalMetadataFile": "MarketPulseObservabilityStack.metadata.json",
+      "displayName": "MarketPulseObservabilityStack"
     },
     "Tree": {
       "type": "cdk:tree",

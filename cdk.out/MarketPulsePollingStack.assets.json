@@ -8,26 +8,26 @@
         "packaging": "zip"
       },
       "destinations": {
-        "current_account-ap-south-1-125d2575": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-south-1",
+        "775935274215-ap-south-1-3cd90857": {
+          "bucketName": "cdk-hnb659fds-assets-775935274215-ap-south-1",
           "objectKey": "8eb86f9bff18b69856566f72882ec6c7e2110321c2ff8cf19b61f9da8126b8a9.zip",
           "region": "ap-south-1",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-ap-south-1"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-file-publishing-role-775935274215-ap-south-1"
         }
       }
     },
-    "7f2dc3cbd6c1530601d9ff3e9b890d39cf94cedac7fd021a551267d0a8a62150": {
+    "2647920644838a1cbad8645de5f1c6f1ec93549cd0ad6f253e454ee7c3e887cd": {
       "displayName": "MarketPulsePollingStack Template",
       "source": {
         "path": "MarketPulsePollingStack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-ap-south-1-880acc9f": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-south-1",
-          "objectKey": "7f2dc3cbd6c1530601d9ff3e9b890d39cf94cedac7fd021a551267d0a8a62150.json",
+        "775935274215-ap-south-1-765d6667": {
+          "bucketName": "cdk-hnb659fds-assets-775935274215-ap-south-1",
+          "objectKey": "2647920644838a1cbad8645de5f1c6f1ec93549cd0ad6f253e454ee7c3e887cd.json",
           "region": "ap-south-1",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-ap-south-1"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-file-publishing-role-775935274215-ap-south-1"
         }
       }
     }
