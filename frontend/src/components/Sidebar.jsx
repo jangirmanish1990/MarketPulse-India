@@ -21,27 +21,23 @@ function SignalBadge({ direction }) {
 // ─── Single watchlist row ──────────────────────────────────────────────────
 
 function WatchlistItem({ item, isActive, onAnalyze, onRemove }) {
-  const [loading, setLoading] = useState(false)
-
-  const handleAnalyze = async () => {
-    setLoading(true)
-    await onAnalyze(item.nse_symbol)
-    setLoading(false)
-  }
-
   const sig = item.latest_signal
 
   return (
     <div
       className={`group flex items-center justify-between
                  px-3 py-2.5 border-b border-mp-border/50
-                 border-l-2 transition-colors cursor-pointer
+                 border-l-2 transition-colors
                  ${
                    isActive
                      ? "border-l-mp-saffron bg-mp-saffron/5"
                      : "border-l-transparent hover:bg-mp-surface2"
                  }`}
-      onClick={handleAnalyze}
+      style={{ cursor: "pointer" }}
+      onClick={() => {
+        console.log("WatchlistItem clicked:", item.nse_symbol)
+        onAnalyze(item.nse_symbol)
+      }}
     >
       <div className="flex-1 min-w-0">
         {/* Line 1: symbol + signal badge */}
@@ -95,11 +91,7 @@ function WatchlistItem({ item, isActive, onAnalyze, onRemove }) {
 
       {/* Actions — reveal on hover */}
       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity ml-1 flex-shrink-0">
-        {loading ? (
-          <span className="text-xs text-mp-saffron animate-pulse">…</span>
-        ) : (
-          <span className="text-xs text-mp-saffron">▶</span>
-        )}
+        <span className="text-xs text-mp-saffron">▶</span>
         <button
           onClick={(e) => {
             e.stopPropagation()
