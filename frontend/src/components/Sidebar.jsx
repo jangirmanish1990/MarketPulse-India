@@ -35,15 +35,15 @@ function WatchlistItem({ item, isActive, onAnalyze, onRemove }) {
                  }`}
       style={{ cursor: "pointer" }}
       onClick={() => {
-        console.log("WatchlistItem clicked:", item.nse_symbol)
-        onAnalyze(item.nse_symbol)
+        console.log("WatchlistItem clicked:", item.symbol)
+        onAnalyze(item.symbol)
       }}
     >
       <div className="flex-1 min-w-0">
         {/* Line 1: symbol + signal badge */}
         <div className="flex items-center gap-2">
           <span className="font-mono text-sm font-bold text-mp-text truncate">
-            {item.nse_symbol}
+            {item.symbol}
           </span>
           <SignalBadge direction={sig?.direction} />
         </div>
@@ -51,39 +51,29 @@ function WatchlistItem({ item, isActive, onAnalyze, onRemove }) {
         {/* Line 2: company name or sector */}
         {(item.company_name || item.sector) && (
           <div className="mt-0.5 flex items-center gap-1.5">
-            {item.company_name && item.company_name !== item.nse_symbol ? (
+            {item.company_name && item.company_name !== item.symbol ? (
               <span className="text-xs text-mp-muted font-sans truncate">
                 {item.company_name}
               </span>
             ) : item.sector ? (
               <span className="text-xs text-mp-dim font-mono">{item.sector}</span>
             ) : null}
-            {item.company_name && item.company_name !== item.nse_symbol && item.sector && (
+            {item.company_name && item.company_name !== item.symbol && item.sector && (
               <span className="text-xs text-mp-dim font-mono">· {item.sector}</span>
             )}
           </div>
         )}
 
-        {/* Line 3: LTP + confidence */}
+        {/* Line 3: target price + confidence */}
         <div className="flex items-center gap-2 mt-0.5">
-          {sig?.current_price_inr != null && (
+          {sig?.target_inr != null && (
             <span className="text-xs font-mono text-mp-muted">
-              ₹{sig.current_price_inr.toLocaleString("en-IN")}
+              ₹{sig.target_inr.toLocaleString("en-IN")}
             </span>
           )}
           {sig?.confidence != null && (
             <span className="text-xs text-mp-dim font-mono">
               {(sig.confidence * 100).toFixed(0)}%
-            </span>
-          )}
-          {sig?.upside_pct != null && (
-            <span
-              className={`text-xs font-mono ${
-                sig.upside_pct >= 0 ? "text-mp-green" : "text-mp-red"
-              }`}
-            >
-              {sig.upside_pct >= 0 ? "+" : ""}
-              {sig.upside_pct.toFixed(1)}%
             </span>
           )}
         </div>
@@ -95,7 +85,7 @@ function WatchlistItem({ item, isActive, onAnalyze, onRemove }) {
         <button
           onClick={(e) => {
             e.stopPropagation()
-            onRemove(item.nse_symbol)
+            onRemove(item.symbol)
           }}
           className="text-mp-muted hover:text-mp-red text-xs px-1 transition-colors"
         >
@@ -189,9 +179,9 @@ export default function Sidebar({ onAnalyze, activeSymbol }) {
         ) : (
           items.map((item) => (
             <WatchlistItem
-              key={item.nse_symbol}
+              key={item.symbol}
               item={item}
-              isActive={item.nse_symbol === activeSymbol}
+              isActive={item.symbol === activeSymbol}
               onAnalyze={onAnalyze}
               onRemove={removeStock}
             />
