@@ -1,0 +1,112 @@
+/* Fontsource imports must precede tailwindcss so Vite resolves them first */
+@import "@fontsource/jetbrains-mono";
+@import "@fontsource/outfit";
+
+/* Tailwind v4: single import replaces @tailwind base/components/utilities  */
+@import "tailwindcss";
+
+/* Load v3-style JS config for design tokens (colors, fonts, animations)    */
+@config "../tailwind.config.js";
+
+/* ─── Base layer ─────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-mp-bg text-mp-text font-mono;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Thin, dark scrollbars throughout */
+  ::-webkit-scrollbar        { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track  { @apply bg-mp-bg; }
+  ::-webkit-scrollbar-thumb  { @apply bg-mp-border rounded; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-mp-muted; }
+}
+
+/* ─── Component layer ─────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Card surface */
+  .mp-card {
+    @apply bg-mp-surface border border-mp-border rounded-lg p-4;
+  }
+
+  /* Badge base — used by all mp-badge-* variants */
+  .mp-badge {
+    @apply text-xs font-bold px-2 py-0.5 rounded font-mono
+           tracking-wider uppercase;
+  }
+
+  .mp-badge-buy {
+    @apply text-xs font-bold px-2 py-0.5 rounded font-mono tracking-wider uppercase;
+    background-color: color-mix(in srgb, #00E676 10%, transparent);
+    color: #00E676;
+    border: 1px solid color-mix(in srgb, #00E676 30%, transparent);
+  }
+
+  .mp-badge-sell {
+    @apply text-xs font-bold px-2 py-0.5 rounded font-mono tracking-wider uppercase;
+    background-color: color-mix(in srgb, #FF3D57 10%, transparent);
+    color: #FF3D57;
+    border: 1px solid color-mix(in srgb, #FF3D57 30%, transparent);
+  }
+
+  .mp-badge-hold {
+    @apply text-xs font-bold px-2 py-0.5 rounded font-mono tracking-wider uppercase;
+    background-color: color-mix(in srgb, #FFB800 10%, transparent);
+    color: #FFB800;
+    border: 1px solid color-mix(in srgb, #FFB800 30%, transparent);
+  }
+
+  .mp-badge-open {
+    @apply text-xs font-bold px-2 py-0.5 rounded font-mono tracking-wider uppercase;
+    background-color: color-mix(in srgb, #00E676 10%, transparent);
+    color: #00E676;
+    border: 1px solid color-mix(in srgb, #00E676 30%, transparent);
+  }
+
+  .mp-badge-closed {
+    @apply text-xs font-bold px-2 py-0.5 rounded font-mono tracking-wider uppercase;
+    background-color: color-mix(in srgb, #4A5A78 20%, transparent);
+    color: #4A5A78;
+    border: 1px solid color-mix(in srgb, #4A5A78 30%, transparent);
+  }
+
+  /* Form input */
+  .mp-input {
+    @apply bg-mp-surface2 border border-mp-border rounded
+           px-3 py-2 text-mp-text font-mono text-sm
+           focus:outline-none focus:border-mp-saffron
+           placeholder:text-mp-muted w-full;
+  }
+
+  /* Button base */
+  .mp-btn {
+    @apply px-4 py-2 rounded font-mono text-sm font-bold
+           transition-all duration-150 cursor-pointer;
+  }
+
+  .mp-btn-primary {
+    @apply px-4 py-2 rounded font-mono text-sm font-bold
+           transition-all duration-150 cursor-pointer
+           bg-mp-saffron text-black
+           hover:opacity-80 active:scale-95;
+  }
+
+  .mp-btn-ghost {
+    @apply px-4 py-2 rounded font-mono text-sm font-bold
+           transition-all duration-150 cursor-pointer
+           bg-transparent border border-mp-border
+           text-mp-muted hover:text-mp-text
+           hover:border-mp-saffron;
+    opacity: 0.5;
+  }
+  .mp-btn-ghost:hover {
+    opacity: 1;
+  }
+}
