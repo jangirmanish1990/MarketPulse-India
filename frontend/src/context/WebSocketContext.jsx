@@ -38,6 +38,8 @@ export function WebSocketProvider({ children }) {
       try {
         const event = JSON.parse(e.data)
 
+        console.log("[WS Event]", event.type, event)
+
         if (event.type === "signal_complete") {
           setLatestSignal(event.signal)
         }

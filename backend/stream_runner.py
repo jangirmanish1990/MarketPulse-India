@@ -241,6 +241,7 @@ async def run_graph_with_streaming(
 
     signal_dir: str = str(final_state.get("signal_direction") or "HOLD")
     confidence: float = float(final_state.get("confidence") or 0.5)
+    current: float = float(final_state.get("current_price_inr") or 0)
     target: float = float(final_state.get("target_price_inr") or 0)
     upside: float = float(final_state.get("upside_pct") or 0)
     emoji = _DIRECTION_EMOJI.get(signal_dir, "⚪")
@@ -252,6 +253,7 @@ async def run_graph_with_streaming(
             "signal": {
                 "direction": signal_dir,
                 "confidence": confidence,
+                "current_price_inr": current,
                 "target_price_inr": target,
                 "upside_pct": upside,
                 "time_horizon_days": final_state.get("time_horizon_days", 60),

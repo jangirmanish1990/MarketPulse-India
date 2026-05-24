@@ -85,150 +85,142 @@ function Spinner({ color }) {
   )
 }
 
-// ─── Single node block ─────────────────────────────────────────────────────
+// ─── Summary line per node type ───────────────────────────────────────────
 
-function NodeBlock({ event, isRunning }) {
+function buildSummaryLine(node, summary) {
+  switch (node) {
+    case "fetch_market_data":
+      return summary.ltp > 0
+        ? `LTP ₹${summary.ltp?.toLocaleString("en-IN")} · Nifty ${summary.nifty?.toLocaleString("en-IN") ?? "—"}`
+        : null
+    case "parse_announcement":
+      return summary.verdict
+        ? `${summary.verdict?.toUpperCase()} · Rev ₹${summary.revenue_cr?.toLocaleString("en-IN") ?? "—"} Cr`
+        : null
+    case "retrieve_rag_context":
+      return summary.docs_retrieved !== undefined
+        ? `${summary.docs_retrieved} docs retrieved`
+        : null
+    case "grade_documents":
+      return summary.total !== undefined
+        ? `${summary.relevant}/${summary.total} relevant · fallback: ${summary.fallback ? "yes ⚠️" : "no ✓"}`
+        : null
+    case "generate_analysis":
+      return summary.verdict
+        ? `${summary.verdict} · ${summary.sector} outlook`
+        : null
+    case "score_signal":
+      return summary.direction
+        ? `${summary.direction} · ${((summary.confidence ?? 0) * 100).toFixed(0)}% confidence`
+        : null
+    default:
+      return null
+  }
+}
+
+// ─── Single event block — handles all event types ─────────────────────────
+
+function EventBlock({ event }) {
   const meta = NODE_META[event.node] ?? {
-    label: event.node,
+    label: event.node || event.type,
     color: "#94A3B8",
     icon: "▶",
     bgClass: "border-mp-border bg-mp-surface2",
     textClass: "text-mp-muted",
   }
 
-  const summary = event.summary ?? {}
-
-  // One-line summary per node type — only shown when complete
-  const getSummaryLine = () => {
-    switch (event.node) {
-      case "fetch_market_data":
-        if (summary.ltp > 0)
-          return `LTP ₹${summary.ltp?.toLocaleString("en-IN")} · Nifty ${summary.nifty?.toLocaleString("en-IN") ?? "—"}`
-        return null
-      case "parse_announcement":
-        if (summary.verdict)
-          return `${summary.verdict?.toUpperCase()} · Rev ₹${summary.revenue_cr?.toLocaleString("en-IN") ?? "—"} Cr`
-        return null
-      case "retrieve_rag_context":
-        if (summary.docs_retrieved !== undefined)
-          return `${summary.docs_retrieved} docs retrieved`
-        return null
-      case "grade_documents":
-        if (summary.total !== undefined)
-          return `${summary.relevant}/${summary.total} relevant · fallback: ${summary.fallback ? "yes ⚠️" : "no ✓"}`
-        return null
-      case "generate_analysis":
-        if (summary.verdict)
-          return `${summary.verdict} · ${summary.sector} · sentiment ${summary.sentiment >= 0 ? "+" : ""}${summary.sentiment?.toFixed(2) ?? "—"}`
-        return null
-      case "score_signal":
-        if (summary.direction)
-          return `${summary.direction} · ${((summary.confidence ?? 0) * 100).toFixed(0)}% confidence`
-        return null
-      default:
-        return null
-    }
+  if (event.type === "pipeline_start") {
+    return (
+      <div className="border border-mp-saffron/30 rounded-lg p-3 bg-mp-saffron/5 animate-fade-in">
+        <div className="flex items-center gap-2">
+          <span className="text-mp-saffron font-bold font-mono text-xs">
+            ▶ PIPELINE STARTED · {event.symbol}
+          </span>
+          <div className="flex gap-1 ml-auto">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="w-1.5 h-1.5 rounded-full bg-mp-saffron animate-pulse"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    )
   }
 
-  const summaryLine = getSummaryLine()
-
-  // ₹ icon is text, not emoji — render as a small badge instead of emoji span
-  const isTextIcon = event.node === "fetch_india_context"
-
-  return (
-    <div
-      className={`border rounded-lg p-3 animate-fade-in
-                  transition-all duration-300 ${meta.bgClass}`}
-    >
-      {/* Node header row */}
-      <div className="flex items-center gap-2">
-        {isTextIcon ? (
-          <span
-            className={`text-sm font-bold font-mono flex-shrink-0 ${meta.textClass}`}
-          >
-            {meta.icon}
-          </span>
-        ) : (
+  if (event.type === "node_start") {
+    return (
+      <div className={`border rounded-lg p-3 animate-fade-in ${meta.bgClass}`}>
+        <div className="flex items-center gap-2">
           <span className="text-base flex-shrink-0">{meta.icon}</span>
-        )}
-
-        <span
-          className={`text-xs font-bold font-mono tracking-wider ${meta.textClass}`}
-        >
-          {meta.label.toUpperCase()}
-        </span>
-
-        <div className="flex-1" />
-
-        {isRunning ? (
-          <Spinner color={meta.color} />
-        ) : (
-          <span className={`text-xs ${meta.textClass}`}>✓</span>
-        )}
-
-        {event.ist_timestamp && !isRunning && (
-          <span className="text-xs text-mp-dim font-mono ml-1">
-            {event.ist_timestamp.slice(11, 19)}
+          <span className={`text-xs font-bold font-mono tracking-wider ${meta.textClass}`}>
+            {meta.label.toUpperCase()}
           </span>
+          <div className="flex-1" />
+          <Spinner color={meta.color} />
+          <span className="text-xs text-mp-dim font-mono">
+            {event.ist_timestamp?.slice(11, 19)}
+          </span>
+        </div>
+        <div className="mt-1 ml-6">
+          <span className="text-xs font-mono text-mp-dim animate-pulse">
+            processing...
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  if (event.type === "node_complete") {
+    const summary = event.summary ?? {}
+    const summaryLine = buildSummaryLine(event.node, summary)
+    return (
+      <div className={`border rounded-lg p-3 animate-fade-in ${meta.bgClass}`}>
+        <div className="flex items-center gap-2">
+          <span className="text-base flex-shrink-0">{meta.icon}</span>
+          <span className={`text-xs font-bold font-mono tracking-wider ${meta.textClass}`}>
+            {meta.label.toUpperCase()}
+          </span>
+          <div className="flex-1" />
+          <span className={`text-xs ${meta.textClass}`}>✓</span>
+          <span className="text-xs text-mp-dim font-mono">
+            {event.ist_timestamp?.slice(11, 19)}
+          </span>
+        </div>
+        {summaryLine && (
+          <div className="mt-1 ml-6">
+            <span className="text-xs font-mono text-mp-muted">
+              → {summaryLine}
+            </span>
+          </div>
         )}
       </div>
+    )
+  }
 
-      {/* Completed summary line */}
-      {summaryLine && !isRunning && (
-        <div className="mt-1.5 ml-6">
-          <span className="text-xs font-mono text-mp-muted">
-            → {summaryLine}
-          </span>
-        </div>
-      )}
+  if (event.type === "tool_call") {
+    return (
+      <div className="ml-4 border-l-2 border-mp-dim pl-3 py-1 animate-fade-in">
+        <span className="text-xs font-mono text-mp-dim">
+          🔧 {event.tool || event.message}
+        </span>
+      </div>
+    )
+  }
 
-      {/* Running "processing…" indicator */}
-      {isRunning && (
-        <div className="mt-1.5 ml-6">
-          <span className="text-xs font-mono text-mp-dim animate-pulse">
-            processing…
-          </span>
-        </div>
-      )}
-    </div>
-  )
-}
+  if (event.type === "error") {
+    return (
+      <div className="border border-mp-red/30 rounded-lg p-3 bg-mp-red/5 animate-fade-in">
+        <span className="text-xs font-mono text-mp-red">
+          ❌ {event.error || event.message}
+        </span>
+      </div>
+    )
+  }
 
-// ─── India context mini-grid (Nifty / USD-INR / Market status) ────────────
-
-function IndiaContextCard({ event }) {
-  if (event.node !== "fetch_india_context") return null
-  const s = event.summary ?? {}
-  if (!s.nifty && !s.fii) return null
-
-  return (
-    <div className="ml-6 mt-1 grid grid-cols-3 gap-2">
-      {s.nifty && (
-        <div className="bg-mp-surface2 rounded px-2 py-1 text-center">
-          <div className="text-xs text-mp-muted font-mono">Nifty</div>
-          <div className="text-xs font-bold text-mp-text font-mono">
-            {s.nifty?.toLocaleString("en-IN")}
-          </div>
-        </div>
-      )}
-      {s.usd_inr && (
-        <div className="bg-mp-surface2 rounded px-2 py-1 text-center">
-          <div className="text-xs text-mp-muted font-mono">USD/INR</div>
-          <div className="text-xs font-bold text-mp-text font-mono">
-            ₹{s.usd_inr?.toFixed(2)}
-          </div>
-        </div>
-      )}
-      {s.market_status && (
-        <div className="bg-mp-surface2 rounded px-2 py-1 text-center">
-          <div className="text-xs text-mp-muted font-mono">Market</div>
-          <div className="text-xs font-bold text-mp-saffron font-mono">
-            {s.market_status}
-          </div>
-        </div>
-      )}
-    </div>
-  )
+  return null
 }
 
 // ─── Signal reveal card ────────────────────────────────────────────────────
@@ -333,79 +325,32 @@ function SignalReveal({ signal }) {
   )
 }
 
-// ─── Pipeline start banner ─────────────────────────────────────────────────
-
-function PipelineStartBanner({ symbol, announcementType }) {
-  return (
-    <div className="border border-mp-saffron/30 rounded-lg p-3 bg-mp-saffron/5 animate-fade-in">
-      <div className="flex items-center gap-2">
-        <span className="text-mp-saffron font-bold font-mono text-sm">
-          ▶ PIPELINE STARTED
-        </span>
-        <span className="text-mp-muted text-xs font-mono">
-          {symbol} · {announcementType?.replace(/_/g, " ")}
-        </span>
-        <div className="flex-1" />
-        {/* Staggered pulse dots */}
-        <div className="flex gap-1">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="w-1.5 h-1.5 rounded-full bg-mp-saffron animate-pulse"
-              style={{ animationDelay: `${i * 0.2}s` }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 // ─── Main AgentTrace component ─────────────────────────────────────────────
 
 export default function AgentTrace({ symbol }) {
   const { events, isConnected, latestSignal } = useWS()
   const bottomRef = useRef(null)
 
-  // Auto-scroll to bottom as new events arrive
+  // Auto-scroll to latest event
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [events])
 
-  // ── Build a deduplicated ordered list of node events ──────────────────
-  // For each node, keep the latest version: running → completed.
-  // We walk events in order; when a node_complete arrives we replace
-  // the earlier node_start entry in-place so the position is preserved.
+  // Simple: render all meaningful events in arrival order.
+  // No dedup/reorder — what arrives is what shows.
+  const displayEvents = events.filter((e) =>
+    ["pipeline_start", "node_start", "node_complete", "tool_call", "error"].includes(e.type)
+  )
 
-  const nodeEvents = []
-  const nodeIndexMap = {}  // node name → index in nodeEvents
-
-  events.forEach((evt) => {
-    if (evt.type === "node_start") {
-      const idx = nodeEvents.length
-      nodeIndexMap[evt.node] = idx
-      nodeEvents.push({ ...evt, isRunning: true })
-    } else if (evt.type === "node_complete") {
-      const existing = nodeIndexMap[evt.node]
-      if (existing !== undefined) {
-        nodeEvents[existing] = { ...evt, isRunning: false }
-      } else {
-        nodeIndexMap[evt.node] = nodeEvents.length
-        nodeEvents.push({ ...evt, isRunning: false })
-      }
-    }
-  })
-
-  const completedCount = nodeEvents.filter((e) => !e.isRunning).length
-  const pipelineStart = events.find((e) => e.type === "pipeline_start")
-  const hasStarted = !!pipelineStart
+  const completedCount = events.filter((e) => e.type === "node_complete").length
+  const pipelineStarted = events.some((e) => e.type === "pipeline_start")
 
   // ── Empty / disconnected state ─────────────────────────────────────────
-  if (!hasStarted && !isConnected) {
+  if (!pipelineStarted && !isConnected) {
     return (
       <div className="flex items-center justify-center h-full text-mp-muted">
         <div className="text-center">
-          <div className="text-mp-saffron text-3xl mb-3 font-sans font-bold">₹</div>
+          <div className="text-mp-saffron text-4xl mb-3 font-bold">₹</div>
           <p className="font-mono text-sm">Select a stock from your watchlist</p>
           <p className="font-mono text-xs text-mp-dim mt-1">
             or add a new stock to begin analysis
@@ -426,7 +371,7 @@ export default function AgentTrace({ symbol }) {
           }`}
         />
         <span className="text-xs font-mono text-mp-muted">
-          {isConnected ? `Live stream · ${symbol}` : "Connecting…"}
+          {isConnected ? `Live stream · ${symbol}` : "Connecting..."}
         </span>
         <div className="flex-1" />
         <span className="text-xs font-mono text-mp-dim">
@@ -436,30 +381,10 @@ export default function AgentTrace({ symbol }) {
 
       {/* ── Scrollable events stream ── */}
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
-
-        {/* Pipeline start banner */}
-        {pipelineStart && (
-          <PipelineStartBanner
-            symbol={pipelineStart.symbol}
-            announcementType={pipelineStart.announcement_type}
-          />
-        )}
-
-        {/* Node blocks */}
-        {nodeEvents.map((evt, i) => (
-          <div key={`${evt.node}-${i}`}>
-            <NodeBlock event={evt} isRunning={evt.isRunning} />
-            {/* India context sub-grid only shown when complete */}
-            {!evt.isRunning && evt.node === "fetch_india_context" && (
-              <IndiaContextCard event={evt} />
-            )}
-          </div>
+        {displayEvents.map((evt, i) => (
+          <EventBlock key={i} event={evt} />
         ))}
-
-        {/* Signal reveal — slides in when pipeline finishes */}
         {latestSignal && <SignalReveal signal={latestSignal} />}
-
-        {/* Scroll anchor */}
         <div ref={bottomRef} />
       </div>
     </div>
