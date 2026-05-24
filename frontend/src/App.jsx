@@ -21,7 +21,7 @@ function Dashboard() {
     <div className="flex flex-col h-screen bg-mp-bg overflow-hidden">
       <Header />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar onAnalyze={handleAnalyze} />
+        <Sidebar onAnalyze={handleAnalyze} activeSymbol={activeSymbol} />
         <main className="flex-1 overflow-hidden flex flex-col">
           <DashboardPage symbol={activeSymbol} />
         </main>

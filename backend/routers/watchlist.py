@@ -31,16 +31,19 @@ class LatestSignalBrief(BaseModel):
 
     direction: str
     confidence: float
-    target_inr: float | None
+    current_price_inr: float | None
+    target_price_inr: float | None
+    upside_pct: float | None
     created_ist: str
 
 
 class WatchlistEntry(BaseModel):
     model_config = ConfigDict(frozen=True)
 
-    symbol: str
+    nse_symbol: str
     company_name: str
     sector: str | None
+    bse_code: str | None
     added_ist: str
     latest_signal: LatestSignalBrief | None
 
@@ -107,6 +110,7 @@ async def get_watchlist(
         stock = result.scalar_one_or_none()
         company_name = stock.company_name if stock else item.nse_symbol
         sector = stock.sector if stock else None
+        bse_code = stock.bse_code if stock else None
 
         signals = await signal_repo.get_by_symbol(item.nse_symbol, limit=1)
         latest: LatestSignalBrief | None = None
@@ -115,15 +119,18 @@ async def get_watchlist(
             latest = LatestSignalBrief(
                 direction=sig.direction,
                 confidence=sig.confidence,
-                target_inr=sig.target_price_inr,
+                current_price_inr=sig.current_price_inr,
+                target_price_inr=sig.target_price_inr,
+                upside_pct=sig.upside_pct,
                 created_ist=sig.created_at.astimezone(IST).isoformat(),
             )
 
         entries.append(
             WatchlistEntry(
-                symbol=item.nse_symbol,
+                nse_symbol=item.nse_symbol,
                 company_name=company_name,
                 sector=sector,
+                bse_code=bse_code,
                 added_ist=item.added_at.astimezone(IST).isoformat(),
                 latest_signal=latest,
             )

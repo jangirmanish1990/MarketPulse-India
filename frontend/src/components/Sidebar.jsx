@@ -20,7 +20,7 @@ function SignalBadge({ direction }) {
 
 // ─── Single watchlist row ──────────────────────────────────────────────────
 
-function WatchlistItem({ item, onAnalyze, onRemove }) {
+function WatchlistItem({ item, isActive, onAnalyze, onRemove }) {
   const [loading, setLoading] = useState(false)
 
   const handleAnalyze = async () => {
@@ -29,37 +29,72 @@ function WatchlistItem({ item, onAnalyze, onRemove }) {
     setLoading(false)
   }
 
+  const sig = item.latest_signal
+
   return (
     <div
-      className="group flex items-center justify-between
-                 px-3 py-2.5 hover:bg-mp-surface2
-                 border-b border-mp-border/50
-                 transition-colors cursor-pointer"
+      className={`group flex items-center justify-between
+                 px-3 py-2.5 border-b border-mp-border/50
+                 border-l-2 transition-colors cursor-pointer
+                 ${
+                   isActive
+                     ? "border-l-mp-saffron bg-mp-saffron/5"
+                     : "border-l-transparent hover:bg-mp-surface2"
+                 }`}
       onClick={handleAnalyze}
     >
       <div className="flex-1 min-w-0">
+        {/* Line 1: symbol + signal badge */}
         <div className="flex items-center gap-2">
           <span className="font-mono text-sm font-bold text-mp-text truncate">
             {item.nse_symbol}
           </span>
-          <SignalBadge direction={item.latest_signal?.direction} />
+          <SignalBadge direction={sig?.direction} />
         </div>
+
+        {/* Line 2: company name or sector */}
+        {(item.company_name || item.sector) && (
+          <div className="mt-0.5 flex items-center gap-1.5">
+            {item.company_name && item.company_name !== item.nse_symbol ? (
+              <span className="text-xs text-mp-muted font-sans truncate">
+                {item.company_name}
+              </span>
+            ) : item.sector ? (
+              <span className="text-xs text-mp-dim font-mono">{item.sector}</span>
+            ) : null}
+            {item.company_name && item.company_name !== item.nse_symbol && item.sector && (
+              <span className="text-xs text-mp-dim font-mono">· {item.sector}</span>
+            )}
+          </div>
+        )}
+
+        {/* Line 3: LTP + confidence */}
         <div className="flex items-center gap-2 mt-0.5">
-          {item.latest_signal?.current_price_inr && (
+          {sig?.current_price_inr != null && (
             <span className="text-xs font-mono text-mp-muted">
-              ₹{item.latest_signal.current_price_inr.toLocaleString("en-IN")}
+              ₹{sig.current_price_inr.toLocaleString("en-IN")}
             </span>
           )}
-          {item.latest_signal?.confidence && (
-            <span className="text-xs text-mp-muted">
-              {(item.latest_signal.confidence * 100).toFixed(0)}%
+          {sig?.confidence != null && (
+            <span className="text-xs text-mp-dim font-mono">
+              {(sig.confidence * 100).toFixed(0)}%
+            </span>
+          )}
+          {sig?.upside_pct != null && (
+            <span
+              className={`text-xs font-mono ${
+                sig.upside_pct >= 0 ? "text-mp-green" : "text-mp-red"
+              }`}
+            >
+              {sig.upside_pct >= 0 ? "+" : ""}
+              {sig.upside_pct.toFixed(1)}%
             </span>
           )}
         </div>
       </div>
 
       {/* Actions — reveal on hover */}
-      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity ml-1 flex-shrink-0">
         {loading ? (
           <span className="text-xs text-mp-saffron animate-pulse">…</span>
         ) : (
@@ -128,7 +163,7 @@ function AddStockForm({ onAdd }) {
 
 // ─── Sidebar ───────────────────────────────────────────────────────────────
 
-export default function Sidebar({ onAnalyze }) {
+export default function Sidebar({ onAnalyze, activeSymbol }) {
   const { token } = useAuth()
   const { items, loading, addStock, removeStock } = useWatchlist(token)
 
@@ -164,6 +199,7 @@ export default function Sidebar({ onAnalyze }) {
             <WatchlistItem
               key={item.nse_symbol}
               item={item}
+              isActive={item.nse_symbol === activeSymbol}
               onAnalyze={onAnalyze}
               onRemove={removeStock}
             />

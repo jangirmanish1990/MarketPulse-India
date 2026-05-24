@@ -1,7 +1,11 @@
 import { useState } from "react"
+import axios from "axios"
 import AgentTrace from "../components/AgentTrace"
 import AnalysisTrigger from "../components/AnalysisTrigger"
+import { useAuth } from "../context/AuthContext"
 import { useWS } from "../context/WebSocketContext"
+
+const API = "http://localhost:8000"
 
 // ─── Tab definitions ───────────────────────────────────────────────────────
 
@@ -53,9 +57,43 @@ function ComingSoon({ label }) {
 // ─── Dashboard page ────────────────────────────────────────────────────────
 
 export default function DashboardPage({ symbol }) {
+  const { token } = useAuth()
+  const { connect, latestSignal } = useWS()
+
   const [activeTab, setActiveTab] = useState("trace")
-  const [sessionId, setSessionId] = useState(null)   // tracked locally for potential future use
-  const { latestSignal } = useWS()
+  const [sessionId, setSessionId] = useState(null)
+  const [analyzing, setAnalyzing] = useState(false)
+  const [analyzeError, setAnalyzeError] = useState(null)
+
+  // ── Single trigger function shared by button AND symbol-name click ──────
+  const triggerAnalysis = async () => {
+    if (!symbol || analyzing) return
+    setAnalyzing(true)
+    setAnalyzeError(null)
+    try {
+      const res = await axios.post(
+        `${API}/api/analyze/${symbol}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      const { session_id } = res.data
+      connect(session_id)         // open WebSocket stream
+      setSessionId(session_id)
+    } catch (e) {
+      setAnalyzeError(e.response?.data?.message ?? "Analysis failed")
+    } finally {
+      setAnalyzing(false)
+    }
+  }
+
+  // ── Reset error + session when the symbol changes ───────────────────────
+  // (state from a previous stock doesn't bleed into a freshly selected one)
+  const [prevSymbol, setPrevSymbol] = useState(symbol)
+  if (symbol !== prevSymbol) {
+    setPrevSymbol(symbol)
+    setAnalyzeError(null)
+    setSessionId(null)
+  }
 
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden">
@@ -69,9 +107,17 @@ export default function DashboardPage({ symbol }) {
         <div className="flex items-center gap-3">
           {symbol ? (
             <>
-              <span className="text-mp-saffron font-bold font-mono text-lg">
+              {/* Clicking the symbol name is a shortcut to trigger analysis */}
+              <button
+                onClick={triggerAnalysis}
+                disabled={analyzing}
+                title="Click to analyse"
+                className={`text-mp-saffron font-bold font-mono text-lg
+                           hover:text-mp-saffron/80 transition-colors
+                           ${analyzing ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
+              >
                 {symbol}
-              </span>
+              </button>
               <span className="text-mp-muted text-xs font-mono">NSE</span>
               {latestSignal && (
                 <span
@@ -94,7 +140,12 @@ export default function DashboardPage({ symbol }) {
           )}
         </div>
 
-        <AnalysisTrigger symbol={symbol} onSessionStart={setSessionId} />
+        <AnalysisTrigger
+          symbol={symbol}
+          loading={analyzing}
+          error={analyzeError}
+          onTrigger={triggerAnalysis}
+        />
       </div>
 
       {/* ── Tabs ── */}

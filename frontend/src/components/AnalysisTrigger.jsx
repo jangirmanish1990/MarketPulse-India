@@ -1,48 +1,20 @@
-import { useState } from "react"
-import axios from "axios"
-import { useAuth } from "../context/AuthContext"
-import { useWS } from "../context/WebSocketContext"
+// Pure UI button — all API/WS logic lives in DashboardPage.
+// Props:
+//   symbol     — NSE symbol string (or null when nothing selected)
+//   loading    — true while POST /analyze is in flight
+//   error      — error message string or null
+//   onTrigger  — async function to call on click
 
-const API = "http://localhost:8000"
-
-export default function AnalysisTrigger({ symbol, onSessionStart }) {
-  const { token } = useAuth()
-  const { connect } = useWS()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  const handleTrigger = async () => {
-    if (!symbol) return
-    setLoading(true)
-    setError(null)
-
-    try {
-      const res = await axios.post(
-        `${API}/api/analyze/${symbol}`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-
-      const { session_id } = res.data
-
-      // Open WebSocket stream before notifying parent
-      connect(session_id)
-
-      onSessionStart?.(session_id)
-    } catch (e) {
-      setError(e.response?.data?.message ?? "Analysis failed")
-    } finally {
-      setLoading(false)
-    }
-  }
+export default function AnalysisTrigger({ symbol, loading, error, onTrigger }) {
+  const disabled = loading || !symbol
 
   return (
     <div className="flex items-center gap-3">
       <button
-        onClick={handleTrigger}
-        disabled={loading || !symbol}
+        onClick={onTrigger}
+        disabled={disabled}
         className={`mp-btn-primary flex items-center gap-2 ${
-          !symbol ? "opacity-50 cursor-not-allowed" : ""
+          disabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
         {loading ? (
@@ -56,7 +28,7 @@ export default function AnalysisTrigger({ symbol, onSessionStart }) {
         ) : (
           <>
             <span>▶</span>
-            Analyse {symbol ?? "—"}
+            {symbol ? `Analyse ${symbol}` : "Analyse —"}
           </>
         )}
       </button>
