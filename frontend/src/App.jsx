@@ -15,7 +15,7 @@ function AnalysisPanel({ sessionId, symbol }) {
     return (
       <div className="flex-1 flex items-center justify-center text-mp-muted">
         <div className="text-center animate-fade-in">
-          <div className="text-4xl mb-4">🇮🇳</div>
+          <div className="text-mp-saffron text-4xl mb-4 font-sans font-bold">₹</div>
           <p className="font-mono text-sm">Select a stock from your watchlist</p>
           <p className="font-mono text-xs text-mp-dim mt-1">
             or add a new stock to begin analysis
