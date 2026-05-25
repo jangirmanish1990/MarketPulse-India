@@ -14,11 +14,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.auth import CurrentUser
 from backend.config import IST, SEBI_DISCLAIMER, limiter, settings
 from backend.database import get_db, get_session_factory
-from backend.market_hours import (
-    next_market_open,
-    queue_announcement,
-    should_process_now,
-)
 from backend.models import IndianStock, Signal
 from backend.repositories import AnalysisSessionRepo, SignalRepo
 from backend.stream_runner import run_graph_with_streaming
@@ -260,24 +255,8 @@ async def trigger_analysis(
 
     state = _build_initial_state(nse_symbol, session_id, thread_id)
 
-    if not should_process_now():
-        queue_announcement(
-            {
-                "nse_symbol": nse_symbol,
-                "session_id": session_id,
-                "thread_id": thread_id,
-                "state": state,  # type: ignore[dict-item]
-            }
-        )
-        return AnalyzeQueued(
-            session_id=session_id,
-            thread_id=thread_id,
-            status="queued",
-            nse_symbol=nse_symbol,
-            ws_url=ws_url,
-            message=(f"Market closed. Will process at {next_market_open().isoformat()}"),
-        )
-
+    # Manual API triggers always run immediately — market hours are only
+    # enforced for automated Lambda webhook triggers (see routers/webhook.py).
     background_tasks.add_task(
         _run_streaming_background,
         session.id,
