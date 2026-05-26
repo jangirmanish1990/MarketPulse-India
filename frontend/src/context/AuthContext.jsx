@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useCallback } from "react"
 import axios from "axios"
 
-const API = "http://localhost:8000"
+const API = ""
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {

@@ -17,3 +17,53 @@ INFO:     127.0.0.1:64730 - "OPTIONS /api/market/summary HTTP/1.1" 200 OK
 INFO:     127.0.0.1:64730 - "GET /api/market/summary HTTP/1.1" 200 OK
 [2026-05-26 16:41:37 IST] GET /api/market/summary 200 1345ms
 INFO:     127.0.0.1:58698 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:42:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:64618 - "GET /api/market/summary HTTP/1.1" 200 OK
+ [info     ] shutdown_complete              service=marketpulse-india timestamp_ist=2026-05-26T16:43:06.303001+05:30 version=0.1.0
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-26T16:43:12.026782+05:30 version=0.1.0
+Database connected
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-26T16:43:20.384801+05:30 version=0.1.0
+[2026-05-26 16:43:38 IST] GET /api/market/summary 200 2535ms
+INFO:     127.0.0.1:59638 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:44:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:57546 - "GET /api/market/summary HTTP/1.1" 200 OK
+ [info     ] shutdown_complete              service=marketpulse-india timestamp_ist=2026-05-26T16:44:43.381377+05:30 version=0.1.0
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-26T16:44:49.052664+05:30 version=0.1.0
+Database connected
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-26T16:44:55.587879+05:30 version=0.1.0
+[2026-05-26 16:45:38 IST] GET /api/market/summary 200 2776ms
+INFO:     127.0.0.1:61281 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:46:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:53272 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:47:37 IST] GET /api/market/summary 200 1177ms
+INFO:     127.0.0.1:63605 - "GET /api/market/summary HTTP/1.1" 200 OK
+ [info     ] shutdown_complete              service=marketpulse-india timestamp_ist=2026-05-26T16:47:50.213416+05:30 version=0.1.0
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-26T16:47:57.432940+05:30 version=0.1.0
+Database connected
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-26T16:48:02.916595+05:30 version=0.1.0
+[2026-05-26 16:48:38 IST] GET /api/market/summary 200 2500ms
+INFO:     127.0.0.1:49230 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:49:35 IST] GET /api/market/summary 200 2ms
+INFO:     127.0.0.1:51220 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:50:35 IST] OPTIONS /api/market/summary 200 0ms
+INFO:     127.0.0.1:59356 - "OPTIONS /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:50:37 IST] GET /api/market/summary 200 1336ms
+INFO:     127.0.0.1:59356 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:51:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:64306 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:52:37 IST] GET /api/market/summary 200 1432ms
+INFO:     127.0.0.1:59431 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:53:35 IST] GET /api/market/summary 200 2ms
+INFO:     127.0.0.1:61621 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:54:37 IST] GET /api/market/summary 200 1557ms
+INFO:     127.0.0.1:53638 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:55:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:54577 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:56:37 IST] GET /api/market/summary 200 1360ms
+INFO:     127.0.0.1:53685 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:57:35 IST] GET /api/market/summary 200 5ms
+INFO:     127.0.0.1:57328 - "GET /api/market/summary HTTP/1.1" 200 OK
+ [info     ] shutdown_complete              service=marketpulse-india timestamp_ist=2026-05-26T16:58:09.122221+05:30 version=0.1.0
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-26T16:58:15.096491+05:30 version=0.1.0
+Database connected
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-26T16:58:21.096070+05:30 version=0.1.0

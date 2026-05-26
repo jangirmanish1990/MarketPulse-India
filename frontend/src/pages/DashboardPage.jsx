@@ -2,10 +2,11 @@ import { useState } from "react"
 import axios from "axios"
 import AgentTrace from "../components/AgentTrace"
 import AnalysisTrigger from "../components/AnalysisTrigger"
+import SignalsPage from "./SignalsPage"
 import { useAuth } from "../context/AuthContext"
 import { useWS } from "../context/WebSocketContext"
 
-const API = "http://localhost:8000"
+const API = ""
 
 // ─── Tab definitions ───────────────────────────────────────────────────────
 
@@ -160,7 +161,7 @@ export default function DashboardPage({ symbol }) {
       <div className="flex-1 overflow-hidden">
         {activeTab === "trace" && <AgentTrace symbol={symbol} />}
         {activeTab === "signals" && (
-          <ComingSoon label="Signal history coming in Day 18" />
+          <SignalsPage symbol={symbol} />
         )}
         {activeTab === "calendar" && (
           <ComingSoon label="Results calendar coming in Day 19" />
