@@ -57,6 +57,7 @@ function ComingSoon({ label }) {
 // ─── Dashboard page ────────────────────────────────────────────────────────
 
 export default function DashboardPage({ symbol }) {
+  console.log("DashboardPage symbol prop:", symbol)
   const { token } = useAuth()
   const { connect, latestSignal } = useWS()
 
@@ -77,8 +78,12 @@ export default function DashboardPage({ symbol }) {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       const { session_id } = res.data
-      connect(session_id)         // open WebSocket stream
       setSessionId(session_id)
+
+      // Give the backend 500 ms to reach its retry loop before we connect,
+      // so the first broadcast (pipeline_start) is never missed.
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      connect(session_id)         // open WebSocket stream
     } catch (e) {
       setAnalyzeError(e.response?.data?.message ?? "Analysis failed")
     } finally {

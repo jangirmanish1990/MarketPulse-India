@@ -148,6 +148,7 @@ function AddStockForm({ onAdd }) {
 export default function Sidebar({ onAnalyze, activeSymbol }) {
   const { token } = useAuth()
   const { items, loading, addStock, removeStock } = useWatchlist(token)
+  console.log("Watchlist items:", items)
 
   return (
     <aside

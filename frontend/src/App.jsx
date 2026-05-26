@@ -14,7 +14,7 @@ function Dashboard() {
   // Clicking a watchlist item sets the active symbol;
   // AnalysisTrigger inside DashboardPage owns the actual API call + WS connect.
   const handleAnalyze = (symbol) => {
-    console.log("Selected symbol:", symbol)
+    console.log("handleAnalyze called with:", symbol)
     setActiveSymbol(symbol)
   }
 

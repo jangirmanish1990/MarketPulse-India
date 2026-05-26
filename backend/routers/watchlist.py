@@ -32,7 +32,7 @@ class LatestSignalBrief(BaseModel):
     direction: str
     confidence: float
     current_price_inr: float | None
-    target_price_inr: float | None
+    target_inr: float | None          # serialized as target_inr (matches Sidebar)
     upside_pct: float | None
     created_ist: str
 
@@ -40,7 +40,7 @@ class LatestSignalBrief(BaseModel):
 class WatchlistEntry(BaseModel):
     model_config = ConfigDict(frozen=True)
 
-    nse_symbol: str
+    symbol: str                        # serialized as symbol (matches Sidebar)
     company_name: str
     sector: str | None
     bse_code: str | None
@@ -120,14 +120,14 @@ async def get_watchlist(
                 direction=sig.direction,
                 confidence=sig.confidence,
                 current_price_inr=sig.current_price_inr,
-                target_price_inr=sig.target_price_inr,
+                target_inr=sig.target_price_inr,      # map DB column → API field
                 upside_pct=sig.upside_pct,
                 created_ist=sig.created_at.astimezone(IST).isoformat(),
             )
 
         entries.append(
             WatchlistEntry(
-                nse_symbol=item.nse_symbol,
+                symbol=item.nse_symbol,               # map DB column → API field
                 company_name=company_name,
                 sector=sector,
                 bse_code=bse_code,
