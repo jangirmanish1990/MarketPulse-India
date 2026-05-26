@@ -1,39 +1,19 @@
-[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-22T14:40:39.655313+05:30 version=0.1.0
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-26T16:30:23.904608+05:30 version=0.1.0
 Database connected
-[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-22T14:40:43.881459+05:30 version=0.1.0
-[warning  ] domain_error                   error_code=INVALID_TOKEN message='Invalid or expired token' path=/api/stocks/INVALIDXYZ999 retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:41:30.291638+05:30 version=0.1.0
-[2026-05-22 14:41:30 IST] GET /api/stocks/INVALIDXYZ999 401 77ms
-INFO:     127.0.0.1:55558 - "GET /api/stocks/INVALIDXYZ999 HTTP/1.1" 401 Unauthorized
-[warning  ] domain_error                   error_code=INVALID_TOKEN message='Invalid or expired token' path=/api/watchlist retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:41:30.383112+05:30 version=0.1.0
-[2026-05-22 14:41:30 IST] GET /api/watchlist 401 32ms
-INFO:     127.0.0.1:55558 - "GET /api/watchlist HTTP/1.1" 401 Unauthorized
-[warning  ] domain_error                   error_code=WEBHOOK_AUTH_FAILED message='Invalid webhook secret' path=/api/webhook/announcement retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:41:30.459700+05:30 version=0.1.0
-[2026-05-22 14:41:30 IST] POST /api/webhook/announcement 401 47ms
-INFO:     127.0.0.1:55558 - "POST /api/webhook/announcement HTTP/1.1" 401 Unauthorized
-[2026-05-22 14:41:30 IST] GET /api/nonexistent-route 404 0ms
-INFO:     127.0.0.1:55558 - "GET /api/nonexistent-route HTTP/1.1" 404 Not Found
-[warning  ] domain_error                   error_code=INVALID_TOKEN message='Invalid or expired token' path=/api/stocks/INVALIDSHAPE retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:41:30.493075+05:30 version=0.1.0
-[2026-05-22 14:41:30 IST] GET /api/stocks/INVALIDSHAPE 401 31ms
-INFO:     127.0.0.1:55558 - "GET /api/stocks/INVALIDSHAPE HTTP/1.1" 401 Unauthorized
-[warning  ] domain_error                   error_code=INVALID_TOKEN message='Invalid or expired token' path=/api/stocks/BADXYZ retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:41:30.523811+05:30 version=0.1.0
-[2026-05-22 14:41:30 IST] GET /api/stocks/BADXYZ 401 30ms
-INFO:     127.0.0.1:55558 - "GET /api/stocks/BADXYZ HTTP/1.1" 401 Unauthorized
-[2026-05-22 14:42:46 IST] POST /api/auth/login 200 1047ms
-INFO:     127.0.0.1:59001 - "POST /api/auth/login HTTP/1.1" 200 OK
-[warning  ] domain_error                   error_code=STOCK_NOT_FOUND message='Stock INVALIDXYZ999 not found on NSE/BSE' path=/api/stocks/INVALIDXYZ999 retriable=False service=marketpulse-india status_code=404 timestamp_ist=2026-05-22T14:42:46.742309+05:30 version=0.1.0
-[2026-05-22 14:42:46 IST] GET /api/stocks/INVALIDXYZ999 404 719ms
-INFO:     127.0.0.1:59001 - "GET /api/stocks/INVALIDXYZ999 HTTP/1.1" 404 Not Found
-[warning  ] domain_error                   error_code=INVALID_TOKEN message='Invalid or expired token' path=/api/watchlist retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:42:46.776609+05:30 version=0.1.0
-[2026-05-22 14:42:46 IST] GET /api/watchlist 401 46ms
-INFO:     127.0.0.1:59001 - "GET /api/watchlist HTTP/1.1" 401 Unauthorized
-[warning  ] domain_error                   error_code=WEBHOOK_AUTH_FAILED message='Invalid webhook secret' path=/api/webhook/announcement retriable=False service=marketpulse-india status_code=401 timestamp_ist=2026-05-22T14:42:46.824333+05:30 version=0.1.0
-[2026-05-22 14:42:46 IST] POST /api/webhook/announcement 401 31ms
-INFO:     127.0.0.1:59001 - "POST /api/webhook/announcement HTTP/1.1" 401 Unauthorized
-[2026-05-22 14:42:46 IST] GET /api/nonexistent-route 404 0ms
-INFO:     127.0.0.1:59001 - "GET /api/nonexistent-route HTTP/1.1" 404 Not Found
-[warning  ] domain_error                   error_code=STOCK_NOT_FOUND message='Stock INVALIDSHAPE not found on NSE/BSE' path=/api/stocks/INVALIDSHAPE retriable=False service=marketpulse-india status_code=404 timestamp_ist=2026-05-22T14:42:47.329101+05:30 version=0.1.0
-[2026-05-22 14:42:47 IST] GET /api/stocks/INVALIDSHAPE 404 500ms
-INFO:     127.0.0.1:59001 - "GET /api/stocks/INVALIDSHAPE HTTP/1.1" 404 Not Found
-[warning  ] domain_error                   error_code=STOCK_NOT_FOUND message='Stock BADXYZ not found on NSE/BSE' path=/api/stocks/BADXYZ retriable=False service=marketpulse-india status_code=404 timestamp_ist=2026-05-22T14:42:47.836594+05:30 version=0.1.0
-[2026-05-22 14:42:47 IST] GET /api/stocks/BADXYZ 404 500ms
-INFO:     127.0.0.1:59001 - "GET /api/stocks/BADXYZ HTTP/1.1" 404 Not Found
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-26T16:30:27.227123+05:30 version=0.1.0
+[2026-05-26 16:30:41 IST] GET /api/market/summary 200 6002ms
+INFO:     127.0.0.1:52624 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:31:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:56566 - "GET /api/market/summary HTTP/1.1" 200 OK
+ [info     ] shutdown_complete              service=marketpulse-india timestamp_ist=2026-05-26T16:39:23.190766+05:30 version=0.1.0
+[info     ] starting                       service=marketpulse-india timestamp_ist=2026-05-26T16:39:32.228546+05:30 version=0.1.0
+Database connected
+[info     ] scheduler_started              cron='09:15 IST mon-fri' job=process_queued_announcements service=marketpulse-india timestamp_ist=2026-05-26T16:39:34.946023+05:30 version=0.1.0
+[2026-05-26 16:39:38 IST] GET /api/market/summary 200 2049ms
+INFO:     127.0.0.1:63347 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:40:35 IST] OPTIONS /api/market/summary 200 0ms
+INFO:     127.0.0.1:64730 - "OPTIONS /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:40:35 IST] GET /api/market/summary 200 1ms
+INFO:     127.0.0.1:64730 - "GET /api/market/summary HTTP/1.1" 200 OK
+[2026-05-26 16:41:37 IST] GET /api/market/summary 200 1345ms
+INFO:     127.0.0.1:58698 - "GET /api/market/summary HTTP/1.1" 200 OK

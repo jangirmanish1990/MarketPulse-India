@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import time
 from typing import Any
 
@@ -125,6 +126,26 @@ async def run_graph_with_streaming(
     then emits a final signal_complete event with the resulting signal.
     Returns the accumulated final state.
     """
+    # Warn early if running inside a ProactorEventLoop (Windows default) —
+    # psycopg async requires SelectorEventLoop.
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.__class__.__name__ == "ProactorEventLoop":
+            print(
+                "[stream_runner] WARNING: ProactorEventLoop detected — "
+                "psycopg async will fail. Use SelectorEventLoop."
+            )
+    except Exception:
+        pass
+
+    # Wait up to 3 s for the WebSocket client to connect before broadcasting.
+    # The frontend opens the WS ~500 ms after the POST returns; without this
+    # the pipeline_start event fires into a session with no listeners.
+    for _ in range(6):
+        if manager.is_connected(session_id):
+            break
+        await asyncio.sleep(0.5)
+
     config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
     pipeline_start = time.monotonic()
     node_starts: dict[str, float] = {}

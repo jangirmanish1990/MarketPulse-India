@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+import threading
 import uuid
 from datetime import datetime
 from typing import Annotated, Any
@@ -226,7 +228,6 @@ def _signal_to_out(sig: Signal) -> SignalOut:
 async def trigger_analysis(
     request: Request,
     nse_symbol: str,
-    background_tasks: BackgroundTasks,
     db: DB,
     current_user: CurrentUser,
 ) -> AnalyzeQueued:
@@ -257,13 +258,23 @@ async def trigger_analysis(
 
     # Manual API triggers always run immediately — market hours are only
     # enforced for automated Lambda webhook triggers (see routers/webhook.py).
-    background_tasks.add_task(
-        _run_streaming_background,
-        session.id,
-        thread_id,
-        nse_symbol,
-        state,
-    )
+    def _thread_target():
+        if hasattr(asyncio, 'WindowsSelectorEventLoopPolicy'):
+            asyncio.set_event_loop_policy(
+                asyncio.WindowsSelectorEventLoopPolicy()
+            )
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            loop.run_until_complete(
+                _run_streaming_background(
+                    session.id, thread_id, nse_symbol, state
+                )
+            )
+        finally:
+            loop.close()
+
+    threading.Thread(target=_thread_target, daemon=True).start()
 
     return AnalyzeQueued(
         session_id=session_id,

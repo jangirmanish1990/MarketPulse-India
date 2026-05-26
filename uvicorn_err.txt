@@ -1,6 +1,9 @@
-INFO:     Started server process [532]
+INFO:     Will watch for changes in these directories: ['D:\\MarketPulse-India']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [20920] using WatchFiles
+INFO:     Started server process [19344]
 INFO:     Waiting for application startup.
-[05/22/26 14:40:43] INFO     Database reachable on attempt 1    database.py:111
+[05/26/26 16:30:27] INFO     Database reachable on attempt 1    database.py:111
                     INFO     Adding job tentatively -- it will be   base.py:507
                              properly scheduled when the scheduler             
                              starts                                            
@@ -9,8 +12,1490 @@ INFO:     Waiting for application startup.
                              store "default"                                   
                     INFO     Scheduler started                      base.py:214
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-D:\MarketPulse-India\.venv\Lib\site-packages\jwt\api_jwt.py:147: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
-  return self._jws.encode(
-D:\MarketPulse-India\.venv\Lib\site-packages\jwt\api_jwt.py:365: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
+[05/26/26 16:30:33] INFO     2 changes detected                     main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+D:\MarketPulse-India\venv\Lib\site-packages\jwt\api_jwt.py:365: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
   decoded = self.decode_complete(
+[05/26/26 16:30:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:47] INFO     22 changes detected                    main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:30:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:05] INFO     54 changes detected                    main.py:309
+[05/26/26 16:31:06] INFO     1 change detected                      main.py:309
+[05/26/26 16:31:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+D:\MarketPulse-India\venv\Lib\site-packages\jwt\api_jwt.py:365: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
+  decoded = self.decode_complete(
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:31:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:32:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:33:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:09] INFO     1 change detected                      main.py:309
+[05/26/26 16:34:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:34:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:35:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:25] INFO     2 changes detected                     main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:26] INFO     2 changes detected                     main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:27] INFO     2 changes detected                     main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:36:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:37:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:38:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:06] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:07] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:08] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:39:22] INFO     1 change detected                      main.py:309
+                    INFO     6 changes detected                     main.py:309
+WARNING:  WatchFiles detected changes in 'backend\stream_runner.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+[05/26/26 16:39:23] INFO     Scheduler has been shut down           base.py:245
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19344]
+[05/26/26 16:39:24] INFO     1 change detected                      main.py:309
+[05/26/26 16:39:26] INFO     5 changes detected                     main.py:309
+INFO:     Started server process [19024]
+INFO:     Waiting for application startup.
+[05/26/26 16:39:34] INFO     Database reachable on attempt 1    database.py:111
+                    INFO     Adding job tentatively -- it will be   base.py:507
+                             properly scheduled when the scheduler             
+                             starts                                            
+                    INFO     Added job                             base.py:1090
+                             "process_queued_announcements" to job             
+                             store "default"                                   
+                    INFO     Scheduler started                      base.py:214
+INFO:     Application startup complete.
+D:\MarketPulse-India\venv\Lib\site-packages\jwt\api_jwt.py:365: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
+  decoded = self.decode_complete(
+D:\MarketPulse-India\venv\Lib\site-packages\jwt\api_jwt.py:365: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
+  decoded = self.decode_complete(
+[05/26/26 16:42:07] INFO     5 changes detected                     main.py:309
+[05/26/26 16:42:08] INFO     2 changes detected                     main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:09] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:10] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:11] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:12] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:13] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:14] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:15] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:16] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:17] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:18] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:19] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:20] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:21] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:22] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:23] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:24] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:25] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:26] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:27] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:28] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:29] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:30] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:31] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:32] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:33] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:34] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:35] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+D:\MarketPulse-India\venv\Lib\site-packages\jwt\api_jwt.py:365: InsecureKeyLengthWarning: The HMAC key is 23 bytes long, which is below the minimum recommended length of 32 bytes for SHA256. See RFC 7518 Section 3.2.
+  decoded = self.decode_complete(
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:36] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:37] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:38] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:39] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:40] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:41] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:42] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:43] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:44] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:45] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:46] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:47] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:48] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:49] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:50] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:51] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:52] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:53] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:54] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:55] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:56] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:57] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:58] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:42:59] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:43:00] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:43:01] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:43:02] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:43:03] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:43:04] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+[05/26/26 16:43:05] INFO     1 change detected                      main.py:309
+                    INFO     1 change detected                      main.py:309
+                    INFO     6 changes detected                     main.py:309
+WARNING:  WatchFiles detected changes in 'backend\stream_runner.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+[05/26/26 16:43:06] INFO     Scheduler has been shut down           base.py:245
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19024]
