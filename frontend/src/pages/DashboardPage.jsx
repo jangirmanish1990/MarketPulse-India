@@ -4,6 +4,7 @@ import AgentTrace from "../components/AgentTrace"
 import AnalysisTrigger from "../components/AnalysisTrigger"
 import SignalsPage from "./SignalsPage"
 import CalendarPage from "./CalendarPage"
+import SectorPage from "./SectorPage"
 import { useAuth } from "../context/AuthContext"
 import { useWS } from "../context/WebSocketContext"
 
@@ -166,7 +167,7 @@ export default function DashboardPage({ symbol, onAnalyze }) {
         )}
         {activeTab === "calendar" && <CalendarPage symbol={symbol} onAnalyze={onAnalyze} />}
         {activeTab === "sectors" && (
-          <ComingSoon label="Sector comparison coming in Day 20" />
+          <SectorPage onAnalyze={onAnalyze} />
         )}
       </div>
     </div>

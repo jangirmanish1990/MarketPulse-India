@@ -177,7 +177,7 @@ ignore_missing_imports = true
 minversion = "8.0"
 addopts = "-ra --strict-markers --strict-config"
 testpaths = ["tests"]
-asyncio_mode = "auto"
+# asyncio_mode = "auto"
 markers = [
     "evals: long-running LLM evaluation tests (deselect with -m 'not evals')",
     "e2e: end-to-end tests requiring full stack up",
