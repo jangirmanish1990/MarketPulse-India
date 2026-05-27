@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import time
 from typing import Any
 
@@ -10,6 +11,8 @@ from agents.checkpointer import get_checkpointer
 from agents.graph import get_compiled_graph
 from backend.monitoring import record_agent_run, record_mcp_call, record_retrieval
 from backend.websocket_manager import manager
+
+logger = logging.getLogger(__name__)
 
 # Human-readable metadata for each node
 NODE_META: dict[str, dict[str, str]] = {
@@ -90,6 +93,11 @@ def _build_node_summary(node_name: str, output: Any) -> dict[str, object]:
                 else None
             ),
         },
+        "concall_analyzer": {
+            "available": output.get("concall_available", False),
+            "tone": output.get("concall_tone"),
+            "adjustment": output.get("concall_signal_adjustment"),
+        },
         "retrieve_rag_context": {
             "docs_retrieved": len(output.get("retrieved_docs", [])),
         },
@@ -136,7 +144,7 @@ async def run_graph_with_streaming(
                 "psycopg async will fail. Use SelectorEventLoop."
             )
     except Exception:
-        pass
+        logger.debug("Could not inspect event loop type")
 
     # Wait up to 3 s for the WebSocket client to connect before broadcasting.
     # The frontend opens the WS ~500 ms after the POST returns; without this

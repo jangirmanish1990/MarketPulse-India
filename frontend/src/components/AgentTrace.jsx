@@ -97,6 +97,12 @@ function buildSummaryLine(node, summary) {
       return summary.verdict
         ? `${summary.verdict?.toUpperCase()} · Rev ₹${summary.revenue_cr?.toLocaleString("en-IN") ?? "—"} Cr`
         : null
+    case "concall_analyzer":
+      if (summary.available === false)
+        return "No transcript available — skipped"
+      if (summary.tone)
+        return `Tone: ${summary.tone} · ${summary.adjustment || "maintain"}`
+      return null
     case "retrieve_rag_context":
       return summary.docs_retrieved !== undefined
         ? `${summary.docs_retrieved} docs retrieved`
