@@ -3,6 +3,7 @@ import axios from "axios"
 import AgentTrace from "../components/AgentTrace"
 import AnalysisTrigger from "../components/AnalysisTrigger"
 import SignalsPage from "./SignalsPage"
+import CalendarPage from "./CalendarPage"
 import { useAuth } from "../context/AuthContext"
 import { useWS } from "../context/WebSocketContext"
 
@@ -57,7 +58,7 @@ function ComingSoon({ label }) {
 
 // ─── Dashboard page ────────────────────────────────────────────────────────
 
-export default function DashboardPage({ symbol }) {
+export default function DashboardPage({ symbol, onAnalyze }) {
   console.log("DashboardPage symbol prop:", symbol)
   const { token } = useAuth()
   const { connect, latestSignal } = useWS()
@@ -163,9 +164,7 @@ export default function DashboardPage({ symbol }) {
         {activeTab === "signals" && (
           <SignalsPage symbol={symbol} />
         )}
-        {activeTab === "calendar" && (
-          <ComingSoon label="Results calendar coming in Day 19" />
-        )}
+        {activeTab === "calendar" && <CalendarPage symbol={symbol} onAnalyze={onAnalyze} />}
         {activeTab === "sectors" && (
           <ComingSoon label="Sector comparison coming in Day 20" />
         )}
