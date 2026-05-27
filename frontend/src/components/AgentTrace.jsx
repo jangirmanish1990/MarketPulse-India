@@ -33,6 +33,13 @@ const NODE_META = {
     bgClass: "border-mp-saffron/40 bg-mp-saffron/5",
     textClass: "text-mp-saffron",
   },
+  promoter_intelligence: {
+    label: "Promoter & FII Intelligence",
+    color: "#F472B6",
+    icon: "🏦",
+    bgClass: "border-pink-500/40 bg-pink-500/5",
+    textClass: "text-pink-400",
+  },
   retrieve_rag_context: {
     label: "Retrieving Historical Context",
     color: "#FFB800",
@@ -102,6 +109,10 @@ function buildSummaryLine(node, summary) {
         return "No transcript available — skipped"
       if (summary.tone)
         return `Tone: ${summary.tone} · ${summary.adjustment || "maintain"}`
+      return null
+    case "promoter_intelligence":
+      if (summary.pledging && summary.fii)
+        return `Pledging: ${summary.pledging} · FII: ${summary.fii}`
       return null
     case "retrieve_rag_context":
       return summary.docs_retrieved !== undefined
@@ -381,7 +392,7 @@ export default function AgentTrace({ symbol }) {
         </span>
         <div className="flex-1" />
         <span className="text-xs font-mono text-mp-dim">
-          {completedCount} / 9 nodes
+          {completedCount} / 10 nodes
         </span>
       </div>
 

@@ -7,12 +7,13 @@ Graph topology (CRAG pattern):
             └─► parse_announcement
                   └─► concall_analyzer
                         └─► fetch_india_context
-                              └─► retrieve_rag_context
-                                    └─► grade_documents
-                                          ├─[<2 relevant]─► web_search_fallback ─┐
-                                          └─[≥2 relevant]──────────────────────► generate_analysis
-                                                                                        └─► score_signal
-                                                                                               └─► END
+                              └─► promoter_intelligence
+                                    └─► retrieve_rag_context
+                                          └─► grade_documents
+                                                ├─[<2 relevant]─► web_search_fallback ─┐
+                                                └─[≥2 relevant]──────────────────────► generate_analysis
+                                                                                              └─► score_signal
+                                                                                                     └─► END
 
 LangSmith tracing is automatic when these env vars are set (see .env):
     LANGCHAIN_TRACING_V2=true
@@ -34,6 +35,7 @@ from agents.nodes import (
     generate_analysis,
     grade_documents,
     parse_announcement,
+    promoter_intelligence,
     retrieve_rag_context,
     score_signal,
     web_search_fallback,
@@ -80,6 +82,7 @@ def build_graph() -> StateGraph:  # type: ignore[type-arg]
     graph.add_node("parse_announcement", parse_announcement)  # type: ignore[arg-type]
     graph.add_node("concall_analyzer", concall_analyzer)  # type: ignore[arg-type]
     graph.add_node("fetch_india_context", fetch_india_context)  # type: ignore[arg-type]
+    graph.add_node("promoter_intelligence", promoter_intelligence)  # type: ignore[arg-type]
     graph.add_node("retrieve_rag_context", retrieve_rag_context)  # type: ignore[arg-type]
     graph.add_node("grade_documents", grade_documents)  # type: ignore[arg-type]
     graph.add_node("web_search_fallback", web_search_fallback)  # type: ignore[arg-type]
@@ -91,7 +94,8 @@ def build_graph() -> StateGraph:  # type: ignore[type-arg]
     graph.add_edge("fetch_market_data", "parse_announcement")
     graph.add_edge("parse_announcement", "concall_analyzer")
     graph.add_edge("concall_analyzer", "fetch_india_context")
-    graph.add_edge("fetch_india_context", "retrieve_rag_context")
+    graph.add_edge("fetch_india_context", "promoter_intelligence")
+    graph.add_edge("promoter_intelligence", "retrieve_rag_context")
     graph.add_edge("retrieve_rag_context", "grade_documents")
 
     # ── CRAG conditional branch ────────────────────────────────────────────

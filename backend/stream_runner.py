@@ -36,6 +36,11 @@ NODE_META: dict[str, dict[str, str]] = {
         "color": "#FF9500",
         "icon": "🇮🇳",
     },
+    "promoter_intelligence": {
+        "label": "Promoter & FII Intelligence",
+        "color": "#F472B6",
+        "icon": "🏦",
+    },
     "retrieve_rag_context": {
         "label": "Retrieving Historical Context",
         "color": "#FBBF24",
@@ -97,6 +102,11 @@ def _build_node_summary(node_name: str, output: Any) -> dict[str, object]:
             "available": output.get("concall_available", False),
             "tone": output.get("concall_tone"),
             "adjustment": output.get("concall_signal_adjustment"),
+        },
+        "promoter_intelligence": {
+            "pledging": output.get("promoter_pledging_risk"),
+            "fii": output.get("fii_sentiment"),
+            "confidence_impact": output.get("confidence"),
         },
         "retrieve_rag_context": {
             "docs_retrieved": len(output.get("retrieved_docs", [])),

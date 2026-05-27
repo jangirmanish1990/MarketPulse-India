@@ -60,7 +60,7 @@ class IndiaMarketState(TypedDict):
     promoter_pct: float | None
     promoter_trend: Literal["increasing", "stable", "decreasing"] | None
     promoter_pledging_pct: float | None
-    promoter_pledging_risk: Literal["high", "medium", "low"] | None
+    promoter_pledging_risk: Literal["high", "medium", "low", "none"] | None
     fii_ownership_trend: str | None
 
     # ── Output ─────────────────────────────────────────────────────────────
