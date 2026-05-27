@@ -70,6 +70,10 @@ scripts/data/*.parquet
 data/raw/*/
 !data/raw/.gitkeep
 
+# Concall transcript cache (generated at runtime — keep the folder, not the files)
+data/transcripts/*.json
+!data/transcripts/.gitkeep
+
 # ----- Docker -----
 *.pid
 docker-compose.override.yml
