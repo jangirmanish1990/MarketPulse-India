@@ -1,0 +1,152 @@
+{
+ "Resources": {
+  "MarketPulseWebACL": {
+   "Type": "AWS::WAFv2::WebACL",
+   "Properties": {
+    "DefaultAction": {
+     "Allow": {}
+    },
+    "Description": "MarketPulse India — CloudFront WAF (OWASP + rate limit)",
+    "Name": "marketpulse-india-waf",
+    "Rules": [
+     {
+      "Action": {
+       "Block": {}
+      },
+      "Name": "MarketPulseRateLimit",
+      "Priority": 0,
+      "Statement": {
+       "RateBasedStatement": {
+        "AggregateKeyType": "IP",
+        "Limit": 2000
+       }
+      },
+      "VisibilityConfig": {
+       "CloudWatchMetricsEnabled": true,
+       "MetricName": "MarketPulseRateLimit",
+       "SampledRequestsEnabled": true
+      }
+     },
+     {
+      "Name": "AWSManagedRulesCommonRuleSet",
+      "OverrideAction": {
+       "None": {}
+      },
+      "Priority": 1,
+      "Statement": {
+       "ManagedRuleGroupStatement": {
+        "Name": "AWSManagedRulesCommonRuleSet",
+        "VendorName": "AWS"
+       }
+      },
+      "VisibilityConfig": {
+       "CloudWatchMetricsEnabled": true,
+       "MetricName": "AWSManagedRulesCommonRuleSet",
+       "SampledRequestsEnabled": true
+      }
+     },
+     {
+      "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+      "OverrideAction": {
+       "None": {}
+      },
+      "Priority": 2,
+      "Statement": {
+       "ManagedRuleGroupStatement": {
+        "Name": "AWSManagedRulesKnownBadInputsRuleSet",
+        "VendorName": "AWS"
+       }
+      },
+      "VisibilityConfig": {
+       "CloudWatchMetricsEnabled": true,
+       "MetricName": "AWSManagedRulesKnownBadInputsRuleSet",
+       "SampledRequestsEnabled": true
+      }
+     }
+    ],
+    "Scope": "CLOUDFRONT",
+    "Tags": [
+     {
+      "Key": "Env",
+      "Value": "production"
+     },
+     {
+      "Key": "Project",
+      "Value": "MarketPulse"
+     }
+    ],
+    "VisibilityConfig": {
+     "CloudWatchMetricsEnabled": true,
+     "MetricName": "MarketPulseWebACL",
+     "SampledRequestsEnabled": true
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseWafStack/MarketPulseWebACL"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzI10zNUTCwv1k1OydbNyUzSqw4uSUzO1kksL44vT0wrM9JzTssLT01ydPbRcU7L8y8tKSgtqdUJqCzJyM/TN9YzBCHFrOLMTN2i0rySzNxUvSAIDQDuSyAbXQAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "MarketPulseWafStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "WebAclArn": {
+   "Description": "WAFv2 WebACL ARN — pass to CloudFront web_acl_id",
+   "Value": {
+    "Fn::GetAtt": [
+     "MarketPulseWebACL",
+     "Arn"
+    ]
+   }
+  },
+  "WebAclId": {
+   "Description": "WAFv2 WebACL ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "MarketPulseWebACL",
+     "Id"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

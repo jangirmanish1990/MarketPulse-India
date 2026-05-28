@@ -19,6 +19,7 @@ from ecs_stack import MarketPulseEcsStack
 from frontend_stack import MarketPulseFrontendStack
 from observability_stack import ObservabilityStack
 from polling_stack import NsePollerStack
+from waf_stack import MarketPulseWafStack
 
 app = cdk.App()
 
@@ -30,14 +31,15 @@ ObservabilityStack(app, "MarketPulseObservabilityStack", env=_ENV)
 
 MarketPulseEcsStack(app, "MarketPulseEcsStack", env=_ENV)
 
-# CloudFront is a global service whose control plane lives in us-east-1.
-MarketPulseFrontendStack(
-    app,
-    "MarketPulseFrontendStack",
-    env=cdk.Environment(
-        account=os.environ["CDK_DEFAULT_ACCOUNT"],
-        region="us-east-1",
-    ),
+# CloudFront + WAF must both live in us-east-1.
+_ENV_US = cdk.Environment(
+    account=os.environ["CDK_DEFAULT_ACCOUNT"],
+    region="us-east-1",
 )
+
+MarketPulseFrontendStack(app, "MarketPulseFrontendStack", env=_ENV_US)
+
+# WAFv2 WebACL for CloudFront must also be provisioned in us-east-1.
+MarketPulseWafStack(app, "MarketPulseWafStack", env=_ENV_US)
 
 app.synth()

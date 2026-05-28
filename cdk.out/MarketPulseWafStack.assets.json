@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "f3db28b081d1fdc23d1bb2adf287b71be8b810810444673417b82dd36d891814": {
+      "displayName": "MarketPulseWafStack Template",
+      "source": {
+        "path": "MarketPulseWafStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "775935274215-us-east-1-1361c3d3": {
+          "bucketName": "cdk-hnb659fds-assets-775935274215-us-east-1",
+          "objectKey": "f3db28b081d1fdc23d1bb2adf287b71be8b810810444673417b82dd36d891814.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-file-publishing-role-775935274215-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

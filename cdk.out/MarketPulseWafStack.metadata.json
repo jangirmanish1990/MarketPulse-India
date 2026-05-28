@@ -1,5 +1,5 @@
 {
-  "/MarketPulseFrontendStack": [
+  "/MarketPulseWafStack": [
     {
       "type": "aws:cdk:creationStack",
       "data": [
@@ -12,10 +12,10 @@
       ]
     }
   ],
-  "/MarketPulseFrontendStack/CloudFrontURL": [
+  "/MarketPulseWafStack/MarketPulseWebACL": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "CloudFrontURL"
+      "data": "MarketPulseWebACL"
     },
     {
       "type": "aws:cdk:creationStack",
@@ -29,10 +29,10 @@
       ]
     }
   ],
-  "/MarketPulseFrontendStack/BucketName": [
+  "/MarketPulseWafStack/WebAclArn": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "BucketName"
+      "data": "WebAclArn"
     },
     {
       "type": "aws:cdk:creationStack",
@@ -46,10 +46,10 @@
       ]
     }
   ],
-  "/MarketPulseFrontendStack/DistributionId": [
+  "/MarketPulseWafStack/WebAclId": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "DistributionId"
+      "data": "WebAclId"
     },
     {
       "type": "aws:cdk:creationStack",
@@ -63,7 +63,7 @@
       ]
     }
   ],
-  "/MarketPulseFrontendStack/BootstrapVersion": [
+  "/MarketPulseWafStack/BootstrapVersion": [
     {
       "type": "aws:cdk:logicalId",
       "data": "BootstrapVersion"
@@ -76,7 +76,7 @@
       ]
     }
   ],
-  "/MarketPulseFrontendStack/CheckBootstrapVersion": [
+  "/MarketPulseWafStack/CheckBootstrapVersion": [
     {
       "type": "aws:cdk:logicalId",
       "data": "CheckBootstrapVersion"
@@ -89,43 +89,7 @@
       ]
     }
   ],
-  "/MarketPulseFrontendStack/FrontendBucket/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "FrontendBucketEFE2E19C"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new Bucket2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
-        "...node internals..."
-      ]
-    }
-  ],
-  "/MarketPulseFrontendStack/FrontendDistribution/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "FrontendDistributionE6EAF405"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new Distribution2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
-        "...node internals..."
-      ]
-    }
-  ],
-  "/MarketPulseFrontendStack/CDKMetadata/Default": [
+  "/MarketPulseWafStack/CDKMetadata/Default": [
     {
       "type": "aws:cdk:logicalId",
       "data": "CDKMetadata"
@@ -137,34 +101,6 @@
         "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)",
         "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:69992)",
         "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:54294)"
-      ]
-    }
-  ],
-  "/MarketPulseFrontendStack/FrontendBucket/Policy/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "FrontendBucketPolicy1DFF75D9"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...aws-cdk-lib...",
-        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
-      ]
-    }
-  ],
-  "/MarketPulseFrontendStack/FrontendDistribution/Origin1/S3OriginAccessControl/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "FrontendDistributionOrigin1S3OriginAccessControl51A3EFC6"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new Distribution2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)"
       ]
     }
   ]
