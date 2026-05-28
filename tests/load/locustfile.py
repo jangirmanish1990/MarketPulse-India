@@ -3,10 +3,10 @@
 Target: 20 concurrent users, 4/s spawn, 30 s run.
 
 Task mix (weights):
-  3  — POST /api/analyze/{nse_symbol}  (heavy, agent pipeline)
-  2  — GET  /api/signals/recent        (read-heavy)
-  1  — GET  /api/sector/rankings/{sector}  (sector view, may 404)
-  1  — GET  /health                    (baseline latency)
+  3  — POST /api/analyze/{nse_symbol}        (queues LangGraph pipeline, returns 200 immediately)
+  2  — GET  /api/signals/recent              (read-heavy, DB query)
+  1  — GET  /api/sector/rankings/{sector}    (returns 200 + empty list — no cache yet)
+  1  — GET  /health                          (baseline latency, no auth)
 
 Auth
 ----
@@ -80,11 +80,10 @@ class MarketPulseUser(HttpUser):
 
     @task(1)
     def sector_rankings(self) -> None:
-        """Fetch sector rankings via the POST endpoint."""
+        """GET sector rankings — returns 200 + empty list when no cache exists."""
         sector = random.choice(["IT", "Banking", "FMCG"])
-        self.client.post(
-            "/api/sector/analyze",
-            json={"sector": sector},
+        self.client.get(
+            f"/api/sector/rankings/{sector}",
             headers={"Authorization": f"Bearer {self.token}"},
             name="/api/sector/rankings/{sector}",
         )

@@ -23,11 +23,38 @@ What it does
    │ Aggregated                           │  14.7  │ 4500ms │     3 │
    └──────────────────────────────────────┴────────┴────────┴───────┘
 
+6. Determines a PASS / FAIL verdict:
+
+   Pass criterion
+   --------------
+   * Overall failure rate < 5 % across all endpoints.
+
+   RPS is shown for information only — no RPS gate.  The LangGraph
+   agent pipeline takes 2–3 s per request, so aggregate RPS is naturally
+   low (~4) even at full concurrency.  That is expected and acceptable.
+
+   Auth-failure note
+   -----------------
+   If POST /api/auth/login itself failed for every request (e.g. testuser
+   not seeded), all 401s on auth-gated endpoints are flagged as auth issues,
+   not application failures.
+   Run ``python scripts/seed_test_user.py`` to seed the test credential.
+
+7. Prints final verdict:
+
+   ✅ Load test PASSED — 4.1 RPS, 0.0% failures
+   Core endpoints responding under 20 concurrent users
+
+   or:
+
+   ❌ Load test FAILED — 18.3% failure rate (threshold < 5%)
+
 Exit codes
 ----------
-  0 — test completed (non-zero failure count is reported but doesn't gate)
+  0 — test completed and verdict PASSED
   1 — backend unreachable (test not started)
   2 — locust subprocess exited with non-zero status
+  3 — test completed but verdict FAILED (failure rate ≥ 5 %)
 """
 
 from __future__ import annotations
@@ -45,18 +72,38 @@ from pathlib import Path
 _ROOT        = Path(__file__).resolve().parents[1]
 _LOCUSTFILE  = _ROOT / "tests" / "load" / "locustfile.py"
 _REPORT_HTML = _ROOT / "tests" / "load" / "report.html"
-_REPORT_CSV  = _ROOT / "tests" / "load" / "stats"          # locust appends _stats.csv etc.
+_REPORT_CSV  = _ROOT / "tests" / "load" / "stats"   # locust appends _stats.csv
 _HOST        = "http://localhost:8000"
 _USERS       = 20
 _SPAWN_RATE  = 4
 _RUN_TIME    = "30s"
+_MAX_FAIL_PCT = 5.0   # verdict threshold — overall failure rate must be below this
 
 _SEP  = "═" * 66
 _THIN = "─" * 66
 
 
 # ---------------------------------------------------------------------------
-# Helpers
+# Small numeric helpers
+# ---------------------------------------------------------------------------
+
+
+def _safe_float(v: object, default: float = 0.0) -> float:
+    try:
+        return float(v)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_int(v: object, default: int = 0) -> int:
+    try:
+        return int(float(v))  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return default
+
+
+# ---------------------------------------------------------------------------
+# Backend reachability probe
 # ---------------------------------------------------------------------------
 
 
@@ -72,9 +119,13 @@ def _backend_reachable() -> bool:
         return False
 
 
+# ---------------------------------------------------------------------------
+# Locust subprocess runner
+# ---------------------------------------------------------------------------
+
+
 def _run_locust() -> int:
     """Execute locust as a subprocess and return its exit code."""
-    # Ensure output directory exists.
     _REPORT_HTML.parent.mkdir(parents=True, exist_ok=True)
 
     cmd = [
@@ -87,22 +138,26 @@ def _run_locust() -> int:
         f"--host={_HOST}",
         f"--html={_REPORT_HTML}",
         f"--csv={_REPORT_CSV}",
-        "--only-summary",          # suppress per-second output noise
+        "--only-summary",
     ]
 
-    print(f"  Running: {' '.join(cmd[2:])}")   # omit 'python -m' prefix
+    print(f"  Running: {' '.join(cmd[2:])}")
     print()
 
     result = subprocess.run(cmd, cwd=_ROOT)
     return result.returncode
 
 
-def _parse_csv_stats() -> list[dict[str, str]]:
-    """Read tests/load/stats_stats.csv and return rows as list-of-dicts.
+# ---------------------------------------------------------------------------
+# CSV stats parser
+# ---------------------------------------------------------------------------
 
-    Locust 2.x names the file  <prefix>_stats.csv  where <prefix> is the
-    --csv argument.  We fall back to any *_stats.csv glob if the canonical
-    name is missing.
+
+def _parse_csv_stats() -> list[dict[str, str]]:
+    """Read the locust *_stats.csv and return rows as list-of-dicts.
+
+    Locust 2.x writes  <prefix>_stats.csv  where <prefix> is --csv value.
+    Falls back to the most-recently-modified *_stats.csv in the load dir.
     """
     canonical = Path(str(_REPORT_CSV) + "_stats.csv")
     if not canonical.exists():
@@ -119,17 +174,18 @@ def _parse_csv_stats() -> list[dict[str, str]]:
     return rows
 
 
+# ---------------------------------------------------------------------------
+# Summary table printer
+# ---------------------------------------------------------------------------
+
+
 def _print_summary(rows: list[dict[str, str]]) -> None:
-    """Print the formatted Endpoint / RPS / P95 / Fails table."""
+    """Print the boxed Endpoint / RPS / P95 / Fails table."""
     if not rows:
         print("  ⚠️  No CSV stats found — check tests/load/ for report files.")
         return
 
-    # Column widths
-    W_EP   = 38
-    W_RPS  = 8
-    W_P95  = 8
-    W_FAIL = 7
+    W_EP, W_RPS, W_P95, W_FAIL = 38, 8, 8, 7
 
     def _header() -> str:
         return (
@@ -150,59 +206,25 @@ def _print_summary(rows: list[dict[str, str]]) -> None:
     print(_header())
 
     aggregated_row: dict[str, str] | None = None
-    any_fail = False
-
     for r in rows:
         name = r.get("Name", "").strip()
         if name.lower() in {"aggregated", ""}:
             aggregated_row = r
             continue
 
-        # Locust CSV columns (2.x):
-        #   "Requests/s", "95%", "Failure Count"
-        try:
-            rps  = f"{float(r.get('Requests/s', 0)):.1f}"
-        except ValueError:
-            rps = "—"
-        try:
-            p95  = f"{int(float(r.get('95%', 0)))}ms"
-        except ValueError:
-            p95 = "—"
-        try:
-            fails = str(int(r.get("Failure Count", 0)))
-        except ValueError:
-            fails = "—"
-
-        if fails not in ("0", "—"):
-            any_fail = True
-
+        rps    = f"{_safe_float(r.get('Requests/s')):.1f}"
+        p95    = f"{_safe_int(r.get('95%'))}ms"
+        fails  = str(_safe_int(r.get("Failure Count")))
         print(_row(name, rps, p95, fails))
 
-    # Aggregated row always printed last, separated by a thin rule.
     if aggregated_row:
         print(f"  ├{'─'*W_EP}┼{'─'*W_RPS}┼{'─'*W_P95}┼{'─'*W_FAIL}┤")
-        try:
-            rps  = f"{float(aggregated_row.get('Requests/s', 0)):.1f}"
-        except ValueError:
-            rps = "—"
-        try:
-            p95  = f"{int(float(aggregated_row.get('95%', 0)))}ms"
-        except ValueError:
-            p95 = "—"
-        try:
-            fails = str(int(aggregated_row.get("Failure Count", 0)))
-        except ValueError:
-            fails = "—"
+        rps   = f"{_safe_float(aggregated_row.get('Requests/s')):.1f}"
+        p95   = f"{_safe_int(aggregated_row.get('95%'))}ms"
+        fails = str(_safe_int(aggregated_row.get("Failure Count")))
         print(_row("Aggregated", rps, p95, fails))
 
     print(_footer())
-    print()
-
-    if any_fail:
-        print("  ⚠️  Some endpoints reported failures — see report.html for details.")
-    else:
-        print("  ✅  Zero failures across all endpoints.")
-
     print()
 
     try:
@@ -210,6 +232,99 @@ def _print_summary(rows: list[dict[str, str]]) -> None:
     except ValueError:
         rel = _REPORT_HTML
     print(f"  HTML report → {rel}")
+
+
+# ---------------------------------------------------------------------------
+# Verdict logic
+# ---------------------------------------------------------------------------
+
+
+def _print_verdict(rows: list[dict[str, str]]) -> bool:
+    """Evaluate pass/fail, print the verdict line, return True when passed.
+
+    Pass criterion
+    --------------
+    Overall failure rate (Aggregated row) < _MAX_FAIL_PCT (5.0 %).
+
+    RPS is informational only — no RPS gate.  The LangGraph agent pipeline
+    takes 2–3 s per stock, so aggregate throughput is naturally ~4 RPS under
+    20 concurrent users.  That is expected behaviour, not a failure.
+
+    Auth-failure note
+    -----------------
+    If every /api/auth/login request failed, 401s on auth-gated endpoints
+    are flagged as a configuration issue, not an application bug.
+    Run ``python scripts/seed_test_user.py`` to seed the test credential.
+    """
+    if not rows:
+        print()
+        print("  ⚠️  No stats to evaluate — verdict skipped.")
+        return False
+
+    # Index rows by name for quick lookup.
+    by_name: dict[str, dict[str, str]] = {}
+    for r in rows:
+        name = r.get("Name", "").strip()
+        by_name[name] = r
+
+    agg    = by_name.get("Aggregated") or by_name.get("aggregated")
+    health = by_name.get("/health")
+    auth   = by_name.get("/api/auth/login")
+
+    # ── Overall failure rate (gate) ───────────────────────────────────────────
+    overall_fail_pct = 100.0
+    overall_rps      = 0.0
+    if agg:
+        total = _safe_int(agg.get("Request Count"))
+        fails = _safe_int(agg.get("Failure Count"))
+        overall_fail_pct = (fails / total * 100) if total > 0 else 0.0
+        overall_rps      = _safe_float(agg.get("Requests/s"))
+
+    passed = overall_fail_pct < _MAX_FAIL_PCT
+
+    # ── /health failure rate (informational) ─────────────────────────────────
+    health_fail_pct = 0.0
+    if health:
+        total = _safe_int(health.get("Request Count"))
+        fails = _safe_int(health.get("Failure Count"))
+        health_fail_pct = (fails / total * 100) if total > 0 else 0.0
+
+    # ── Auth-failure root-cause detection ─────────────────────────────────────
+    auth_login_failed = False
+    if auth:
+        total = _safe_int(auth.get("Request Count"))
+        fails = _safe_int(auth.get("Failure Count"))
+        auth_login_failed = total > 0 and fails == total
+
+    # ── Verdict line ──────────────────────────────────────────────────────────
+    print()
+    print(_THIN)
+
+    if passed:
+        detail = f"{overall_rps:.1f} RPS, {overall_fail_pct:.1f}% failures"
+        print(f"  ✅ Load test PASSED — {detail}")
+        print(f"  Core endpoints responding under {_USERS} concurrent users")
+    else:
+        detail = (
+            f"{overall_fail_pct:.1f}% failure rate "
+            f"(threshold < {_MAX_FAIL_PCT:.0f}%)"
+        )
+        print(f"  ❌ Load test FAILED — {detail}")
+
+    # ── Supplementary notes ───────────────────────────────────────────────────
+    if health_fail_pct > 0:
+        print(f"  ⚠️  /health failure rate: {health_fail_pct:.1f}%  (should be 0%)")
+
+    if auth_login_failed:
+        print()
+        print("  ⚠️  Auth note: every /api/auth/login request returned an error.")
+        print("      401 failures on auth-gated endpoints are a configuration")
+        print("      issue, not application bugs.  Seed the test credential:")
+        print("        python scripts/seed_test_user.py")
+
+    print(_THIN)
+
+    return passed
 
 
 # ---------------------------------------------------------------------------
@@ -248,7 +363,7 @@ def main() -> None:
     print(f"  Locust finished in {elapsed:.1f}s  (exit code {exit_code})")
     print()
 
-    # ── 3. Parse and print summary ────────────────────────────────────────────
+    # ── 3. Parse and print summary table ─────────────────────────────────────
     print(_SEP)
     print("  Load Test Results")
     print(_THIN)
@@ -257,12 +372,19 @@ def main() -> None:
     rows = _parse_csv_stats()
     _print_summary(rows)
 
+    # ── 4. Verdict ────────────────────────────────────────────────────────────
+    passed = _print_verdict(rows)
+
     print(_SEP)
     print()
 
+    # ── 5. Exit code ──────────────────────────────────────────────────────────
     if exit_code != 0:
-        print(f"  ⚠️  Locust exited with code {exit_code} — check output above.")
+        print(f"  ⚠️  Locust process exited with code {exit_code} — check output above.")
         sys.exit(2)
+
+    if not passed:
+        sys.exit(3)
 
 
 if __name__ == "__main__":

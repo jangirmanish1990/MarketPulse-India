@@ -47,7 +47,14 @@ DEMO_USERS: dict[str, dict[str, str]] = {
         "user_id": "00000000-0000-0000-0000-000000000001",
         "name": "Manish",
         "email": "manish@marketpulse.in",
-    }
+    },
+    # Load-test / CI user — seeded in the users table by scripts/seed_test_user.py
+    "testuser": {
+        "password_hash": hash_password("testpass123"),
+        "user_id": "00000000-0000-0000-0000-000000000099",
+        "name": "Test User",
+        "email": "test@marketpulse.in",
+    },
 }
 
 

@@ -1,5 +1,1 @@
 Method,Name,Error,Occurrences,First Seen,Last Seen
-POST,/api/analyze,HTTPError('401 Client Error: Unauthorized for url: /api/analyze'),98,2026-05-28T06:09:17Z,2026-05-28T06:09:43Z
-GET,/api/signals,HTTPError('401 Client Error: Unauthorized for url: /api/signals'),70,2026-05-28T06:09:16Z,2026-05-28T06:09:41Z
-POST,/api/auth/login,HTTPError('401 Client Error: Unauthorized for url: /api/auth/login'),20,2026-05-28T06:09:15Z,2026-05-28T06:09:19Z
-POST,/api/sector/rankings/{sector},HTTPError('401 Client Error: Unauthorized for url: /api/sector/rankings/{sector}'),41,2026-05-28T06:09:17Z,2026-05-28T06:09:42Z

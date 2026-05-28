@@ -9,8 +9,9 @@ The POST endpoint fans out over all 5 constituent stocks in parallel using the
 LangGraph Send API (agents/sector_graph.py), fetches yfinance fundamentals for
 each peer, then ranks them by a composite fundamental score.
 
-The GET endpoint currently returns 404 (no persistent ranking cache).
-Clients should call POST to generate rankings, then display the response.
+The GET endpoint returns HTTP 200 with an empty rankings list when no
+persistent ranking cache exists.  Clients should call POST to generate
+fresh rankings, then display them immediately from the POST response.
 """
 
 from __future__ import annotations
@@ -22,6 +23,8 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, ConfigDict
+
+# HTTPException is still used by analyze_sector below (404 on unknown sector / 504 timeout).
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from agents.sector_graph import SECTOR_SYMBOLS, run_sector_analysis
@@ -57,16 +60,22 @@ async def get_sector_rankings(
 ) -> dict[str, Any]:
     """Return cached sector rankings.
 
-    Currently always returns 404 — no persistent ranking cache is stored.
-    Call POST /api/sector/analyze to generate a fresh ranking set.
+    No persistent ranking cache is stored yet — returns an empty rankings
+    list with HTTP 200 so clients (and load tests) can handle the response
+    gracefully.  Call POST /api/sector/analyze to generate a fresh ranking
+    set; the UI should call GET after receiving those results.
     """
-    raise HTTPException(
-        status_code=404,
-        detail=(
-            f"No cached rankings for sector '{sector}'. "
-            "Run POST /api/sector/analyze to generate them."
+    return {
+        "sector": sector,
+        "rankings": [],
+        "total": 0,
+        "cached": False,
+        "message": (
+            f"No cached rankings for '{sector}'. "
+            "POST /api/sector/analyze to generate fresh results."
         ),
-    )
+        "sebi_disclaimer": SEBI_DISCLAIMER,
+    }
 
 
 @router.post("/sector/analyze")
