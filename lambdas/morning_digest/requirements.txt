@@ -1,0 +1,14 @@
+# Dependencies bundled into the morning_digest Lambda zip.
+# The backend/ package is included separately by the deploy script.
+#
+# psycopg[binary] is chosen over psycopg2-binary because the project already
+# pins psycopg3 (psycopg[binary]>=3.2) in pyproject.toml, avoiding a second
+# Postgres driver in the package.  The sync API is identical to psycopg2 for
+# the simple queries used here.
+aiohttp>=3.10
+python-telegram-bot>=21.0
+boto3>=1.35
+psycopg[binary]>=3.2
+pydantic>=2.9
+python-dotenv>=1.0
+requests>=2.32

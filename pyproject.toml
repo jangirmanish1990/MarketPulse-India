@@ -67,6 +67,11 @@ dependencies = [
     # --- Task scheduling ---
     "apscheduler>=3.10",
 
+    # --- Alert channels ---
+    "aiohttp>=3.10",               # WhatsApp (Meta Cloud API)
+    "python-telegram-bot>=21.0",   # Telegram Bot API (async-native v20+)
+    "boto3>=1.35",                  # AWS SNS for SMS dispatch
+
     # --- News / RSS ---
     "feedparser>=6.0",
 
@@ -170,6 +175,17 @@ ignore_missing_imports = true
 module = ["feedparser.*", "langchain_postgres.*"]
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+# boto3 ships no inline types; use boto3-stubs[sns] for full coverage.
+module = ["boto3.*", "botocore.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# python-telegram-bot includes py.typed from v21 — override kept as a
+# safety net for older environments.
+module = ["telegram.*"]
+ignore_missing_imports = true
+
 # -----------------------------------------------------------------------------
 # Pytest
 # -----------------------------------------------------------------------------
@@ -177,7 +193,7 @@ ignore_missing_imports = true
 minversion = "8.0"
 addopts = "-ra --strict-markers --strict-config"
 testpaths = ["tests"]
-# asyncio_mode = "auto"
+asyncio_mode = "auto"
 markers = [
     "evals: long-running LLM evaluation tests (deselect with -m 'not evals')",
     "e2e: end-to-end tests requiring full stack up",
