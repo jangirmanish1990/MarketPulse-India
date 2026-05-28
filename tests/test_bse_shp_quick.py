@@ -2,41 +2,72 @@
 
 These tests import the helper functions directly and exercise the mock-data
 path without needing a live BSE connection or MCP runtime.
+
+Isolation note
+--------------
+The BSE server module is loaded via ``spec_from_file_location`` into a unique
+key so that stubs set by other test files (test_sector_graph_smoke.py uses
+plain ``MagicMock()`` for ``mcp.*``) do not corrupt the identity-preserving
+``@mcp.tool()`` decorator pattern this module needs.  The stubs are force-set
+(not ``setdefault``) immediately before loading so they always win.
 """
 from __future__ import annotations
 
+import importlib.util
 import sys
 from pathlib import Path
 from typing import Any
 from unittest.mock import MagicMock, patch
 
-# ── inject a stub FastMCP so the module loads without mcp installed ──────── #
-_stub_mcp_module = MagicMock()
-_stub_fastmcp = MagicMock()
-_stub_fastmcp.tool = lambda **_kw: (lambda f: f)
-_stub_mcp_module.server.fastmcp.FastMCP = lambda name: _stub_fastmcp
-sys.modules.setdefault("mcp", _stub_mcp_module)
-sys.modules.setdefault("mcp.server", _stub_mcp_module.server)
-sys.modules.setdefault("mcp.server.fastmcp", _stub_mcp_module.server.fastmcp)
+_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_ROOT))
+
+# ── Build and force-install a properly configured MCP stub ───────────────── #
+# Force-set (not setdefault) so we win even if another test file already put a
+# plain MagicMock() there.  The critical piece is that @mcp.tool() must act as
+# an identity decorator — plain MagicMock would swallow the decorated function.
+_stub_fastmcp_instance = MagicMock()
+_stub_fastmcp_instance.tool = lambda **_kw: (lambda f: f)
+
+_stub_fastmcp_cls = MagicMock()
+_stub_fastmcp_cls.side_effect = lambda name: _stub_fastmcp_instance  # FastMCP("bse") → instance
+
+_stub_fastmcp_mod = MagicMock()
+_stub_fastmcp_mod.FastMCP = _stub_fastmcp_cls
+
+_stub_mcp_server = MagicMock()
+_stub_mcp_server.fastmcp = _stub_fastmcp_mod
+
+_stub_mcp = MagicMock()
+_stub_mcp.server = _stub_mcp_server
+_stub_mcp.server.fastmcp = _stub_fastmcp_mod
+
+sys.modules["mcp"] = _stub_mcp
+sys.modules["mcp.server"] = _stub_mcp_server
+sys.modules["mcp.server.fastmcp"] = _stub_fastmcp_mod
 
 # Also stub requests so no real network call is made during import
 import unittest.mock as _um  # noqa: E402
 sys.modules.setdefault("requests", _um.MagicMock())
 
-_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(_ROOT))
-
-# Now import the server helpers directly
-from mcp_servers.bse.server import (  # noqa: E402
-    DEFAULT_SHP,
-    MOCK_SHP_DATA,
-    NSE_TO_BSE,
-    _flow_classification,
-    _parse_shp_response,
-    _pledging_risk,
-    get_fii_dii_flows,
-    get_shareholding_pattern,
+# ── Load the BSE server module directly (bypasses any cached broken version) #
+_bse_file = _ROOT / "mcp_servers" / "bse" / "server.py"
+_bse_spec = importlib.util.spec_from_file_location(
+    "mcp_servers.bse.server_isolated", _bse_file
 )
+assert _bse_spec and _bse_spec.loader
+_bse_mod = importlib.util.module_from_spec(_bse_spec)
+sys.modules["mcp_servers.bse.server_isolated"] = _bse_mod
+_bse_spec.loader.exec_module(_bse_mod)  # type: ignore[union-attr]
+
+DEFAULT_SHP = _bse_mod.DEFAULT_SHP
+MOCK_SHP_DATA = _bse_mod.MOCK_SHP_DATA
+NSE_TO_BSE = _bse_mod.NSE_TO_BSE
+_flow_classification = _bse_mod._flow_classification  # noqa: SLF001
+_parse_shp_response = _bse_mod._parse_shp_response    # noqa: SLF001
+_pledging_risk = _bse_mod._pledging_risk               # noqa: SLF001
+get_fii_dii_flows = _bse_mod.get_fii_dii_flows
+get_shareholding_pattern = _bse_mod.get_shareholding_pattern
 
 
 # --------------------------------------------------------------------------- #
@@ -141,7 +172,7 @@ class TestParseShpResponse:
 class TestGetShareholdingPattern:
     def _call(self, symbol: str) -> dict[str, Any]:
         # Patch bse_get to raise so we always hit the mock path
-        with patch("mcp_servers.bse.server.bse_get", side_effect=ConnectionError("offline")):
+        with patch("mcp_servers.bse.server_isolated.bse_get", side_effect=ConnectionError("offline")):
             return get_shareholding_pattern(symbol)  # type: ignore[return-value]
 
     def test_reliance_mock_data(self) -> None:

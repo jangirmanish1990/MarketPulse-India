@@ -45,6 +45,7 @@ from backend.middleware import (
 )
 from backend.routers.analyze import router as analyze_router
 from backend.routers.market import router as market_router
+from backend.routers.sector import router as sector_router
 from backend.routers.signals import router as signals_router
 from backend.routers.stocks import router as stocks_router
 from backend.routers.watchlist import router as watchlist_router
@@ -120,6 +121,7 @@ app.add_middleware(ISTTimezoneMiddleware)
 
 # ── Routers ───────────────────────────────────────────────────────────────────
 app.include_router(analyze_router, prefix="/api", tags=["Analysis"])
+app.include_router(sector_router, prefix="/api", tags=["Sector"])
 app.include_router(signals_router, prefix="/api", tags=["Signals"])
 app.include_router(watchlist_router, prefix="/api", tags=["Watchlist"])
 app.include_router(market_router, prefix="/api", tags=["Market"])

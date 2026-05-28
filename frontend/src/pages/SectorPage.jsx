@@ -6,6 +6,25 @@ const API = ""
 
 const SECTORS = ["IT", "Banking", "FMCG", "Pharma", "Energy"]
 
+// ─── Sector constituent symbols (mirrors agents/sector_graph.py) ───────────
+
+const SECTOR_SYMBOLS = {
+  IT:      ["TCS", "INFY", "WIPRO", "HCLTECH", "TECHM"],
+  Banking: ["HDFCBANK", "ICICIBANK", "KOTAKBANK", "AXISBANK", "SBIN"],
+  FMCG:    ["HINDUNILVR", "ITC", "NESTLEIND", "DABUR", "MARICO"],
+  Pharma:  ["SUNPHARMA", "DRREDDY", "CIPLA", "DIVISLAB", "AUROPHARMA"],
+  Energy:  ["RELIANCE", "ONGC", "NTPC", "POWERGRID", "COALINDIA"],
+}
+
+// Static index names used in the summary bar (POST endpoint doesn't return them)
+const SECTOR_INDEX_MAP = {
+  IT:      "Nifty IT",
+  Banking: "Nifty Bank",
+  FMCG:    "Nifty FMCG",
+  Pharma:  "Nifty Pharma",
+  Energy:  "Nifty Energy",
+}
+
 // ─── Number formatters ─────────────────────────────────────────────────────
 
 function numFmt(n, dec = 1) {
@@ -36,21 +55,65 @@ function minMaxNorm(values) {
 
 function computeScores(peers) {
   if (!peers.length) return []
-  const rev = peers.map((p) => p.metrics.revenue_growth_pct)
-  const pat = peers.map((p) => p.metrics.pat_margin_pct)
-  const roe = peers.map((p) => p.metrics.roe_pct)
+  const rev = peers.map((p) => p.metrics?.revenue_growth_pct ?? 0)
+  const pat = peers.map((p) => p.metrics?.pat_margin_pct     ?? 0)
+  const roe = peers.map((p) => p.metrics?.roe_pct            ?? 0)
   const rN  = minMaxNorm(rev)
   const pN  = minMaxNorm(pat)
   const oN  = minMaxNorm(roe)
   return peers.map((_, i) => rN[i] * 0.35 + pN[i] * 0.35 + oN[i] * 0.30)
 }
 
+// ─── Normalise POST /sector/analyze response → table-ready shape ──────────
+// POST /api/sector/analyze returns flat PeerResult dicts in `sector_ranking`.
+// The existing table components expect nested {metrics, latest_signal}.
+// This adapter shapes the response so no table component needs changing.
+
+function normalizeLiveData(postData) {
+  return {
+    sector:                  postData.sector,
+    // POST doesn't return sector_index/change — fill from static map
+    sector_index:            SECTOR_INDEX_MAP[postData.sector] ?? postData.sector,
+    sector_index_change_pct: null,
+    sector_signal:           postData.sector_signal,
+    fii_trend:               postData.fii_trend,
+    sebi_disclaimer:         postData.sebi_disclaimer,
+    // Accept sector_ranking (new endpoint) or peers (legacy) interchangeably
+    peers: (postData.sector_ranking ?? postData.peers ?? []).map((p) => ({
+      nse_symbol:      p.nse_symbol,
+      company_name:    p.company_name,
+      sector:          p.sector,
+      rank:            p.rank,
+      is_sector_best:  p.is_sector_best,
+      // Keep composite_score from the graph so the scores useMemo can use it
+      // directly rather than re-computing from incomplete metrics.
+      _composite_score: p.composite_score,
+      latest_signal:
+        p.signal_direction && p.signal_direction !== "—" && p.signal_direction !== ""
+          ? {
+              direction:  p.signal_direction,
+              confidence: p.confidence,
+              target_inr: p.target_price_inr,
+            }
+          : null,
+      metrics: {
+        pe_ratio:           p.pe_ratio        ?? 0,
+        market_cap_cr:      null,
+        // yfinance quick-fetch doesn't return revenue_growth — show "—" in table
+        revenue_growth_pct: null,
+        pat_margin_pct:     p.pat_margin_pct  ?? 0,
+        roe_pct:            p.roe_pct         ?? 0,
+      },
+    })),
+  }
+}
+
 // ─── Sub-components ────────────────────────────────────────────────────────
 
-// Section 1 — tab strip
-function SectorTabs({ active, onChange }) {
+// Section 1 — tab strip (accepts children so the Analyse button can sit inline)
+function SectorTabs({ active, onChange, children }) {
   return (
-    <div className="flex border-b border-mp-border flex-shrink-0">
+    <div className="flex items-center border-b border-mp-border flex-shrink-0">
       {SECTORS.map((s) => (
         <button
           key={s}
@@ -64,6 +127,7 @@ function SectorTabs({ active, onChange }) {
           {s}
         </button>
       ))}
+      {children}
     </div>
   )
 }
@@ -495,62 +559,155 @@ export default function SectorPage({ onAnalyze }) {
   const { token } = useAuth()
 
   const [activeSector, setActiveSector] = useState("IT")
-  const [data,    setData]    = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error,   setError]   = useState(null)
+  const [data,         setData]         = useState(null)
+  const [loading,      setLoading]      = useState(false)  // GET /sector/rankings
+  const [analyzing,    setAnalyzing]    = useState(false)  // POST /sector/analyze
+  const [progress,     setProgress]     = useState(0)
+  const [error,        setError]        = useState(null)
 
-  // Compute composite scores from peer metrics (mirrors backend formula)
-  const scores = useMemo(
-    () => (data ? computeScores(data.peers) : []),
-    [data]
-  )
+  // ── Composite scores ──────────────────────────────────────────────────────
+  // Live analysis provides composite_score directly (includes PE inversion).
+  // Fall back to client-side computation when loading cached GET data.
+  const scores = useMemo(() => {
+    if (!data) return []
+    if (data.peers[0]?._composite_score !== undefined) {
+      return data.peers.map((p) => p._composite_score ?? 0)
+    }
+    return computeScores(data.peers)
+  }, [data])
 
-  // Fetch whenever the active sector or token changes
+  // ── On mount / tab switch: try to load cached rankings ───────────────────
+  // GET /api/sector/rankings/{sector} — currently always 404 (no cache).
+  // On 404/error: leave data=null so the empty state shows; do not set error
+  // (error state is reserved for POST failures the user should act on).
   useEffect(() => {
     if (!token) return
     setLoading(true)
-    setError(null)
     setData(null)
+    setError(null)
 
     axios
-      .get(`${API}/api/stocks/sectors/${activeSector}`, {
-        headers: { Authorization: `Bearer ${token}` },
+      .get(`${API}/api/sector/rankings/${activeSector}`, {
+        headers: { Authorization: "Bearer " + token },
       })
-      .then((res) => setData(res.data))
-      .catch(() => setError(`Failed to load ${activeSector} sector data.`))
+      .then((res) => setData(normalizeLiveData(res.data)))
+      .catch(() => {}) // 404 → empty state; user clicks ▶ Analyse Sector
       .finally(() => setLoading(false))
-  }, [activeSector, token])
+  }, [activeSector, token]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Analyse Sector button — POST /api/sector/analyze ─────────────────────
+  const analyzeSector = async (sector) => {
+    setAnalyzing(true)
+    setProgress(0)
+    setData(null)
+    setError(null)
+
+    // Simulate progress while the parallel graph executes (~15-60 s)
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => Math.min(prev + 8, 90))
+    }, 1000)
+
+    try {
+      const res = await axios.post(
+        `${API}/api/sector/analyze`,
+        { sector },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        },
+      )
+      clearInterval(progressInterval)
+      setProgress(100)
+      setData(normalizeLiveData(res.data))
+    } catch (e) {
+      clearInterval(progressInterval)
+      setError(e.response?.data?.detail || "Analysis failed")
+    } finally {
+      setAnalyzing(false)
+    }
+  }
 
   return (
     <div className="flex flex-col gap-4 p-4 h-full overflow-auto">
 
-      {/* ── Section 1: Sector tabs ── */}
-      <SectorTabs active={activeSector} onChange={setActiveSector} />
+      {/* ── Section 1: Sector tabs + Analyse button ── */}
+      <SectorTabs active={activeSector} onChange={setActiveSector}>
+        <button
+          onClick={() => analyzeSector(activeSector)}
+          disabled={loading || analyzing}
+          className="mp-btn-primary text-xs px-3 py-1.5 ml-auto"
+        >
+          {analyzing ? "Analyzing..." : "▶ Analyse Sector"}
+        </button>
+      </SectorTabs>
 
-      {/* ── Loading ── */}
-      {loading && <LoadingShell />}
+      {/* ── Progress bar (while parallel analysis is running) ── */}
+      {analyzing && (
+        <div className="mp-card">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="flex gap-1">
+              {[...Array(5)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 rounded-full bg-mp-saffron animate-pulse"
+                  style={{ animationDelay: `${i * 0.15}s` }}
+                />
+              ))}
+            </div>
+            <span className="text-xs font-mono text-mp-saffron">
+              Analyzing {activeSector} sector in parallel...
+            </span>
+          </div>
+
+          {/* Smooth progress bar — fills via CSS transition-all */}
+          <div className="h-1.5 bg-mp-surface2 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-mp-saffron rounded-full transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          <div className="flex justify-between mt-2 text-xs font-mono text-mp-dim">
+            <span>Running 5 parallel analyses...</span>
+            <span>{progress}%</span>
+          </div>
+
+          {/* Per-stock pulse tiles */}
+          <div className="grid grid-cols-5 gap-2 mt-3">
+            {SECTOR_SYMBOLS[activeSector]?.map((sym, i) => (
+              <div
+                key={sym}
+                className="text-center p-2 rounded border border-mp-border
+                           bg-mp-surface2 animate-pulse"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              >
+                <div className="text-xs font-mono text-mp-saffron font-bold">
+                  {sym}
+                </div>
+                <div className="text-xs text-mp-dim mt-0.5">
+                  analyzing...
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Simple spinner — while GET /sector/rankings is in flight ── */}
+      {loading && !analyzing && <LoadingShell />}
 
       {/* ── Error ── */}
-      {!loading && error && (
+      {!loading && !analyzing && error && (
         <ErrorShell
           message={error}
-          onRetry={() => {
-            setActiveSector((s) => s) // keep same, re-trigger via useEffect
-            setError(null)
-            setLoading(true)
-            axios
-              .get(`${API}/api/stocks/sectors/${activeSector}`, {
-                headers: { Authorization: `Bearer ${token}` },
-              })
-              .then((res) => setData(res.data))
-              .catch(() => setError(`Failed to load ${activeSector} sector data.`))
-              .finally(() => setLoading(false))
-          }}
+          onRetry={() => analyzeSector(activeSector)}
         />
       )}
 
-      {/* ── Data loaded ── */}
-      {!loading && !error && data && (
+      {/* ── Results ── */}
+      {!loading && !analyzing && !error && data && (
         <>
           {/* Section 2: Summary bar */}
           <SectorSummaryBar data={data} />

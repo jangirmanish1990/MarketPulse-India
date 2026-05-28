@@ -22,14 +22,14 @@ sys.path.insert(0, str(_ROOT))
 # This bypasses agents/nodes/__init__.py which would drag in langchain_openai
 # and the entire LLM stack.  We only need the one module under test.
 #
-# Pre-stub its two light deps so the module-level imports resolve:
-#   • langchain_core.runnables  (RunnableConfig type annotation only)
-#   • agents.state               (IndiaMarketState TypedDict)
-#   • pydantic                   (already installed — no stub needed)
-
-_lc_stub = MagicMock()
-for _m in ("langchain_core", "langchain_core.runnables"):
-    sys.modules.setdefault(_m, _lc_stub)
+# langchain_core IS installed — do NOT stub it here.  Stubbing it would put a
+# MagicMock in sys.modules before the package has been imported, which breaks
+# any later test that loads langgraph (langgraph.graph.message imports
+# langchain_core.messages and fails with "not a package" when langchain_core
+# is a MagicMock).  Just import it so it lands in sys.modules as a real package
+# before any setdefault can clobber it.
+import langchain_core  # noqa: F401  — ensures real package is in sys.modules
+import langchain_core.runnables  # noqa: F401  — pre-load submodule too
 
 # agents.state IS a real, importable module — let it load normally.
 # agents.nodes.__init__ is NOT imported (we use spec_from_file_location below).

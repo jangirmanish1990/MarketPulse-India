@@ -2,14 +2,18 @@
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
-from typing import Annotated
+import threading
+import uuid
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from agents.sector_graph import SECTOR_SYMBOLS, run_sector_analysis
 from backend.auth import CurrentUser
 from backend.config import IST, SEBI_DISCLAIMER
 from backend.database import get_db
@@ -412,6 +416,97 @@ async def get_sector_comparison(
         fii_trend=fii_trend,
         sebi_disclaimer=SEBI_DISCLAIMER,
     )
+
+
+@router.post("/stocks/sectors/{sector_name}/analyze")
+async def analyze_sector(
+    sector_name: str,
+    db: DB,  # noqa: ARG001  — kept for auth + future DB writes
+    current_user: CurrentUser,  # noqa: ARG001  — auth guard
+) -> dict[str, Any]:
+    """Run the live sector-analysis graph for *sector_name*.
+
+    Fans out over all 5 constituent stocks in parallel (LangGraph Send API),
+    fetches yfinance fundamentals for each, then ranks them by a weighted
+    composite score (revenue scale 25%, PAT margin 30%, ROE 30%, PE⁻¹ 15%).
+
+    Returns
+    -------
+    sector          — canonical sector key (e.g. ``"IT"``)
+    session_id      — UUID for this run (use in WebSocket trace if needed)
+    sector_signal   — ``"bullish"`` | ``"neutral"`` | ``"bearish"``
+    sector_winner   — NSE symbol of the top-ranked stock
+    fii_trend       — FII flow direction (passed through from graph)
+    peers           — list of PeerResult dicts, sorted by rank
+    total_analyzed  — number of peers successfully analyzed (no error)
+    sebi_disclaimer — mandatory disclaimer string
+    """
+    # ── Validate sector ──────────────────────────────────────────────────────
+    sector_key: str | None = None
+    for k in SECTOR_SYMBOLS:
+        if k.lower() == sector_name.lower():
+            sector_key = k
+            break
+
+    if sector_key is None:
+        raise HTTPException(
+            status_code=404,
+            detail=(
+                f"Unknown sector '{sector_name}'. "
+                f"Valid options: {', '.join(sorted(SECTOR_SYMBOLS))}"
+            ),
+        )
+
+    session_id = str(uuid.uuid4())
+
+    # ── Run sector graph in a dedicated thread + event loop ──────────────────
+    # FastAPI's own event loop must not be blocked; spin a thread with its own
+    # loop so the async LangGraph graph runs cleanly on all platforms.
+    result_container: dict[str, Any] = {}
+    error_container: dict[str, str] = {}
+
+    def _run() -> None:
+        if hasattr(asyncio, "WindowsSelectorEventLoopPolicy"):
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            data = loop.run_until_complete(
+                run_sector_analysis(sector_key, session_id)  # type: ignore[arg-type]
+            )
+            result_container["data"] = data
+        except Exception as exc:
+            error_container["error"] = str(exc)
+        finally:
+            loop.close()
+
+    thread = threading.Thread(target=_run, daemon=True)
+    thread.start()
+    thread.join(timeout=90)  # 90 s — 5 stocks × ~15 s each, with margin
+
+    if thread.is_alive():
+        raise HTTPException(status_code=504, detail="Sector analysis timed out")
+    if "error" in error_container:
+        raise HTTPException(status_code=500, detail=error_container["error"])
+
+    graph_result: dict[str, Any] = result_container["data"]
+
+    # ── Shape the response ───────────────────────────────────────────────────
+    peers: list[dict[str, Any]] = [
+        dict(p) for p in graph_result.get("sector_ranking", [])
+    ]
+    total_analyzed = sum(1 for p in peers if not p.get("error"))
+
+    return {
+        "sector": sector_key,
+        "session_id": session_id,
+        "sector_signal": graph_result.get("sector_signal", "neutral"),
+        "sector_winner": graph_result.get("sector_winner", ""),
+        "fii_trend": graph_result.get("fii_trend", "neutral"),
+        "peers": peers,
+        "total_analyzed": total_analyzed,
+        "sebi_disclaimer": SEBI_DISCLAIMER,
+    }
 
 
 @router.get("/stocks/{nse_symbol}", response_model=StockDetail)
