@@ -1,6 +1,6 @@
 # MarketPulse India — FY25 Backtest Report
 
-> **Generated:** 2026-05-28 10:54 IST  
+> **Generated:** 2026-05-28 11:33 IST  
 > **Universe:** 12 stocks × 4 quarters = 48 signals (FY2024-25)  
 > **Data:** Mock prices for educational/testing purposes.
   In production, prices are fetched from Yahoo Finance.
