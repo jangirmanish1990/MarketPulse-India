@@ -1,0 +1,39 @@
+{
+  "name": "MarketPulse India",
+  "short_name": "MarketPulse",
+  "description": "NSE & BSE Autonomous Stock Intelligence",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04080F",
+  "theme_color": "#FF9500",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Analyse Stock",
+      "short_name": "Analyse",
+      "url": "/?action=analyse",
+      "description": "Run a new stock analysis"
+    },
+    {
+      "name": "View Signals",
+      "short_name": "Signals",
+      "url": "/signals",
+      "description": "View latest BUY/HOLD/SELL signals"
+    }
+  ],
+  "categories": ["finance", "business"]
+}

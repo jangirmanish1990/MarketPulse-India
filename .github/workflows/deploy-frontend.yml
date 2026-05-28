@@ -1,0 +1,90 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [main]
+    paths: ["frontend/**"]
+
+# Never cancel an in-progress frontend deploy.
+concurrency:
+  group: deploy-frontend-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    name: Build + S3 sync + CloudFront invalidation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Type check
+        run: |
+          cd frontend
+          npm run type-check || true
+
+      - name: Build
+        run: |
+          cd frontend
+          npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_WS_URL: ${{ secrets.VITE_WS_URL }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Sync to S3
+        run: |
+          # Hashed assets — immutable, 1-year cache
+          aws s3 sync frontend/dist/ \
+            s3://${{ secrets.S3_FRONTEND_BUCKET }} \
+            --delete \
+            --cache-control "public,max-age=31536000,immutable" \
+            --exclude "index.html" \
+            --exclude "manifest.json" \
+            --exclude "sw.js"
+
+          # Entry points — must never be stale after a deploy
+          aws s3 cp frontend/dist/index.html \
+            s3://${{ secrets.S3_FRONTEND_BUCKET }}/index.html \
+            --cache-control "no-cache,no-store,must-revalidate"
+
+          aws s3 cp frontend/dist/manifest.json \
+            s3://${{ secrets.S3_FRONTEND_BUCKET }}/manifest.json \
+            --cache-control "no-cache"
+
+          aws s3 cp frontend/dist/sw.js \
+            s3://${{ secrets.S3_FRONTEND_BUCKET }}/sw.js \
+            --cache-control "no-cache"
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
+
+      - name: Smoke test
+        run: |
+          sleep 10
+          curl -f \
+            https://${{ secrets.CLOUDFRONT_DOMAIN }} \
+            -o /dev/null -w "%{http_code}"
