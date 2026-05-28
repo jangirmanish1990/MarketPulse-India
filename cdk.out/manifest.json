@@ -71,6 +71,41 @@
       "additionalMetadataFile": "MarketPulseObservabilityStack.metadata.json",
       "displayName": "MarketPulseObservabilityStack"
     },
+    "MarketPulseEcsStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MarketPulseEcsStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MarketPulseEcsStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://775935274215/ap-south-1",
+      "properties": {
+        "templateFile": "MarketPulseEcsStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-deploy-role-775935274215-ap-south-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-cfn-exec-role-775935274215-ap-south-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-775935274215-ap-south-1/2c6f7f8f045905550f54ab45fff0c85b940cc88fa5a97a1bd8fac7d1d9494f00.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MarketPulseEcsStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::775935274215:role/cdk-hnb659fds-lookup-role-775935274215-ap-south-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "MarketPulseEcsStack.assets"
+      ],
+      "additionalMetadataFile": "MarketPulseEcsStack.metadata.json",
+      "displayName": "MarketPulseEcsStack"
+    },
     "Tree": {
       "type": "cdk:tree",
       "properties": {

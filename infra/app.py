@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 import aws_cdk as cdk
 
+from ecs_stack import MarketPulseEcsStack
 from observability_stack import ObservabilityStack
 from polling_stack import NsePollerStack
 
@@ -25,5 +26,7 @@ _ENV = cdk.Environment(account="775935274215", region="ap-south-1")
 NsePollerStack(app, "MarketPulsePollingStack", env=_ENV)
 
 ObservabilityStack(app, "MarketPulseObservabilityStack", env=_ENV)
+
+MarketPulseEcsStack(app, "MarketPulseEcsStack", env=_ENV)
 
 app.synth()

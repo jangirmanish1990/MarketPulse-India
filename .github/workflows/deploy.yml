@@ -1,0 +1,180 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+# Never cancel an in-progress deploy — let it finish or fail cleanly.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: ap-south-1
+  ECS_CLUSTER: marketpulse-india
+  ECS_SERVICE: MarketPulseService
+
+# ── JOB 1: Tests + eval gate ───────────────────────────────────────────────
+jobs:
+  test:
+    name: Tests + eval gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      OPENAI_API_KEY: "sk-test-not-real"
+      DATABASE_URL: "postgresql+asyncpg://marketpulse:marketpulse@localhost:5432/marketpulse"
+      REDIS_URL: "redis://localhost:6379/0"
+      APP_ENV: "ci"
+      APP_TZ: "Asia/Kolkata"
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: marketpulse
+          POSTGRES_PASSWORD: marketpulse
+          POSTGRES_DB: marketpulse
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U marketpulse"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv pip install --system -e ".[dev]"
+
+      - name: Run tests
+        run: |
+          pytest tests/ -v --tb=short \
+            --ignore=tests/load \
+            --ignore=tests/backtesting
+
+      - name: Run evals gate
+        run: python scripts/run_evals.py
+        continue-on-error: true  # signal-quality regressions warn but don't block deploy
+        env:
+          LANGCHAIN_API_KEY: ${{ secrets.LANGCHAIN_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+# ── JOB 2: Build Docker image + push to ECR ───────────────────────────────
+  build-and-push:
+    name: Build + push to ECR
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    outputs:
+      image_tag: ${{ steps.build.outputs.image_tag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        id: build
+        env:
+          ECR_URI: ${{ secrets.ECR_REPOSITORY_URI }}
+        run: |
+          IMAGE_TAG="${GITHUB_SHA:0:7}"
+          echo "image_tag=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+
+          docker build -t "$ECR_URI:$IMAGE_TAG" .
+          docker tag  "$ECR_URI:$IMAGE_TAG" "$ECR_URI:latest"
+          docker push "$ECR_URI:$IMAGE_TAG"
+          docker push "$ECR_URI:latest"
+
+          echo "Pushed $ECR_URI:$IMAGE_TAG and $ECR_URI:latest"
+
+# ── JOB 3: Migrate DB + roll out new ECS task revision ────────────────────
+  deploy:
+    name: Migrate + deploy to ECS
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Run Alembic migrations via ECS run-task
+        run: |
+          TASK_ARN=$(aws ecs run-task \
+            --cluster marketpulse-india \
+            --task-definition marketpulse-migrate \
+            --launch-type FARGATE \
+            --network-configuration "${{ secrets.ECS_NETWORK_CONFIG }}" \
+            --overrides '{"containerOverrides":[{"name":"MarketPulseContainer","command":["alembic","upgrade","head"]}]}' \
+            --query 'tasks[0].taskArn' \
+            --output text)
+
+          echo "Migration task ARN: $TASK_ARN"
+
+          aws ecs wait tasks-stopped \
+            --cluster marketpulse-india \
+            --tasks "$TASK_ARN"
+
+          EXIT_CODE=$(aws ecs describe-tasks \
+            --cluster marketpulse-india \
+            --tasks "$TASK_ARN" \
+            --query 'tasks[0].containers[0].exitCode' \
+            --output text)
+
+          echo "Migration container exit code: $EXIT_CODE"
+          [ "$EXIT_CODE" = "0" ] || { echo "::error::Alembic migration failed (exit $EXIT_CODE)"; exit 1; }
+
+      - name: Update ECS service with new image
+        run: |
+          aws ecs update-service \
+            --cluster marketpulse-india \
+            --service MarketPulseService \
+            --force-new-deployment
+
+      - name: Wait for service stability
+        run: |
+          aws ecs wait services-stable \
+            --cluster marketpulse-india \
+            --services MarketPulseService
+
+      - name: Smoke test
+        run: |
+          curl -f "http://${{ secrets.ALB_DNS }}/health"
