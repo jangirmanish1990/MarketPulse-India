@@ -9,7 +9,7 @@ from typing import Any
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableConfig
 
-from agents.llm import llm_fast
+from agents.llm import get_llm_fast
 from agents.parsers import (
     BoardMeetingParsed,
     InsiderTradeParsed,
@@ -80,7 +80,7 @@ async def parse_announcement(state: IndiaMarketState, config: RunnableConfig) ->
         }
 
     try:
-        chain = _PROMPT | llm_fast.with_structured_output(model_cls)
+        chain = _PROMPT | get_llm_fast().with_structured_output(model_cls)
         result = await chain.ainvoke({
             "symbol": symbol,
             "announcement_type": ann_type,

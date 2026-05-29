@@ -11,7 +11,7 @@ from typing import Any, Literal
 from langchain_core.runnables import RunnableConfig
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from agents.llm import llm_strong
+from agents.llm import get_llm_strong
 from agents.state import IndiaMarketState
 
 logger = logging.getLogger(__name__)
@@ -296,7 +296,7 @@ async def score_signal(state: IndiaMarketState, config: RunnableConfig) -> dict[
 
     try:
         context = _build_signal_context(state, current_price)
-        structured_llm = llm_strong.with_structured_output(IndianSignal)
+        structured_llm = get_llm_strong().with_structured_output(IndianSignal)
 
         raw: Any = await asyncio.to_thread(
             structured_llm.invoke,

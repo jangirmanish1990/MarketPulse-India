@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 import sys
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -63,6 +64,15 @@ async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     """Verify DB connectivity on boot; start scheduler; tear down on shutdown."""
     setup_logging()
     _log.info("starting", service="marketpulse-india")
+    if not os.getenv("OPENAI_API_KEY"):
+        _log.warning(
+            "demo_mode_active",
+            message=(
+                "OPENAI_API_KEY is not set — running in DEMO mode. "
+                "Health, signals history, and sector rankings are served from the DB. "
+                "Live analysis pipeline returns an error until the key is configured."
+            ),
+        )
     await connect_with_retry()
     print("Database connected")
 
@@ -142,6 +152,7 @@ async def health() -> dict[str, object]:
     return {
         "status": "ok" if db_ok else "degraded",
         "db": "connected" if db_ok else "disconnected",
+        "demo_mode": not bool(os.getenv("OPENAI_API_KEY")),
         "service": "marketpulse-india",
         "version": settings.version,
         "now_ist": datetime.now(IST).isoformat(),

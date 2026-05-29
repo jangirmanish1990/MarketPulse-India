@@ -2,10 +2,13 @@
 
 Rules:
     * Provider is OpenAI. Do not add Anthropic / other SDKs here.
-    * Import `llm_strong`, `llm_fast`, or `embeddings` from this module —
-      never instantiate `ChatOpenAI` or `OpenAIEmbeddings` elsewhere.
-    * Model names are env-overridable so evals / tests can swap them, but
-      defaults are pinned in code so production behavior is deterministic.
+    * Call get_llm_strong(), get_llm_fast(), or get_embeddings() — never
+      instantiate ChatOpenAI / OpenAIEmbeddings elsewhere.
+    * When OPENAI_API_KEY is absent, getters return MockLLM so the app starts
+      and serves cached data.  Any live-analysis node that calls the mock
+      raises RuntimeError with a clear demo-mode message; stream_runner
+      catches it and broadcasts the error over the WebSocket.
+    * Model names are env-overridable for evals / staging.
 """
 
 from __future__ import annotations
@@ -13,54 +16,83 @@ from __future__ import annotations
 import os
 from functools import lru_cache
 
+from langchain_core.runnables import RunnableLambda
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 # ---------------------------------------------------------------------------
-# Model identifiers — overridable for evals / staging via env, defaulted here
-# so production behavior is deterministic without env config.
+# Model identifiers
 # ---------------------------------------------------------------------------
 _STRONG_MODEL: str = os.getenv("LLM_STRONG_MODEL", "gpt-4o")
 _FAST_MODEL: str = os.getenv("LLM_FAST_MODEL", "gpt-4o-mini")
 _EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
-# Resolved once at import time.  ECS injects the real key via Secrets Manager
-# before the container starts, so os.getenv() returns the real value in
-# production.  The placeholder prevents a startup crash when the key is absent
-# (e.g. during docker build health-check or CI import scanning).
-_OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "sk-placeholder-not-real")
-
 # Guard against .env copy-paste errors where a comment ends up as the org value.
-# LangChain re-reads OPENAI_ORG_ID from os.environ at validator time, so the
-# only reliable fix is to remove the var from the environment when it's invalid.
+# LangChain re-reads OPENAI_ORG_ID from os.environ at validator time.
 _raw_org = os.environ.get("OPENAI_ORG_ID", "").strip()
 if _raw_org and not _raw_org.startswith("org-"):
     os.environ.pop("OPENAI_ORG_ID", None)
-_ORG_ID: str | None = _raw_org if _raw_org.startswith("org-") else None
 
+_DEMO_MSG = (
+    "OPENAI_API_KEY is not configured — app is running in demo mode. "
+    "Set OPENAI_API_KEY to enable live analysis."
+)
+
+
+# ---------------------------------------------------------------------------
+# Mock LLM — returned by all getters when no API key is present
+# ---------------------------------------------------------------------------
+
+class MockLLM:
+    """Stub LLM for key-less / demo deployments.
+
+    Lets FastAPI start and serve the health endpoint, signals history, and
+    sector rankings from the DB.  Any call that actually invokes the LLM
+    (analysis pipeline nodes) raises RuntimeError(_DEMO_MSG) so the error
+    surfaces in the WebSocket stream and is displayed in the UI.
+    """
+
+    def with_structured_output(self, schema: type, **kwargs: object) -> RunnableLambda:  # type: ignore[type-arg]
+        async def _raise(inp: object) -> None:
+            raise RuntimeError(_DEMO_MSG)
+        return RunnableLambda(_raise)  # type: ignore[arg-type]
+
+    def invoke(self, messages: object, **kwargs: object) -> None:
+        raise RuntimeError(_DEMO_MSG)
+
+    async def ainvoke(self, messages: object, **kwargs: object) -> None:
+        raise RuntimeError(_DEMO_MSG)
+
+
+# ---------------------------------------------------------------------------
+# Public lazy getters — import these, never the module-level instances
+# ---------------------------------------------------------------------------
 
 def _llm_kwargs(model: str) -> dict[str, object]:
-    return {"model": model, "temperature": 0, "api_key": _OPENAI_API_KEY}
+    return {"model": model, "temperature": 0}
 
 
 @lru_cache(maxsize=1)
-def _build_llm_strong() -> ChatOpenAI:
+def get_llm_strong() -> ChatOpenAI | MockLLM:
+    """Return gpt-4o client, or MockLLM when OPENAI_API_KEY is not set."""
+    if not os.getenv("OPENAI_API_KEY"):
+        return MockLLM()
     return ChatOpenAI(**_llm_kwargs(_STRONG_MODEL))  # type: ignore[arg-type]
 
 
 @lru_cache(maxsize=1)
-def _build_llm_fast() -> ChatOpenAI:
+def get_llm_fast() -> ChatOpenAI | MockLLM:
+    """Return gpt-4o-mini client, or MockLLM when OPENAI_API_KEY is not set."""
+    if not os.getenv("OPENAI_API_KEY"):
+        return MockLLM()
     return ChatOpenAI(**_llm_kwargs(_FAST_MODEL))  # type: ignore[arg-type]
 
 
 @lru_cache(maxsize=1)
-def _build_embeddings() -> OpenAIEmbeddings:
-    return OpenAIEmbeddings(model=_EMBEDDING_MODEL, api_key=_OPENAI_API_KEY)
+def get_embeddings() -> OpenAIEmbeddings | MockLLM:
+    """Return text-embedding-3-small client, or MockLLM when key is absent."""
+    if not os.getenv("OPENAI_API_KEY"):
+        return MockLLM()
+    return OpenAIEmbeddings(model=_EMBEDDING_MODEL)
 
 
-# Public, ready-to-use clients. Cached so callers share one instance.
-llm_strong: ChatOpenAI = _build_llm_strong()
-llm_fast: ChatOpenAI = _build_llm_fast()
-embeddings: OpenAIEmbeddings = _build_embeddings()
-
-
-__all__ = ["embeddings", "llm_fast", "llm_strong"]
+__all__ = ["MockLLM", "get_embeddings", "get_llm_fast", "get_llm_strong"]

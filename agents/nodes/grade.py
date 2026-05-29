@@ -8,7 +8,7 @@ from typing import Any, Literal
 from langchain_core.runnables import RunnableConfig
 from pydantic import BaseModel, ConfigDict, Field
 
-from agents.llm import llm_fast
+from agents.llm import get_llm_fast
 from agents.state import IndiaMarketState
 
 _GRADER_SYSTEM = """\
@@ -61,7 +61,7 @@ async def grade_documents(state: IndiaMarketState, config: RunnableConfig) -> di
 
     symbol: str = state["nse_symbol"]
     announcement_type: str = state["announcement_type"]
-    structured_llm = llm_fast.with_structured_output(DocumentGrade)
+    structured_llm = get_llm_fast().with_structured_output(DocumentGrade)
     grades: list[dict[str, Any]] = []
 
     for doc in docs:

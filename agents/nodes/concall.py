@@ -22,7 +22,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableConfig
 from pydantic import BaseModel, ConfigDict, Field
 
-from agents.llm import llm_fast
+from agents.llm import get_llm_fast
 from agents.state import IndiaMarketState
 
 logger = logging.getLogger(__name__)
@@ -248,7 +248,7 @@ async def concall_analyzer(
     # ------------------------------------------------------------------
     concall_text = _build_concall_text(symbol, transcript, state)
 
-    structured_llm = llm_fast.with_structured_output(ConcallAnalysis)
+    structured_llm = get_llm_fast().with_structured_output(ConcallAnalysis)
     chain = _PROMPT | structured_llm
 
     try:
