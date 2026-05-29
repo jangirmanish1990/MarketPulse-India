@@ -23,6 +23,12 @@ _STRONG_MODEL: str = os.getenv("LLM_STRONG_MODEL", "gpt-4o")
 _FAST_MODEL: str = os.getenv("LLM_FAST_MODEL", "gpt-4o-mini")
 _EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
+# Resolved once at import time.  ECS injects the real key via Secrets Manager
+# before the container starts, so os.getenv() returns the real value in
+# production.  The placeholder prevents a startup crash when the key is absent
+# (e.g. during docker build health-check or CI import scanning).
+_OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "sk-placeholder-not-real")
+
 # Guard against .env copy-paste errors where a comment ends up as the org value.
 # LangChain re-reads OPENAI_ORG_ID from os.environ at validator time, so the
 # only reliable fix is to remove the var from the environment when it's invalid.
@@ -33,7 +39,7 @@ _ORG_ID: str | None = _raw_org if _raw_org.startswith("org-") else None
 
 
 def _llm_kwargs(model: str) -> dict[str, object]:
-    return {"model": model, "temperature": 0}
+    return {"model": model, "temperature": 0, "api_key": _OPENAI_API_KEY}
 
 
 @lru_cache(maxsize=1)
@@ -48,7 +54,7 @@ def _build_llm_fast() -> ChatOpenAI:
 
 @lru_cache(maxsize=1)
 def _build_embeddings() -> OpenAIEmbeddings:
-    return OpenAIEmbeddings(model=_EMBEDDING_MODEL)
+    return OpenAIEmbeddings(model=_EMBEDDING_MODEL, api_key=_OPENAI_API_KEY)
 
 
 # Public, ready-to-use clients. Cached so callers share one instance.

@@ -15,6 +15,8 @@ Synth / deploy:
 
 from __future__ import annotations
 
+import os
+
 import aws_cdk as cdk
 from aws_cdk import (
     CfnOutput,
@@ -28,6 +30,7 @@ from aws_cdk import aws_ecr as ecr
 from aws_cdk import aws_ecs as ecs
 from aws_cdk import aws_ecs_patterns as ecs_patterns
 from aws_cdk import aws_logs as logs
+from aws_cdk import aws_secretsmanager as secretsmanager
 from constructs import Construct
 
 
@@ -67,14 +70,34 @@ class MarketPulseEcsStack(Stack):
             memory_limit_mib=1024,
         )
 
+        # ── Secrets Manager injection ─────────────────────────────────────── #
+        # Set AWS_SECRETS_NAME=<secret-name> in the environment where
+        # `cdk deploy` runs (e.g. as a GitHub Actions secret).  When present,
+        # all app credentials are injected as env vars before container start,
+        # so os.getenv() returns real values at module-import time.
+        _secrets_name = os.environ.get("AWS_SECRETS_NAME", "")
+        _ecs_secrets: dict[str, ecs.Secret] = {}
+        if _secrets_name:
+            app_secret = secretsmanager.Secret.from_secret_name_v2(
+                self, "AppSecret", _secrets_name
+            )
+            _ecs_secrets = {
+                "OPENAI_API_KEY":    ecs.Secret.from_secrets_manager(app_secret, "OPENAI_API_KEY"),
+                "DATABASE_URL":      ecs.Secret.from_secrets_manager(app_secret, "DATABASE_URL"),
+                "JWT_SECRET_KEY":    ecs.Secret.from_secrets_manager(app_secret, "JWT_SECRET_KEY"),
+                "LANGCHAIN_API_KEY": ecs.Secret.from_secrets_manager(app_secret, "LANGCHAIN_API_KEY"),
+                "WEBHOOK_SECRET":    ecs.Secret.from_secrets_manager(app_secret, "WEBHOOK_SECRET"),
+            }
+
         container = task_def.add_container(
             "MarketPulseContainer",
             image=ecs.ContainerImage.from_ecr_repository(repo),
             environment={
                 "TZ": "Asia/Kolkata",
                 "ENV": "production",
+                "AWS_SECRETS_NAME": _secrets_name,
             },
-            # secrets={} — pull from AWS Secrets Manager (Day 28)
+            secrets=_ecs_secrets,
             logging=ecs.LogDrivers.aws_logs(
                 stream_prefix="marketpulse",
                 log_retention=logs.RetentionDays.ONE_WEEK,
