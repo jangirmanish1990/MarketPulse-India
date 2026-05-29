@@ -41,7 +41,7 @@ load_dotenv()
 
 from langchain_core.runnables import RunnableConfig  # noqa: E402
 
-from agents.llm import llm_fast  # noqa: E402
+from agents.llm import get_llm_fast  # noqa: E402
 from agents.nodes.concall import (  # noqa: E402
     _PROMPT,  # same prompt the node uses — avoids divergence
     ConcallAnalysis,
@@ -182,7 +182,7 @@ async def _run_symbol(test: dict[str, Any]) -> bool:
 
     # ── 2. Run LLM chain directly for rich display ─────────────────────────
     concall_text = _build_concall_text(symbol, transcript, state)  # type: ignore[arg-type]
-    chain = _PROMPT | llm_fast.with_structured_output(ConcallAnalysis)
+    chain = _PROMPT | get_llm_fast().with_structured_output(ConcallAnalysis)
     raw: Any = await asyncio.to_thread(chain.invoke, {"text": concall_text})
 
     if not isinstance(raw, ConcallAnalysis):

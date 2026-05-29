@@ -340,9 +340,9 @@ def faithfulness(run: Any, example: Any) -> dict[str, Any]:
     )
 
     try:
-        from agents.llm import llm_fast  # lazy import — avoids init cost if not needed
+        from agents.llm import get_llm_fast  # lazy import — avoids init cost if not needed
 
-        response = llm_fast.invoke(prompt)
+        response = get_llm_fast().invoke(prompt)
         result: dict[str, Any] = json.loads(str(response.content))
         return {
             "score": float(result["score"]),

@@ -13,7 +13,7 @@ from typing import Any
 from langchain_core.documents import Document
 from langchain_postgres import PGVector
 
-from agents.llm import embeddings
+from agents.llm import get_embeddings
 
 COLLECTION_NAME = "marketpulse_india_docs"
 
@@ -43,7 +43,7 @@ def get_vector_store() -> PGVector:
     Requires the pgvector extension to be available in the database.
     """
     return PGVector(
-        embeddings=embeddings,
+        embeddings=get_embeddings(),
         collection_name=COLLECTION_NAME,
         connection=_pg_conn_str(),
         use_jsonb=True,

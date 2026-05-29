@@ -120,7 +120,7 @@ Return ONLY valid JSON: {{"score": <float>, "reason": "<one sentence>"}}"""
 
 def faithfulness(run_output: dict[str, Any], example: dict[str, Any]) -> dict[str, Any]:
     """LLM judge: is the generated analysis faithful to the source announcement?"""
-    from agents.llm import llm_fast  # lazy import — agents not always available
+    from agents.llm import get_llm_fast  # lazy import — agents not always available
 
     analysis = run_output.get("analysis_summary") or ""
     announcement = example.get("announcement_raw", "")
@@ -130,7 +130,7 @@ def faithfulness(run_output: dict[str, Any], example: dict[str, Any]) -> dict[st
 
     prompt = _FAITHFULNESS_PROMPT.format(announcement=announcement, analysis=analysis)
     try:
-        response = llm_fast.invoke(prompt)
+        response = get_llm_fast().invoke(prompt)
         content = response.content if hasattr(response, "content") else str(response)
         data = json.loads(content)
         score = float(data.get("score", 0.0))
