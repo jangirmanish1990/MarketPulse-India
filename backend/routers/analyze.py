@@ -171,6 +171,7 @@ async def _run_streaming_background(
     thread_id: str,
     nse_symbol: str,
     state: dict[str, Any],
+    main_loop: asyncio.AbstractEventLoop,
 ) -> None:
     """Wrap run_graph_with_streaming with DB status bookkeeping."""
     factory = get_session_factory()
@@ -180,7 +181,7 @@ async def _run_streaming_background(
         await db.commit()
 
     try:
-        await run_graph_with_streaming(state, str(session_id), thread_id)
+        await run_graph_with_streaming(state, str(session_id), thread_id, main_loop)
 
         async with factory() as db:
             await AnalysisSessionRepo(db).update_status(
@@ -256,9 +257,15 @@ async def trigger_analysis(
 
     state = _build_initial_state(nse_symbol, session_id, thread_id)
 
+    # Capture the main event loop now (inside the async handler) so the
+    # worker thread can schedule WS broadcasts back onto it via
+    # run_coroutine_threadsafe.  WebSocket transports are bound to this loop
+    # and cannot be driven from the worker's SelectorEventLoop.
+    main_loop = asyncio.get_running_loop()
+
     # Manual API triggers always run immediately — market hours are only
     # enforced for automated Lambda webhook triggers (see routers/webhook.py).
-    def _thread_target():
+    def _thread_target() -> None:
         if hasattr(asyncio, 'WindowsSelectorEventLoopPolicy'):
             asyncio.set_event_loop_policy(
                 asyncio.WindowsSelectorEventLoopPolicy()
@@ -268,7 +275,7 @@ async def trigger_analysis(
         try:
             loop.run_until_complete(
                 _run_streaming_background(
-                    session.id, thread_id, nse_symbol, state
+                    session.id, thread_id, nse_symbol, state, main_loop
                 )
             )
         finally:

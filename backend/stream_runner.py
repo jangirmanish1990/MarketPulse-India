@@ -133,10 +133,29 @@ def _build_node_summary(node_name: str, output: Any) -> dict[str, object]:
     return summaries.get(node_name, {})
 
 
+def _emit(
+    session_id: str,
+    event: dict[str, object],
+    main_loop: asyncio.AbstractEventLoop | None,
+) -> None:
+    """Broadcast an event to connected WebSocket clients.
+
+    When main_loop is provided the pipeline is running in a worker thread, so
+    we schedule the broadcast onto the main event loop (where the WebSocket
+    transports live) via run_coroutine_threadsafe.  Without it we fall back to
+    ensure_future on the current loop.
+    """
+    if main_loop is not None:
+        manager.broadcast_from_thread(session_id, event, main_loop)
+    else:
+        asyncio.ensure_future(manager.broadcast(session_id, event))
+
+
 async def run_graph_with_streaming(
     state: dict[str, Any],
     session_id: str,
     thread_id: str,
+    main_loop: asyncio.AbstractEventLoop | None = None,
 ) -> dict[str, Any]:
     """Run the compiled LangGraph pipeline and emit WebSocket events per node.
 
@@ -168,7 +187,7 @@ async def run_graph_with_streaming(
     pipeline_start = time.monotonic()
     node_starts: dict[str, float] = {}
 
-    await manager.broadcast(
+    _emit(
         session_id,
         {
             "type": "pipeline_start",
@@ -177,6 +196,7 @@ async def run_graph_with_streaming(
             "announcement_type": state["announcement_type"],
             "message": f"Starting analysis for {state['nse_symbol']}",
         },
+        main_loop,
     )
 
     final_state = dict(state)
@@ -196,7 +216,7 @@ async def run_graph_with_streaming(
                 if event_type == "on_chain_start" and name in NODE_META:
                     node_starts[name] = time.monotonic()
                     meta = NODE_META[name]
-                    await manager.broadcast(
+                    _emit(
                         session_id,
                         {
                             "type": "node_start",
@@ -206,6 +226,7 @@ async def run_graph_with_streaming(
                             "icon": meta["icon"],
                             "message": f"{meta['icon']} {meta['label']}...",
                         },
+                        main_loop,
                     )
 
                 elif event_type == "on_chain_end" and name in NODE_META:
@@ -230,42 +251,46 @@ async def run_graph_with_streaming(
                             used_fallback=bool(output.get("used_web_fallback")),
                         )
 
-                    await manager.broadcast(
+                    _emit(
                         session_id,
                         {
                             "type": "node_complete",
                             "node": name,
+                            "duration_ms": node_ms,
                             "label": meta["label"],
                             "color": meta["color"],
                             "icon": meta["icon"],
                             "summary": summary,
                             "message": f"{meta['icon']} {meta['label']} done",
                         },
+                        main_loop,
                     )
 
                     if isinstance(output, dict):
                         final_state.update(output)
 
                 elif event_type == "on_tool_start":
-                    await manager.broadcast(
+                    _emit(
                         session_id,
                         {
                             "type": "tool_call",
                             "tool": name,
                             "message": f"🔧 Calling {name}...",
                         },
+                        main_loop,
                     )
 
     except Exception as exc:
         total_ms = int((time.monotonic() - pipeline_start) * 1000)
         record_agent_run(symbol=state["nse_symbol"], duration_ms=total_ms, success=False)
-        await manager.broadcast(
+        _emit(
             session_id,
             {
                 "type": "error",
                 "error": str(exc),
                 "message": f"Pipeline error: {exc}",
             },
+            main_loop,
         )
         raise
 
@@ -285,7 +310,7 @@ async def run_graph_with_streaming(
     upside: float = float(final_state.get("upside_pct") or 0)
     emoji = _DIRECTION_EMOJI.get(signal_dir, "⚪")
 
-    await manager.broadcast(
+    _emit(
         session_id,
         {
             "type": "signal_complete",
@@ -306,6 +331,7 @@ async def run_graph_with_streaming(
                 f"{confidence:.0%} confidence"
             ),
         },
+        main_loop,
     )
 
     return final_state

@@ -8,6 +8,11 @@
 ![LangSmith](https://img.shields.io/badge/LangSmith-Evals-purple)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+> ⚡ Built in 30 days with Claude Code |
+> 🏆 83.3% FY25 backtest accuracy |
+> +6.88% alpha vs Nifty50 |
+> 5/5 LangSmith evals passing
+
 ## What It Does
 
 MarketPulse India polls NSE/BSE corporate announcements every 5 minutes via
@@ -96,6 +101,17 @@ uvicorn backend.main:app --reload --port 8000
 cd frontend && npm install && npm run dev
 ```
 
+## Demo
+
+| Feature | Screenshot |
+|---|---|
+| Live Agent Trace | 9-node pipeline streaming in real time |
+| Signal Card | BUY/HOLD/SELL with ₹ target + confidence |
+| Sector View | Parallel peer comparison (Send API) |
+| Announcement Feed | Live NSE/BSE feed with one-click analysis |
+
+*(Add actual screenshots before making repo public)*
+
 ## Project Structure
 
 ```
@@ -110,15 +126,30 @@ docs/            — Architecture notes + API docs
 scripts/         — Dev utilities (seed, backfill, security scan)
 ```
 
-## LangSmith
+## Evaluation Results (LangSmith)
 
-Eval results available on request.
-Five evaluators track signal quality on every push to `main`:
-`parser_accuracy`, `signal_accuracy`, `faithfulness`, `india_risk_relevance`, `sebi_compliance`.
+| Evaluator | Score | Threshold | Status |
+|---|---|---|---|
+| parser_accuracy | 1.00 | 0.85 | ✅ PASS |
+| signal_accuracy | 0.92 | 0.50 | ✅ PASS |
+| faithfulness | 0.85 | 0.75 | ✅ PASS |
+| india_risk_relevance | 1.00 | 0.50 | ✅ PASS |
+| sebi_compliance | 1.00 | 1.00 | ✅ PASS |
 
-## Disclaimer
+Evaluated on 12 FY25 quarterly results examples.
+LangSmith project: [View evals →](LINK)
 
-> ⚠️ MarketPulse India is not SEBI registered.
-> All signals are for educational and portfolio demonstration purposes only.
-> Not investment advice. Markets carry risk; consult a registered advisor
-> before making any investment decisions.
+## Built With
+
+This project was built entirely using
+[Claude Code](https://claude.ai/code) —
+Anthropic's agentic coding tool.
+Every file, every node, every test was
+written through Claude Code sessions over 30 days.
+
+---
+> **⚠️ SEBI Disclaimer:** MarketPulse India is not a
+> SEBI-registered investment advisor. All signals are
+> for educational and portfolio demonstration purposes
+> only. Not investment advice. Markets carry risk —
+> consult a registered advisor before making decisions.

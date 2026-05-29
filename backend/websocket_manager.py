@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import contextlib
 import json
 from datetime import datetime
@@ -57,6 +58,15 @@ class ConnectionManager:
 
     def is_connected(self, session_id: str) -> bool:
         return session_id in self.active
+
+    def broadcast_from_thread(
+        self,
+        session_id: str,
+        event: dict[str, object],
+        main_loop: "asyncio.AbstractEventLoop",
+    ) -> None:
+        """Schedule a broadcast onto main_loop from any thread (fire-and-forget)."""
+        asyncio.run_coroutine_threadsafe(self.broadcast(session_id, event), main_loop)
 
 
 # Global singleton
