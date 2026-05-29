@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir uv
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock* ./
+COPY pyproject.toml uv.lock* README.md ./
 
 # Install all runtime deps into the system Python (no venv needed in builder)
 RUN uv pip install --system --no-cache .
