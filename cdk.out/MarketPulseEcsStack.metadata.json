@@ -3,11 +3,11 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -20,11 +20,11 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -37,11 +37,11 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -54,11 +54,11 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -72,7 +72,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...App.synth in aws-cdk-lib...",
-        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)"
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:5434)"
       ]
     }
   ],
@@ -85,7 +85,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...App.synth in aws-cdk-lib...",
-        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)"
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:5434)"
       ]
     }
   ],
@@ -98,11 +98,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -116,11 +116,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -134,11 +134,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -152,11 +152,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Repository2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -170,11 +170,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Cluster2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -188,11 +188,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new FargateTaskDefinition2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -206,11 +206,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -224,11 +224,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "...node internals..."
       ]
     }
@@ -238,19 +238,19 @@
       "type": "aws:cdk:warning",
       "data": "Enable the 'circuitBreaker' property to trigger a quicker deployment failure if tasks are failing to come start (without this setting deployments may take up to 3 hours to fail). [ack: @aws-cdk/aws-ecs:shouldUseCircuitBreaker]",
       "trace": [
-        "Annotations.addMessage (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2399)",
-        "Annotations.addWarningV2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1087)",
-        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:13563)",
-        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\no-box-stack-traces.js:1:345)",
-        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:6805)",
-        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
-        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ecs-patterns\\lib\\fargate\\application-load-balanced-fargate-service.js:1:6392)",
-        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Annotations.addMessage (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2399)",
+        "Annotations.addWarningV2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1087)",
+        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:13563)",
+        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\no-box-stack-traces.js:1:345)",
+        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:6805)",
+        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
+        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ecs-patterns\\lib\\fargate\\application-load-balanced-fargate-service.js:1:6392)",
+        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "process.processImmediate (node:internal/timers:504:21)"
       ]
     },
@@ -258,19 +258,19 @@
       "type": "aws:cdk:warning",
       "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
       "trace": [
-        "Annotations.addMessage (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2399)",
-        "Annotations.addWarningV2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1087)",
-        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:14478)",
-        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\no-box-stack-traces.js:1:345)",
-        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:6805)",
-        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
-        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ecs-patterns\\lib\\fargate\\application-load-balanced-fargate-service.js:1:6392)",
-        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)",
-        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211987)",
+        "Annotations.addMessage (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2399)",
+        "Annotations.addWarningV2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1087)",
+        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:14478)",
+        "new BaseService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\no-box-stack-traces.js:1:345)",
+        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:6805)",
+        "new FargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
+        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ecs-patterns\\lib\\fargate\\application-load-balanced-fargate-service.js:1:6392)",
+        "new ApplicationLoadBalancedFargateService2 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\core\\lib\\prop-injectable.js:1:855)",
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)",
+        "Immediate._onImmediate (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211987)",
         "process.processImmediate (node:internal/timers:504:21)"
       ]
     }
@@ -284,9 +284,9 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...App.synth in aws-cdk-lib...",
-        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)",
-        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:69992)",
-        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:54294)"
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:54294)"
       ]
     }
   ],
@@ -298,7 +298,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -312,7 +312,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -326,7 +326,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -340,13 +340,13 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:197 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:197 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -359,10 +359,10 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -375,10 +375,10 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -390,7 +390,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -404,7 +404,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -418,7 +418,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:257 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -432,13 +432,13 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:197 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:197 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -450,7 +450,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -464,7 +464,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -478,7 +478,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -493,9 +493,9 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)"
       ]
     }
   ],
@@ -507,7 +507,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -521,7 +521,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -535,7 +535,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-71ENvZ\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
+        "...C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\jsii-kernel-Mw9ooU\\node_modules\\aws-cdk-lib\\aws-ec2\\lib\\vpc.js:1:260 in aws-cdk-lib...",
         "Array.forEach (:)",
         "...aws-cdk-lib..."
       ]
@@ -550,9 +550,9 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Vpc2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)"
       ]
     }
   ],
@@ -565,10 +565,10 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new FargateTaskDefinition2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -594,10 +594,10 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -610,10 +610,10 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ],
@@ -626,8 +626,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)",
-        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:69992)"
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:69992)"
       ]
     }
   ],
@@ -653,8 +653,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)"
       ]
     }
   ],
@@ -693,8 +693,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)",
-        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:52004)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)",
+        "Kernel.create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:52004)"
       ]
     }
   ],
@@ -720,7 +720,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ApplicationLoadBalancedFargateService2 in aws-cdk-lib...",
-        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:61273)"
+        "Kernel._Kernel_create (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:61273)"
       ]
     }
   ],
@@ -733,10 +733,10 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.autoScaleTaskCount in aws-cdk-lib...",
-        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)",
-        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:69992)",
-        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:54294)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)"
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:54294)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)"
       ]
     }
   ],
@@ -749,11 +749,11 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...ScalableTaskCount.scaleOnCpuUtilization in aws-cdk-lib...",
-        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:5434)",
-        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:69992)",
-        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:54294)",
-        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:212888)",
-        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmp6dogltge\\lib\\program.js:1:211943)"
+        "C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:543 (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:5434)",
+        "Kernel._Kernel_ensureSync (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:69992)",
+        "Kernel.invoke (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:54294)",
+        "KernelHost.processRequest (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:212888)",
+        "KernelHost.run (C:\\Users\\MANISH~1.JAN\\AppData\\Local\\Temp\\tmpxnbtzdoq\\lib\\program.js:1:211943)"
       ]
     }
   ]
