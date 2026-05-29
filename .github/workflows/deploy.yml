@@ -12,7 +12,7 @@ concurrency:
 env:
   AWS_REGION: ap-south-1
   ECS_CLUSTER: marketpulse-india
-  ECS_SERVICE: MarketPulseService
+  ECS_SERVICE: MarketPulseEcsStack-MarketPulseService218CCCC4-jHjOEOTNy8lS
 
 # ── JOB 1: Tests + eval gate ───────────────────────────────────────────────
 jobs:
@@ -121,9 +121,9 @@ jobs:
 
           echo "Pushed $ECR_URI:$IMAGE_TAG and $ECR_URI:latest"
 
-# ── JOB 3: Migrate DB + roll out new ECS task revision ────────────────────
+# ── JOB 3: Roll out new ECS task revision ─────────────────────────────────
   deploy:
-    name: Migrate + deploy to ECS
+    name: Deploy to ECS
     needs: build-and-push
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -136,44 +136,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
 
-      - name: Run Alembic migrations via ECS run-task
-        run: |
-          TASK_ARN=$(aws ecs run-task \
-            --cluster marketpulse-india \
-            --task-definition marketpulse-migrate \
-            --launch-type FARGATE \
-            --network-configuration "${{ secrets.ECS_NETWORK_CONFIG }}" \
-            --overrides '{"containerOverrides":[{"name":"MarketPulseContainer","command":["alembic","upgrade","head"]}]}' \
-            --query 'tasks[0].taskArn' \
-            --output text)
-
-          echo "Migration task ARN: $TASK_ARN"
-
-          aws ecs wait tasks-stopped \
-            --cluster marketpulse-india \
-            --tasks "$TASK_ARN"
-
-          EXIT_CODE=$(aws ecs describe-tasks \
-            --cluster marketpulse-india \
-            --tasks "$TASK_ARN" \
-            --query 'tasks[0].containers[0].exitCode' \
-            --output text)
-
-          echo "Migration container exit code: $EXIT_CODE"
-          [ "$EXIT_CODE" = "0" ] || { echo "::error::Alembic migration failed (exit $EXIT_CODE)"; exit 1; }
-
       - name: Update ECS service with new image
         run: |
           aws ecs update-service \
-            --cluster marketpulse-india \
-            --service MarketPulseService \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service ${{ env.ECS_SERVICE }} \
+            --desired-count 1 \
             --force-new-deployment
 
       - name: Wait for service stability
         run: |
           aws ecs wait services-stable \
-            --cluster marketpulse-india \
-            --services MarketPulseService
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --services ${{ env.ECS_SERVICE }}
 
       - name: Smoke test
         run: |
