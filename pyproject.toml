@@ -2,7 +2,6 @@
 name = "marketpulse-india"
 version = "0.1.0"
 description = "Autonomous NSE/BSE stock intelligence agent"
-readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = { text = "Proprietary" }
 authors = [{ name = "MarketPulse India" }]
