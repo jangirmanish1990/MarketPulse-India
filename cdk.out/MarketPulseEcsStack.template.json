@@ -569,6 +569,10 @@
        {
         "Name": "ENV",
         "Value": "production"
+       },
+       {
+        "Name": "AWS_SECRETS_NAME",
+        "Value": ""
        }
       ],
       "Essential": true,
